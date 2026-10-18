@@ -52,6 +52,19 @@ type BetaClearThinking20251015KeepVariant0 struct {
 func (u *BetaClearThinking20251015KeepVariant0) UnmarshalJSON(data []byte) error {
 	*u = BetaClearThinking20251015KeepVariant0{}
 	var refusal error
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaThinkingTurns
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaThinkingTurns = &lossless0
+			return nil
+		}
+		var lossless1 BetaAllThinkingTurns
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaAllThinkingTurns = &lossless1
+			return nil
+		}
+	}
 	var betathinkingturns BetaThinkingTurns
 	if err := json.Unmarshal(data, &betathinkingturns); err == nil && isNonEmptyBetaClearThinking20251015KeepVariant0BetaThinkingTurns(betathinkingturns) {
 		u.BetaThinkingTurns = &betathinkingturns
@@ -280,6 +293,19 @@ func (u *BetaClearToolUses20250919Trigger) UnmarshalJSON(data []byte) error {
 					return nil
 				}
 			}
+		}
+	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaInputTokensTrigger
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaInputTokensTrigger = &lossless0
+			return nil
+		}
+		var lossless1 BetaToolUsesTrigger
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaToolUsesTrigger = &lossless1
+			return nil
 		}
 	}
 	var betainputtokenstrigger BetaInputTokensTrigger

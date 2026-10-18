@@ -117,6 +117,29 @@ func (u *RequestBrowserStateBlockStateChangesItem) UnmarshalJSON(data []byte) er
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BrowserStateChangeTabOpened
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BrowserStateChangeTabOpened = &lossless0
+			return nil
+		}
+		var lossless1 BrowserStateChangeDownloadStarted
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BrowserStateChangeDownloadStarted = &lossless1
+			return nil
+		}
+		var lossless2 BrowserStateChangeDownloadCompleted
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BrowserStateChangeDownloadCompleted = &lossless2
+			return nil
+		}
+		var lossless3 BrowserStateChangeDownloadFailed
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.BrowserStateChangeDownloadFailed = &lossless3
+			return nil
+		}
+	}
 	var browserstatechangetabopened BrowserStateChangeTabOpened
 	if err := json.Unmarshal(data, &browserstatechangetabopened); err == nil && isNonEmptyRequestBrowserStateBlockStateChangesItemBrowserStateChangeTabOpened(browserstatechangetabopened) {
 		u.BrowserStateChangeTabOpened = &browserstatechangetabopened

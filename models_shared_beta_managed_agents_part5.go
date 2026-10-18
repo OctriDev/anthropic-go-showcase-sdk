@@ -9,6 +9,102 @@ import (
 	"fmt"
 )
 
+func (value *BetaManagedAgentsBase64ImageSource) UnmarshalJSON(data []byte) error {
+	var rawFields map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawFields); err != nil {
+		return err
+	}
+	if err := ValidateRawEnum("type", rawFields["type"], []string{"base64"}); err != nil {
+		return err
+	}
+	type BetaManagedAgentsBase64ImageSourceAlias BetaManagedAgentsBase64ImageSource
+	var decoded BetaManagedAgentsBase64ImageSourceAlias
+	if err := json.Unmarshal(data, &decoded); err != nil {
+		return err
+	}
+	*value = BetaManagedAgentsBase64ImageSource(decoded)
+	if err := ValidateRequired(rawFields, []string{"type", "media_type", "data"}); err != nil {
+		return err
+	}
+	if err := ValidateNotNull(rawFields, []string{"type", "media_type", "data"}); err != nil {
+		return err
+	}
+	if err := ValidateLength("media_type", value.MediaType, LengthOpts{Min: Ptr[int](1)}); err != nil {
+		return err
+	}
+	if err := ValidateLength("data", value.Data, LengthOpts{Min: Ptr[int](1)}); err != nil {
+		return err
+	}
+	return nil
+}
+
+// NewBetaManagedAgentsBase64ImageSource returns a validated BetaManagedAgentsBase64ImageSource built from named fields.
+// Optional fields may be left unset; a value that violates the schema is
+// reported as *SdkValidationError.
+func NewBetaManagedAgentsBase64ImageSource(fields BetaManagedAgentsBase64ImageSource) (*BetaManagedAgentsBase64ImageSource, error) {
+	return ConstructModel(fields)
+}
+
+// BetaManagedAgentsBase64ImageSourceTypeEnum Required enumerated value serialized in the `type` wire field.
+type BetaManagedAgentsBase64ImageSourceTypeEnum string
+
+const (
+	BetaManagedAgentsBase64ImageSourceTypeEnumBase64 BetaManagedAgentsBase64ImageSourceTypeEnum = "base64"
+)
+
+func (value *BetaManagedAgentsBase64ImageSourceTypeEnum) UnmarshalJSON(data []byte) error {
+	var raw string
+	if err := json.Unmarshal(data, &raw); err != nil {
+		return err
+	}
+	switch raw {
+	case "base64":
+		*value = BetaManagedAgentsBase64ImageSourceTypeEnum(raw)
+		return nil
+	default:
+		return &SdkValidationError{Field: "BetaManagedAgentsBase64ImageSourceTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsBase64ImageSourceTypeEnum: %v", raw)}
+	}
+}
+
+// BetaManagedAgentsBashToolConfig Configuration for the bash tool.
+type BetaManagedAgentsBashToolConfig struct {
+	// Type Required `string` value serialized in the `type` wire field.
+	Type string `json:"type"`
+	// Name Required `string` value serialized in the `name` wire field.
+	Name string `json:"name"`
+	// Enabled Required `boolean` value serialized in the `enabled` wire field.
+	Enabled bool `json:"enabled"`
+	// PermissionPolicy Permission policy for tool execution.
+	PermissionPolicy BetaManagedAgentsPermissionPolicy `json:"permission_policy"`
+}
+
+func (value *BetaManagedAgentsBashToolConfig) UnmarshalJSON(data []byte) error {
+	type BetaManagedAgentsBashToolConfigAlias BetaManagedAgentsBashToolConfig
+	var decoded BetaManagedAgentsBashToolConfigAlias
+	if err := json.Unmarshal(data, &decoded); err != nil {
+		return err
+	}
+	*value = BetaManagedAgentsBashToolConfig(decoded)
+	var rawFields map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawFields); err != nil {
+		return err
+	}
+	if err := ValidateRequired(rawFields, []string{"type", "name", "enabled", "permission_policy"}); err != nil {
+		return err
+	}
+	if err := ValidateNotNull(rawFields, []string{"type", "name", "enabled", "permission_policy"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+// NewBetaManagedAgentsBashToolConfig returns a validated BetaManagedAgentsBashToolConfig built from named fields.
+// Optional fields may be left unset; a value that violates the schema is
+// reported as *SdkValidationError.
+func NewBetaManagedAgentsBashToolConfig(fields BetaManagedAgentsBashToolConfig) (*BetaManagedAgentsBashToolConfig, error) {
+	return ConstructModel(fields)
+}
+
 // BetaManagedAgentsBashToolConfigParams Configuration override for the bash tool.
 type BetaManagedAgentsBashToolConfigParams struct {
 	// Type Optional `string` value serialized in the `type` wire field.
@@ -489,6 +585,24 @@ func (u *BetaManagedAgentsCredentialAuth) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaManagedAgentsMcpOauthAuthResponse
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaManagedAgentsMcpOauthAuthResponse = &lossless0
+			return nil
+		}
+		var lossless1 BetaManagedAgentsStaticBearerAuthResponse
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaManagedAgentsStaticBearerAuthResponse = &lossless1
+			return nil
+		}
+		var lossless2 BetaManagedAgentsEnvironmentVariableAuthResponse
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaManagedAgentsEnvironmentVariableAuthResponse = &lossless2
+			return nil
+		}
+	}
 	var betamanagedagentsmcpoauthauthresponse BetaManagedAgentsMcpOauthAuthResponse
 	if err := json.Unmarshal(data, &betamanagedagentsmcpoauthauthresponse); err == nil && isNonEmptyBetaManagedAgentsCredentialAuthBetaManagedAgentsMcpOauthAuthResponse(betamanagedagentsmcpoauthauthresponse) {
 		u.BetaManagedAgentsMcpOauthAuthResponse = &betamanagedagentsmcpoauthauthresponse
@@ -598,108 +712,3 @@ func NewBetaManagedAgentsCredentialHostUnreachableError(fields BetaManagedAgents
 
 // BetaManagedAgentsCredentialHostUnreachableErrorTypeEnum Required enumerated value serialized in the `type` wire field.
 type BetaManagedAgentsCredentialHostUnreachableErrorTypeEnum string
-
-const (
-	BetaManagedAgentsCredentialHostUnreachableErrorTypeEnumCredentialHostUnreachableError BetaManagedAgentsCredentialHostUnreachableErrorTypeEnum = "credential_host_unreachable_error"
-)
-
-func (value *BetaManagedAgentsCredentialHostUnreachableErrorTypeEnum) UnmarshalJSON(data []byte) error {
-	var raw string
-	if err := json.Unmarshal(data, &raw); err != nil {
-		return err
-	}
-	switch raw {
-	case "credential_host_unreachable_error":
-		*value = BetaManagedAgentsCredentialHostUnreachableErrorTypeEnum(raw)
-		return nil
-	default:
-		return &SdkValidationError{Field: "BetaManagedAgentsCredentialHostUnreachableErrorTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsCredentialHostUnreachableErrorTypeEnum: %v", raw)}
-	}
-}
-
-// BetaManagedAgentsCredentialNetworkingParams represents a union type.
-type BetaManagedAgentsCredentialNetworkingParams struct {
-	BetaManagedAgentsUnrestrictedCredentialNetworkingParams *BetaManagedAgentsUnrestrictedCredentialNetworkingParams
-	BetaManagedAgentsLimitedCredentialNetworkingParams      *BetaManagedAgentsLimitedCredentialNetworkingParams
-
-	// Unknown holds a member whose type names no branch this SDK knows, as received.
-	Unknown json.RawMessage
-}
-
-func (u *BetaManagedAgentsCredentialNetworkingParams) UnmarshalJSON(data []byte) error {
-	*u = BetaManagedAgentsCredentialNetworkingParams{}
-	var refusal error
-	var object map[string]json.RawMessage
-	if err := json.Unmarshal(data, &object); err == nil {
-		if rawDiscriminator, ok := object["type"]; ok {
-			var discriminatorValue string
-			if err := json.Unmarshal(rawDiscriminator, &discriminatorValue); err == nil {
-				switch discriminatorValue {
-				case "unrestricted":
-					var betamanagedagentsunrestrictedcredentialnetworkingparams BetaManagedAgentsUnrestrictedCredentialNetworkingParams
-					if err := json.Unmarshal(data, &betamanagedagentsunrestrictedcredentialnetworkingparams); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsUnrestrictedCredentialNetworkingParams = &betamanagedagentsunrestrictedcredentialnetworkingparams
-					return nil
-				case "limited":
-					var betamanagedagentslimitedcredentialnetworkingparams BetaManagedAgentsLimitedCredentialNetworkingParams
-					if err := json.Unmarshal(data, &betamanagedagentslimitedcredentialnetworkingparams); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsLimitedCredentialNetworkingParams = &betamanagedagentslimitedcredentialnetworkingparams
-					return nil
-				default:
-					u.Unknown = append(json.RawMessage(nil), data...)
-					return nil
-				}
-			}
-		}
-	}
-	var betamanagedagentsunrestrictedcredentialnetworkingparams BetaManagedAgentsUnrestrictedCredentialNetworkingParams
-	if err := json.Unmarshal(data, &betamanagedagentsunrestrictedcredentialnetworkingparams); err == nil && isNonEmptyBetaManagedAgentsCredentialNetworkingParamsBetaManagedAgentsUnrestrictedCredentialNetworkingParams(betamanagedagentsunrestrictedcredentialnetworkingparams) {
-		u.BetaManagedAgentsUnrestrictedCredentialNetworkingParams = &betamanagedagentsunrestrictedcredentialnetworkingparams
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentslimitedcredentialnetworkingparams BetaManagedAgentsLimitedCredentialNetworkingParams
-	if err := json.Unmarshal(data, &betamanagedagentslimitedcredentialnetworkingparams); err == nil && isNonEmptyBetaManagedAgentsCredentialNetworkingParamsBetaManagedAgentsLimitedCredentialNetworkingParams(betamanagedagentslimitedcredentialnetworkingparams) {
-		u.BetaManagedAgentsLimitedCredentialNetworkingParams = &betamanagedagentslimitedcredentialnetworkingparams
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	return refusal
-}
-
-func (u BetaManagedAgentsCredentialNetworkingParams) MarshalJSON() ([]byte, error) {
-	if u.BetaManagedAgentsUnrestrictedCredentialNetworkingParams != nil {
-		return json.Marshal(u.BetaManagedAgentsUnrestrictedCredentialNetworkingParams)
-	}
-	if u.BetaManagedAgentsLimitedCredentialNetworkingParams != nil {
-		return json.Marshal(u.BetaManagedAgentsLimitedCredentialNetworkingParams)
-	}
-	if u.Unknown != nil {
-		return u.Unknown, nil
-	}
-	return []byte("null"), nil
-}
-
-func isNonEmptyBetaManagedAgentsCredentialNetworkingParamsBetaManagedAgentsUnrestrictedCredentialNetworkingParams(v BetaManagedAgentsUnrestrictedCredentialNetworkingParams) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaManagedAgentsCredentialNetworkingParamsBetaManagedAgentsLimitedCredentialNetworkingParams(v BetaManagedAgentsLimitedCredentialNetworkingParams) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-// UnmarshalBetaManagedAgentsCredentialNetworkingParams converts an untyped value to BetaManagedAgentsCredentialNetworkingParams.
-func UnmarshalBetaManagedAgentsCredentialNetworkingParams(v any) BetaManagedAgentsCredentialNetworkingParams {
-	b, _ := json.Marshal(v)
-	var result BetaManagedAgentsCredentialNetworkingParams
-	_ = json.Unmarshal(b, &result)
-	return result
-}

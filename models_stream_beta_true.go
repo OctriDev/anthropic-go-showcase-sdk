@@ -418,6 +418,19 @@ func (u *BetaManagedAgentsEventStartEventEvent) UnmarshalJSON(data []byte) error
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaManagedAgentsEventStartEventAgentMessagePreview
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaManagedAgentsEventStartEventAgentMessagePreview = &lossless0
+			return nil
+		}
+		var lossless1 BetaManagedAgentsEventStartEventAgentThinkingPreview
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaManagedAgentsEventStartEventAgentThinkingPreview = &lossless1
+			return nil
+		}
+	}
 	var betamanagedagentseventstarteventagentmessagepreview BetaManagedAgentsEventStartEventAgentMessagePreview
 	if err := json.Unmarshal(data, &betamanagedagentseventstarteventagentmessagepreview); err == nil && isNonEmptyBetaManagedAgentsEventStartEventEventBetaManagedAgentsEventStartEventAgentMessagePreview(betamanagedagentseventstarteventagentmessagepreview) {
 		u.BetaManagedAgentsEventStartEventAgentMessagePreview = &betamanagedagentseventstarteventagentmessagepreview

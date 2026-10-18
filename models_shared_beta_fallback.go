@@ -434,6 +434,24 @@ func (u *BetaFallbackConfigV2Thinking) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaThinkingConfigEnabled
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaThinkingConfigEnabled = &lossless0
+			return nil
+		}
+		var lossless1 BetaThinkingConfigDisabled
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaThinkingConfigDisabled = &lossless1
+			return nil
+		}
+		var lossless2 BetaThinkingConfigAdaptive
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaThinkingConfigAdaptive = &lossless2
+			return nil
+		}
+	}
 	var betathinkingconfigenabled BetaThinkingConfigEnabled
 	if err := json.Unmarshal(data, &betathinkingconfigenabled); err == nil && isNonEmptyBetaFallbackConfigV2ThinkingBetaThinkingConfigEnabled(betathinkingconfigenabled) {
 		u.BetaThinkingConfigEnabled = &betathinkingconfigenabled
@@ -534,6 +552,19 @@ func (u *BetaFallbackCreditUsageStatus) UnmarshalJSON(data []byte) error {
 					return nil
 				}
 			}
+		}
+	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaFallbackCreditRedeemed
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaFallbackCreditRedeemed = &lossless0
+			return nil
+		}
+		var lossless1 BetaFallbackCreditNotApplied
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaFallbackCreditNotApplied = &lossless1
+			return nil
 		}
 	}
 	var betafallbackcreditredeemed BetaFallbackCreditRedeemed

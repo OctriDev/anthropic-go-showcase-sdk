@@ -56,6 +56,24 @@ func (u *BetaManagedAgentsCredentialUpdateAuth) UnmarshalJSON(data []byte) error
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaManagedAgentsMcpOauthUpdateParams
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaManagedAgentsMcpOauthUpdateParams = &lossless0
+			return nil
+		}
+		var lossless1 BetaManagedAgentsStaticBearerUpdateParams
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaManagedAgentsStaticBearerUpdateParams = &lossless1
+			return nil
+		}
+		var lossless2 BetaManagedAgentsEnvironmentVariableUpdateParams
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaManagedAgentsEnvironmentVariableUpdateParams = &lossless2
+			return nil
+		}
+	}
 	var betamanagedagentsmcpoauthupdateparams BetaManagedAgentsMcpOauthUpdateParams
 	if err := json.Unmarshal(data, &betamanagedagentsmcpoauthupdateparams); err == nil && isNonEmptyBetaManagedAgentsCredentialUpdateAuthBetaManagedAgentsMcpOauthUpdateParams(betamanagedagentsmcpoauthupdateparams) {
 		u.BetaManagedAgentsMcpOauthUpdateParams = &betamanagedagentsmcpoauthupdateparams
@@ -614,6 +632,19 @@ func (u *BetaManagedAgentsMcpOauthRefreshUpdateParamsTokenEndpointAuth) Unmarsha
 					return nil
 				}
 			}
+		}
+	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaManagedAgentsTokenEndpointAuthBasicUpdateParam
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaManagedAgentsTokenEndpointAuthBasicUpdateParam = &lossless0
+			return nil
+		}
+		var lossless1 BetaManagedAgentsTokenEndpointAuthPostUpdateParam
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaManagedAgentsTokenEndpointAuthPostUpdateParam = &lossless1
+			return nil
 		}
 	}
 	var betamanagedagentstokenendpointauthbasicupdateparam BetaManagedAgentsTokenEndpointAuthBasicUpdateParam

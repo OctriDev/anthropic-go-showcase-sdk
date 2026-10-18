@@ -103,6 +103,19 @@ func (u *BetaEnvironmentConfig) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaCloudConfig
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaCloudConfig = &lossless0
+			return nil
+		}
+		var lossless1 BetaSelfHostedConfig
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaSelfHostedConfig = &lossless1
+			return nil
+		}
+	}
 	var betacloudconfig BetaCloudConfig
 	if err := json.Unmarshal(data, &betacloudconfig); err == nil && isNonEmptyBetaEnvironmentConfigBetaCloudConfig(betacloudconfig) {
 		u.BetaCloudConfig = &betacloudconfig

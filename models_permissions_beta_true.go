@@ -351,6 +351,34 @@ func (u *BetaRbacRolePermissionResource) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaOrganizationPermissionResource
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaOrganizationPermissionResource = &lossless0
+			return nil
+		}
+		var lossless1 BetaConnectorToolPermissionResource
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaConnectorToolPermissionResource = &lossless1
+			return nil
+		}
+		var lossless2 BetaConnectorScopePermissionResource
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaConnectorScopePermissionResource = &lossless2
+			return nil
+		}
+		var lossless3 BetaConnectorPermissionResource
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.BetaConnectorPermissionResource = &lossless3
+			return nil
+		}
+		var lossless4 BetaAllConnectorsPermissionResource
+		if json.Unmarshal(data, &lossless4) == nil && keepsEveryKey(raw, lossless4) {
+			u.BetaAllConnectorsPermissionResource = &lossless4
+			return nil
+		}
+	}
 	var betaorganizationpermissionresource BetaOrganizationPermissionResource
 	if err := json.Unmarshal(data, &betaorganizationpermissionresource); err == nil && isNonEmptyBetaRbacRolePermissionResourceBetaOrganizationPermissionResource(betaorganizationpermissionresource) {
 		u.BetaOrganizationPermissionResource = &betaorganizationpermissionresource

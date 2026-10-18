@@ -195,6 +195,19 @@ func (u *ResponseBashCodeExecutionToolResultBlockContent) UnmarshalJSON(data []b
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 ResponseBashCodeExecutionToolResultError
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.ResponseBashCodeExecutionToolResultError = &lossless0
+			return nil
+		}
+		var lossless1 ResponseBashCodeExecutionResultBlock
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.ResponseBashCodeExecutionResultBlock = &lossless1
+			return nil
+		}
+	}
 	var responsebashcodeexecutiontoolresulterror ResponseBashCodeExecutionToolResultError
 	if err := json.Unmarshal(data, &responsebashcodeexecutiontoolresulterror); err == nil && isNonEmptyResponseBashCodeExecutionToolResultBlockContentResponseBashCodeExecutionToolResultError(responsebashcodeexecutiontoolresulterror) {
 		u.ResponseBashCodeExecutionToolResultError = &responsebashcodeexecutiontoolresulterror

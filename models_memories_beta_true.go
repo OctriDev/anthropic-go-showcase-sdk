@@ -118,6 +118,19 @@ func (u *BetaManagedAgentsMemoryListItem) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaManagedAgentsMemory
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaManagedAgentsMemory = &lossless0
+			return nil
+		}
+		var lossless1 BetaManagedAgentsMemoryPrefix
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaManagedAgentsMemoryPrefix = &lossless1
+			return nil
+		}
+	}
 	var betamanagedagentsmemory BetaManagedAgentsMemory
 	if err := json.Unmarshal(data, &betamanagedagentsmemory); err == nil && isNonEmptyBetaManagedAgentsMemoryListItemBetaManagedAgentsMemory(betamanagedagentsmemory) {
 		u.BetaManagedAgentsMemory = &betamanagedagentsmemory

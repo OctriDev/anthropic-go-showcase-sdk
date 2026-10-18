@@ -146,6 +146,29 @@ func (u *BetaUsageIterationsItem) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaMessageIterationUsage
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaMessageIterationUsage = &lossless0
+			return nil
+		}
+		var lossless1 BetaCompactionIterationUsage
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaCompactionIterationUsage = &lossless1
+			return nil
+		}
+		var lossless2 BetaAdvisorMessageIterationUsage
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaAdvisorMessageIterationUsage = &lossless2
+			return nil
+		}
+		var lossless3 BetaFallbackMessageIterationUsage
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.BetaFallbackMessageIterationUsage = &lossless3
+			return nil
+		}
+	}
 	var betamessageiterationusage BetaMessageIterationUsage
 	if err := json.Unmarshal(data, &betamessageiterationusage); err == nil && isNonEmptyBetaUsageIterationsItemBetaMessageIterationUsage(betamessageiterationusage) {
 		u.BetaMessageIterationUsage = &betamessageiterationusage

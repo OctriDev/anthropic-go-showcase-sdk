@@ -137,6 +137,54 @@ func (u *BetaErrorResponseError) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaInvalidRequestError
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaInvalidRequestError = &lossless0
+			return nil
+		}
+		var lossless1 BetaAuthenticationError
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaAuthenticationError = &lossless1
+			return nil
+		}
+		var lossless2 BetaBillingError
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaBillingError = &lossless2
+			return nil
+		}
+		var lossless3 BetaPermissionError
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.BetaPermissionError = &lossless3
+			return nil
+		}
+		var lossless4 BetaNotFoundError
+		if json.Unmarshal(data, &lossless4) == nil && keepsEveryKey(raw, lossless4) {
+			u.BetaNotFoundError = &lossless4
+			return nil
+		}
+		var lossless5 BetaRateLimitError
+		if json.Unmarshal(data, &lossless5) == nil && keepsEveryKey(raw, lossless5) {
+			u.BetaRateLimitError = &lossless5
+			return nil
+		}
+		var lossless6 BetaGatewayTimeoutError
+		if json.Unmarshal(data, &lossless6) == nil && keepsEveryKey(raw, lossless6) {
+			u.BetaGatewayTimeoutError = &lossless6
+			return nil
+		}
+		var lossless7 BetaAPIError
+		if json.Unmarshal(data, &lossless7) == nil && keepsEveryKey(raw, lossless7) {
+			u.BetaAPIError = &lossless7
+			return nil
+		}
+		var lossless8 BetaOverloadedError
+		if json.Unmarshal(data, &lossless8) == nil && keepsEveryKey(raw, lossless8) {
+			u.BetaOverloadedError = &lossless8
+			return nil
+		}
+	}
 	var betainvalidrequesterror BetaInvalidRequestError
 	if err := json.Unmarshal(data, &betainvalidrequesterror); err == nil && isNonEmptyBetaErrorResponseErrorBetaInvalidRequestError(betainvalidrequesterror) {
 		u.BetaInvalidRequestError = &betainvalidrequesterror

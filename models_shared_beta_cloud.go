@@ -130,6 +130,19 @@ func (u *BetaCloudConfigNetworking) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaUnrestrictedNetwork
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaUnrestrictedNetwork = &lossless0
+			return nil
+		}
+		var lossless1 BetaLimitedNetwork
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaLimitedNetwork = &lossless1
+			return nil
+		}
+	}
 	var betaunrestrictednetwork BetaUnrestrictedNetwork
 	if err := json.Unmarshal(data, &betaunrestrictednetwork); err == nil && isNonEmptyBetaCloudConfigNetworkingBetaUnrestrictedNetwork(betaunrestrictednetwork) {
 		u.BetaUnrestrictedNetwork = &betaunrestrictednetwork
@@ -215,6 +228,19 @@ func (u *BetaCloudConfigParamsNetworking) UnmarshalJSON(data []byte) error {
 					return nil
 				}
 			}
+		}
+	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaUnrestrictedNetwork
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaUnrestrictedNetwork = &lossless0
+			return nil
+		}
+		var lossless1 BetaLimitedNetworkParams
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaLimitedNetworkParams = &lossless1
+			return nil
 		}
 	}
 	var betaunrestrictednetwork BetaUnrestrictedNetwork

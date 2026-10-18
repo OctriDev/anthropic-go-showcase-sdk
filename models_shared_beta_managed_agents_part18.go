@@ -4,483 +4,12 @@
 package sdk
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
 
-func (value *BetaManagedAgentsSession) UnmarshalJSON(data []byte) error {
-	type BetaManagedAgentsSessionAlias BetaManagedAgentsSession
-	var decoded BetaManagedAgentsSessionAlias
-	if err := json.Unmarshal(data, &decoded); err != nil {
-		return err
-	}
-	*value = BetaManagedAgentsSession(decoded)
-	var rawFields map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawFields); err != nil {
-		return err
-	}
-	if err := ValidateRequired(rawFields, []string{"type", "id", "status", "created_at", "updated_at", "environment_id", "title", "metadata", "agent", "resources", "vault_ids", "outcome_evaluations", "usage", "stats", "archived_at", "budget"}); err != nil {
-		return err
-	}
-	if err := ValidateNotNull(rawFields, []string{"type", "id", "status", "created_at", "updated_at", "environment_id", "metadata", "agent", "resources", "vault_ids", "outcome_evaluations", "usage", "stats"}); err != nil {
-		return err
-	}
-	if err := ValidateModelDateTime("created_at", value.CreatedAt); err != nil {
-		return err
-	}
-	if err := ValidateModelDateTime("updated_at", value.UpdatedAt); err != nil {
-		return err
-	}
-	if raw, ok := rawFields["deployment_id"]; ok && bytes.Equal(bytes.TrimSpace(raw), []byte("null")) {
-		value.DeploymentId = &NullableValue[string]{}
-	}
-	return nil
-}
-
-// NewBetaManagedAgentsSession returns a validated BetaManagedAgentsSession built from named fields.
-// Optional fields may be left unset; a value that violates the schema is
-// reported as *SdkValidationError.
-func NewBetaManagedAgentsSession(fields BetaManagedAgentsSession) (*BetaManagedAgentsSession, error) {
-	return ConstructModel(fields)
-}
-
-// BetaManagedAgentsSessionTypeEnum Required enumerated value serialized in the `type` wire field.
-type BetaManagedAgentsSessionTypeEnum string
-
-const (
-	BetaManagedAgentsSessionTypeEnumSession BetaManagedAgentsSessionTypeEnum = "session"
-)
-
-// BetaManagedAgentsSessionActor Attribution for a write made by an agent during a session, through the mounted filesystem at `/mnt/memory/`.
-type BetaManagedAgentsSessionActor struct {
-	// Type Required enumerated value serialized in the `type` wire field.
-	Type BetaManagedAgentsSessionActorTypeEnum `json:"type"`
-	// SessionId ID of the session that performed the write (a `sesn_...` value). Look up the session via Retrieve a session for further provenance.
-	SessionId string `json:"session_id"`
-}
-
-func (value *BetaManagedAgentsSessionActor) UnmarshalJSON(data []byte) error {
-	var rawFields map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawFields); err != nil {
-		return err
-	}
-	if err := ValidateRawEnum("type", rawFields["type"], []string{"session_actor"}); err != nil {
-		return err
-	}
-	type BetaManagedAgentsSessionActorAlias BetaManagedAgentsSessionActor
-	var decoded BetaManagedAgentsSessionActorAlias
-	if err := json.Unmarshal(data, &decoded); err != nil {
-		return err
-	}
-	*value = BetaManagedAgentsSessionActor(decoded)
-	if err := ValidateRequired(rawFields, []string{"type", "session_id"}); err != nil {
-		return err
-	}
-	if err := ValidateNotNull(rawFields, []string{"type", "session_id"}); err != nil {
-		return err
-	}
-	if err := ValidateLength("session_id", value.SessionId, LengthOpts{Min: Ptr[int](1)}); err != nil {
-		return err
-	}
-	return nil
-}
-
-// NewBetaManagedAgentsSessionActor returns a validated BetaManagedAgentsSessionActor built from named fields.
-// Optional fields may be left unset; a value that violates the schema is
-// reported as *SdkValidationError.
-func NewBetaManagedAgentsSessionActor(fields BetaManagedAgentsSessionActor) (*BetaManagedAgentsSessionActor, error) {
-	return ConstructModel(fields)
-}
-
-// BetaManagedAgentsSessionActorTypeEnum Required enumerated value serialized in the `type` wire field.
-type BetaManagedAgentsSessionActorTypeEnum string
-
-const (
-	BetaManagedAgentsSessionActorTypeEnumSessionActor BetaManagedAgentsSessionActorTypeEnum = "session_actor"
-)
-
-func (value *BetaManagedAgentsSessionActorTypeEnum) UnmarshalJSON(data []byte) error {
-	var raw string
-	if err := json.Unmarshal(data, &raw); err != nil {
-		return err
-	}
-	switch raw {
-	case "session_actor":
-		*value = BetaManagedAgentsSessionActorTypeEnum(raw)
-		return nil
-	default:
-		return &SdkValidationError{Field: "BetaManagedAgentsSessionActorTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsSessionActorTypeEnum: %v", raw)}
-	}
-}
-
-// BetaManagedAgentsSessionAgent Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
-type BetaManagedAgentsSessionAgent struct {
-	// Type Required enumerated value serialized in the `type` wire field.
-	Type BetaManagedAgentsSessionAgentTypeEnum `json:"type"`
-	// Id Required `string` value serialized in the `id` wire field.
-	Id string `json:"id"`
-	// Version Required `int32`-formatted value serialized in the `version` wire field.
-	Version int64 `json:"version"`
-	// Name Required `string` value serialized in the `name` wire field.
-	Name string `json:"name"`
-	// Description Required `string` value serialized in the `description` wire field.
-	Description NullableValue[string] `json:"description"`
-	// Model Model identifier and configuration.
-	Model BetaManagedAgentsModelConfig `json:"model"`
-	// System Required `string` value serialized in the `system` wire field.
-	System NullableValue[string] `json:"system"`
-	// Tools Required array value serialized in the `tools` wire field.
-	Tools []BetaManagedAgentsAgentTool `json:"tools"`
-	// McpServers Required array value serialized in the `mcp_servers` wire field.
-	McpServers []BetaManagedAgentsMCPServer `json:"mcp_servers"`
-	// Skills Required array value serialized in the `skills` wire field.
-	Skills []BetaManagedAgentsSkill `json:"skills"`
-	// Multiagent Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
-	Multiagent NullableValue[BetaManagedAgentsSessionMultiagent] `json:"multiagent"`
-}
-
-func (value *BetaManagedAgentsSessionAgent) UnmarshalJSON(data []byte) error {
-	type BetaManagedAgentsSessionAgentAlias BetaManagedAgentsSessionAgent
-	var decoded BetaManagedAgentsSessionAgentAlias
-	if err := json.Unmarshal(data, &decoded); err != nil {
-		return err
-	}
-	*value = BetaManagedAgentsSessionAgent(decoded)
-	var rawFields map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawFields); err != nil {
-		return err
-	}
-	if err := ValidateRequired(rawFields, []string{"type", "id", "version", "name", "description", "model", "system", "tools", "mcp_servers", "skills", "multiagent"}); err != nil {
-		return err
-	}
-	if err := ValidateNotNull(rawFields, []string{"type", "id", "version", "name", "model", "tools", "mcp_servers", "skills"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-// NewBetaManagedAgentsSessionAgent returns a validated BetaManagedAgentsSessionAgent built from named fields.
-// Optional fields may be left unset; a value that violates the schema is
-// reported as *SdkValidationError.
-func NewBetaManagedAgentsSessionAgent(fields BetaManagedAgentsSessionAgent) (*BetaManagedAgentsSessionAgent, error) {
-	return ConstructModel(fields)
-}
-
-// BetaManagedAgentsSessionAgentTypeEnum Required enumerated value serialized in the `type` wire field.
-type BetaManagedAgentsSessionAgentTypeEnum string
-
-const (
-	BetaManagedAgentsSessionAgentTypeEnumAgent BetaManagedAgentsSessionAgentTypeEnum = "agent"
-)
-
-// BetaManagedAgentsSessionBudgetReached The agent stopped because the session's tracked list cost reached its budget, or because its usage includes a model with no list price (which the budget cannot measure). Raise the budget to continue — or, if raising is rejected because a model has no list price, remove the budget.
-type BetaManagedAgentsSessionBudgetReached struct {
-	// Type Required enumerated value serialized in the `type` wire field.
-	Type BetaManagedAgentsSessionBudgetReachedTypeEnum `json:"type"`
-}
-
-func (value *BetaManagedAgentsSessionBudgetReached) UnmarshalJSON(data []byte) error {
-	var rawFields map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawFields); err != nil {
-		return err
-	}
-	if err := ValidateRawEnum("type", rawFields["type"], []string{"budget_reached"}); err != nil {
-		return err
-	}
-	type BetaManagedAgentsSessionBudgetReachedAlias BetaManagedAgentsSessionBudgetReached
-	var decoded BetaManagedAgentsSessionBudgetReachedAlias
-	if err := json.Unmarshal(data, &decoded); err != nil {
-		return err
-	}
-	*value = BetaManagedAgentsSessionBudgetReached(decoded)
-	if err := ValidateRequired(rawFields, []string{"type"}); err != nil {
-		return err
-	}
-	if err := ValidateNotNull(rawFields, []string{"type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-// NewBetaManagedAgentsSessionBudgetReached returns a validated BetaManagedAgentsSessionBudgetReached built from named fields.
-// Optional fields may be left unset; a value that violates the schema is
-// reported as *SdkValidationError.
-func NewBetaManagedAgentsSessionBudgetReached(fields BetaManagedAgentsSessionBudgetReached) (*BetaManagedAgentsSessionBudgetReached, error) {
-	return ConstructModel(fields)
-}
-
-// BetaManagedAgentsSessionBudgetReachedTypeEnum Required enumerated value serialized in the `type` wire field.
-type BetaManagedAgentsSessionBudgetReachedTypeEnum string
-
-const (
-	BetaManagedAgentsSessionBudgetReachedTypeEnumBudgetReached BetaManagedAgentsSessionBudgetReachedTypeEnum = "budget_reached"
-)
-
-func (value *BetaManagedAgentsSessionBudgetReachedTypeEnum) UnmarshalJSON(data []byte) error {
-	var raw string
-	if err := json.Unmarshal(data, &raw); err != nil {
-		return err
-	}
-	switch raw {
-	case "budget_reached":
-		*value = BetaManagedAgentsSessionBudgetReachedTypeEnum(raw)
-		return nil
-	default:
-		return &SdkValidationError{Field: "BetaManagedAgentsSessionBudgetReachedTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsSessionBudgetReachedTypeEnum: %v", raw)}
-	}
-}
-
-// BetaManagedAgentsSessionCreationRejectedRunError The session create request was rejected with a non-retryable validation error.
-type BetaManagedAgentsSessionCreationRejectedRunError struct {
-	// Type Required enumerated value serialized in the `type` wire field.
-	Type BetaManagedAgentsSessionCreationRejectedRunErrorTypeEnum `json:"type"`
-	// Message Human-readable error description.
-	Message string `json:"message"`
-}
-
-func (value *BetaManagedAgentsSessionCreationRejectedRunError) UnmarshalJSON(data []byte) error {
-	var rawFields map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawFields); err != nil {
-		return err
-	}
-	if err := ValidateRawEnum("type", rawFields["type"], []string{"session_creation_rejected_error"}); err != nil {
-		return err
-	}
-	type BetaManagedAgentsSessionCreationRejectedRunErrorAlias BetaManagedAgentsSessionCreationRejectedRunError
-	var decoded BetaManagedAgentsSessionCreationRejectedRunErrorAlias
-	if err := json.Unmarshal(data, &decoded); err != nil {
-		return err
-	}
-	*value = BetaManagedAgentsSessionCreationRejectedRunError(decoded)
-	if err := ValidateRequired(rawFields, []string{"type", "message"}); err != nil {
-		return err
-	}
-	if err := ValidateNotNull(rawFields, []string{"type", "message"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-// NewBetaManagedAgentsSessionCreationRejectedRunError returns a validated BetaManagedAgentsSessionCreationRejectedRunError built from named fields.
-// Optional fields may be left unset; a value that violates the schema is
-// reported as *SdkValidationError.
-func NewBetaManagedAgentsSessionCreationRejectedRunError(fields BetaManagedAgentsSessionCreationRejectedRunError) (*BetaManagedAgentsSessionCreationRejectedRunError, error) {
-	return ConstructModel(fields)
-}
-
-// BetaManagedAgentsSessionCreationRejectedRunErrorTypeEnum Required enumerated value serialized in the `type` wire field.
-type BetaManagedAgentsSessionCreationRejectedRunErrorTypeEnum string
-
-const (
-	BetaManagedAgentsSessionCreationRejectedRunErrorTypeEnumSessionCreationRejectedError BetaManagedAgentsSessionCreationRejectedRunErrorTypeEnum = "session_creation_rejected_error"
-)
-
-func (value *BetaManagedAgentsSessionCreationRejectedRunErrorTypeEnum) UnmarshalJSON(data []byte) error {
-	var raw string
-	if err := json.Unmarshal(data, &raw); err != nil {
-		return err
-	}
-	switch raw {
-	case "session_creation_rejected_error":
-		*value = BetaManagedAgentsSessionCreationRejectedRunErrorTypeEnum(raw)
-		return nil
-	default:
-		return &SdkValidationError{Field: "BetaManagedAgentsSessionCreationRejectedRunErrorTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsSessionCreationRejectedRunErrorTypeEnum: %v", raw)}
-	}
-}
-
-// BetaManagedAgentsSessionDeletedEvent Emitted when a session has been deleted. Terminates any active event stream — no further events will be emitted for this session.
-type BetaManagedAgentsSessionDeletedEvent struct {
-	// Type Required enumerated value serialized in the `type` wire field.
-	Type BetaManagedAgentsSessionDeletedEventTypeEnum `json:"type"`
-	// Id Unique identifier for this event.
-	Id string `json:"id"`
-	// ProcessedAt Timestamp when the session was deleted.
-	ProcessedAt string `json:"processed_at"`
-}
-
-func (value *BetaManagedAgentsSessionDeletedEvent) UnmarshalJSON(data []byte) error {
-	var rawFields map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawFields); err != nil {
-		return err
-	}
-	if err := ValidateRawEnum("type", rawFields["type"], []string{"session.deleted"}); err != nil {
-		return err
-	}
-	type BetaManagedAgentsSessionDeletedEventAlias BetaManagedAgentsSessionDeletedEvent
-	var decoded BetaManagedAgentsSessionDeletedEventAlias
-	if err := json.Unmarshal(data, &decoded); err != nil {
-		return err
-	}
-	*value = BetaManagedAgentsSessionDeletedEvent(decoded)
-	if err := ValidateRequired(rawFields, []string{"type", "id", "processed_at"}); err != nil {
-		return err
-	}
-	if err := ValidateNotNull(rawFields, []string{"type", "id", "processed_at"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-// NewBetaManagedAgentsSessionDeletedEvent returns a validated BetaManagedAgentsSessionDeletedEvent built from named fields.
-// Optional fields may be left unset; a value that violates the schema is
-// reported as *SdkValidationError.
-func NewBetaManagedAgentsSessionDeletedEvent(fields BetaManagedAgentsSessionDeletedEvent) (*BetaManagedAgentsSessionDeletedEvent, error) {
-	return ConstructModel(fields)
-}
-
-// BetaManagedAgentsSessionDeletedEventTypeEnum Required enumerated value serialized in the `type` wire field.
-type BetaManagedAgentsSessionDeletedEventTypeEnum string
-
-const (
-	BetaManagedAgentsSessionDeletedEventTypeEnumSessionDeleted BetaManagedAgentsSessionDeletedEventTypeEnum = "session.deleted"
-)
-
-func (value *BetaManagedAgentsSessionDeletedEventTypeEnum) UnmarshalJSON(data []byte) error {
-	var raw string
-	if err := json.Unmarshal(data, &raw); err != nil {
-		return err
-	}
-	switch raw {
-	case "session.deleted":
-		*value = BetaManagedAgentsSessionDeletedEventTypeEnum(raw)
-		return nil
-	default:
-		return &SdkValidationError{Field: "BetaManagedAgentsSessionDeletedEventTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsSessionDeletedEventTypeEnum: %v", raw)}
-	}
-}
-
-// BetaManagedAgentsSessionEndTurn The agent completed its turn naturally and is ready for the next user message.
-type BetaManagedAgentsSessionEndTurn struct {
-	// Type Required enumerated value serialized in the `type` wire field.
-	Type BetaManagedAgentsSessionEndTurnTypeEnum `json:"type"`
-}
-
-func (value *BetaManagedAgentsSessionEndTurn) UnmarshalJSON(data []byte) error {
-	var rawFields map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawFields); err != nil {
-		return err
-	}
-	if err := ValidateRawEnum("type", rawFields["type"], []string{"end_turn"}); err != nil {
-		return err
-	}
-	type BetaManagedAgentsSessionEndTurnAlias BetaManagedAgentsSessionEndTurn
-	var decoded BetaManagedAgentsSessionEndTurnAlias
-	if err := json.Unmarshal(data, &decoded); err != nil {
-		return err
-	}
-	*value = BetaManagedAgentsSessionEndTurn(decoded)
-	if err := ValidateRequired(rawFields, []string{"type"}); err != nil {
-		return err
-	}
-	if err := ValidateNotNull(rawFields, []string{"type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-// NewBetaManagedAgentsSessionEndTurn returns a validated BetaManagedAgentsSessionEndTurn built from named fields.
-// Optional fields may be left unset; a value that violates the schema is
-// reported as *SdkValidationError.
-func NewBetaManagedAgentsSessionEndTurn(fields BetaManagedAgentsSessionEndTurn) (*BetaManagedAgentsSessionEndTurn, error) {
-	return ConstructModel(fields)
-}
-
-// BetaManagedAgentsSessionEndTurnTypeEnum Required enumerated value serialized in the `type` wire field.
-type BetaManagedAgentsSessionEndTurnTypeEnum string
-
-const (
-	BetaManagedAgentsSessionEndTurnTypeEnumEndTurn BetaManagedAgentsSessionEndTurnTypeEnum = "end_turn"
-)
-
-func (value *BetaManagedAgentsSessionEndTurnTypeEnum) UnmarshalJSON(data []byte) error {
-	var raw string
-	if err := json.Unmarshal(data, &raw); err != nil {
-		return err
-	}
-	switch raw {
-	case "end_turn":
-		*value = BetaManagedAgentsSessionEndTurnTypeEnum(raw)
-		return nil
-	default:
-		return &SdkValidationError{Field: "BetaManagedAgentsSessionEndTurnTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsSessionEndTurnTypeEnum: %v", raw)}
-	}
-}
-
-// BetaManagedAgentsSessionErrorEvent An error event indicating a problem occurred during session execution.
-type BetaManagedAgentsSessionErrorEvent struct {
-	// Type Required enumerated value serialized in the `type` wire field.
-	Type BetaManagedAgentsSessionErrorEventTypeEnum `json:"type"`
-	// Id Unique identifier for this event.
-	Id string `json:"id"`
-	// ProcessedAt Timestamp when the error occurred.
-	ProcessedAt string `json:"processed_at"`
-	// Error Required object value serialized in the `error` wire field.
-	Error BetaManagedAgentsSessionErrorEventError `json:"error"`
-}
-
-func (value *BetaManagedAgentsSessionErrorEvent) UnmarshalJSON(data []byte) error {
-	var rawFields map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawFields); err != nil {
-		return err
-	}
-	if err := ValidateRawEnum("type", rawFields["type"], []string{"session.error"}); err != nil {
-		return err
-	}
-	type BetaManagedAgentsSessionErrorEventAlias BetaManagedAgentsSessionErrorEvent
-	var decoded BetaManagedAgentsSessionErrorEventAlias
-	if err := json.Unmarshal(data, &decoded); err != nil {
-		return err
-	}
-	*value = BetaManagedAgentsSessionErrorEvent(decoded)
-	if err := ValidateRequired(rawFields, []string{"type", "id", "processed_at", "error"}); err != nil {
-		return err
-	}
-	if err := ValidateNotNull(rawFields, []string{"type", "id", "processed_at", "error"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-// NewBetaManagedAgentsSessionErrorEvent returns a validated BetaManagedAgentsSessionErrorEvent built from named fields.
-// Optional fields may be left unset; a value that violates the schema is
-// reported as *SdkValidationError.
-func NewBetaManagedAgentsSessionErrorEvent(fields BetaManagedAgentsSessionErrorEvent) (*BetaManagedAgentsSessionErrorEvent, error) {
-	return ConstructModel(fields)
-}
-
-// BetaManagedAgentsSessionErrorEventTypeEnum Required enumerated value serialized in the `type` wire field.
-type BetaManagedAgentsSessionErrorEventTypeEnum string
-
-const (
-	BetaManagedAgentsSessionErrorEventTypeEnumSessionError BetaManagedAgentsSessionErrorEventTypeEnum = "session.error"
-)
-
-func (value *BetaManagedAgentsSessionErrorEventTypeEnum) UnmarshalJSON(data []byte) error {
-	var raw string
-	if err := json.Unmarshal(data, &raw); err != nil {
-		return err
-	}
-	switch raw {
-	case "session.error":
-		*value = BetaManagedAgentsSessionErrorEventTypeEnum(raw)
-		return nil
-	default:
-		return &SdkValidationError{Field: "BetaManagedAgentsSessionErrorEventTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsSessionErrorEventTypeEnum: %v", raw)}
-	}
-}
-
-// BetaManagedAgentsSessionMultiagent represents a union type.
-type BetaManagedAgentsSessionMultiagent struct {
-	BetaManagedAgentsSessionMultiagentCoordinator *BetaManagedAgentsSessionMultiagentCoordinator
-
-	// Unknown holds a member whose type names no branch this SDK knows, as received.
-	Unknown json.RawMessage
-}
-
-func (u *BetaManagedAgentsSessionMultiagent) UnmarshalJSON(data []byte) error {
-	*u = BetaManagedAgentsSessionMultiagent{}
+func (u *BetaManagedAgentsRunError) UnmarshalJSON(data []byte) error {
+	*u = BetaManagedAgentsRunError{}
 	var refusal error
 	var object map[string]json.RawMessage
 	if err := json.Unmarshal(data, &object); err == nil {
@@ -488,12 +17,117 @@ func (u *BetaManagedAgentsSessionMultiagent) UnmarshalJSON(data []byte) error {
 			var discriminatorValue string
 			if err := json.Unmarshal(rawDiscriminator, &discriminatorValue); err == nil {
 				switch discriminatorValue {
-				case "coordinator":
-					var betamanagedagentssessionmultiagentcoordinator BetaManagedAgentsSessionMultiagentCoordinator
-					if err := json.Unmarshal(data, &betamanagedagentssessionmultiagentcoordinator); err != nil {
+				case "environment_archived_error":
+					var betamanagedagentsenvironmentarchivedrunerror BetaManagedAgentsEnvironmentArchivedRunError
+					if err := json.Unmarshal(data, &betamanagedagentsenvironmentarchivedrunerror); err != nil {
 						return err
 					}
-					u.BetaManagedAgentsSessionMultiagentCoordinator = &betamanagedagentssessionmultiagentcoordinator
+					u.BetaManagedAgentsEnvironmentArchivedRunError = &betamanagedagentsenvironmentarchivedrunerror
+					return nil
+				case "agent_archived_error":
+					var betamanagedagentsagentarchivedrunerror BetaManagedAgentsAgentArchivedRunError
+					if err := json.Unmarshal(data, &betamanagedagentsagentarchivedrunerror); err != nil {
+						return err
+					}
+					u.BetaManagedAgentsAgentArchivedRunError = &betamanagedagentsagentarchivedrunerror
+					return nil
+				case "environment_not_found_error":
+					var betamanagedagentsenvironmentnotfoundrunerror BetaManagedAgentsEnvironmentNotFoundRunError
+					if err := json.Unmarshal(data, &betamanagedagentsenvironmentnotfoundrunerror); err != nil {
+						return err
+					}
+					u.BetaManagedAgentsEnvironmentNotFoundRunError = &betamanagedagentsenvironmentnotfoundrunerror
+					return nil
+				case "vault_not_found_error":
+					var betamanagedagentsvaultnotfoundrunerror BetaManagedAgentsVaultNotFoundRunError
+					if err := json.Unmarshal(data, &betamanagedagentsvaultnotfoundrunerror); err != nil {
+						return err
+					}
+					u.BetaManagedAgentsVaultNotFoundRunError = &betamanagedagentsvaultnotfoundrunerror
+					return nil
+				case "vault_archived_error":
+					var betamanagedagentsvaultarchivedrunerror BetaManagedAgentsVaultArchivedRunError
+					if err := json.Unmarshal(data, &betamanagedagentsvaultarchivedrunerror); err != nil {
+						return err
+					}
+					u.BetaManagedAgentsVaultArchivedRunError = &betamanagedagentsvaultarchivedrunerror
+					return nil
+				case "file_not_found_error":
+					var betamanagedagentsfilenotfoundrunerror BetaManagedAgentsFileNotFoundRunError
+					if err := json.Unmarshal(data, &betamanagedagentsfilenotfoundrunerror); err != nil {
+						return err
+					}
+					u.BetaManagedAgentsFileNotFoundRunError = &betamanagedagentsfilenotfoundrunerror
+					return nil
+				case "memory_store_archived_error":
+					var betamanagedagentsmemorystorearchivedrunerror BetaManagedAgentsMemoryStoreArchivedRunError
+					if err := json.Unmarshal(data, &betamanagedagentsmemorystorearchivedrunerror); err != nil {
+						return err
+					}
+					u.BetaManagedAgentsMemoryStoreArchivedRunError = &betamanagedagentsmemorystorearchivedrunerror
+					return nil
+				case "skill_not_found_error":
+					var betamanagedagentsskillnotfoundrunerror BetaManagedAgentsSkillNotFoundRunError
+					if err := json.Unmarshal(data, &betamanagedagentsskillnotfoundrunerror); err != nil {
+						return err
+					}
+					u.BetaManagedAgentsSkillNotFoundRunError = &betamanagedagentsskillnotfoundrunerror
+					return nil
+				case "session_resource_not_found_error":
+					var betamanagedagentssessionresourcenotfoundrunerror BetaManagedAgentsSessionResourceNotFoundRunError
+					if err := json.Unmarshal(data, &betamanagedagentssessionresourcenotfoundrunerror); err != nil {
+						return err
+					}
+					u.BetaManagedAgentsSessionResourceNotFoundRunError = &betamanagedagentssessionresourcenotfoundrunerror
+					return nil
+				case "workspace_archived_error":
+					var betamanagedagentsworkspacearchivedrunerror BetaManagedAgentsWorkspaceArchivedRunError
+					if err := json.Unmarshal(data, &betamanagedagentsworkspacearchivedrunerror); err != nil {
+						return err
+					}
+					u.BetaManagedAgentsWorkspaceArchivedRunError = &betamanagedagentsworkspacearchivedrunerror
+					return nil
+				case "organization_disabled_error":
+					var betamanagedagentsorganizationdisabledrunerror BetaManagedAgentsOrganizationDisabledRunError
+					if err := json.Unmarshal(data, &betamanagedagentsorganizationdisabledrunerror); err != nil {
+						return err
+					}
+					u.BetaManagedAgentsOrganizationDisabledRunError = &betamanagedagentsorganizationdisabledrunerror
+					return nil
+				case "session_rate_limited_error":
+					var betamanagedagentssessionratelimitedrunerror BetaManagedAgentsSessionRateLimitedRunError
+					if err := json.Unmarshal(data, &betamanagedagentssessionratelimitedrunerror); err != nil {
+						return err
+					}
+					u.BetaManagedAgentsSessionRateLimitedRunError = &betamanagedagentssessionratelimitedrunerror
+					return nil
+				case "session_creation_rejected_error":
+					var betamanagedagentssessioncreationrejectedrunerror BetaManagedAgentsSessionCreationRejectedRunError
+					if err := json.Unmarshal(data, &betamanagedagentssessioncreationrejectedrunerror); err != nil {
+						return err
+					}
+					u.BetaManagedAgentsSessionCreationRejectedRunError = &betamanagedagentssessioncreationrejectedrunerror
+					return nil
+				case "unknown_error":
+					var betamanagedagentsunknownrunerror BetaManagedAgentsUnknownRunError
+					if err := json.Unmarshal(data, &betamanagedagentsunknownrunerror); err != nil {
+						return err
+					}
+					u.BetaManagedAgentsUnknownRunError = &betamanagedagentsunknownrunerror
+					return nil
+				case "self_hosted_resources_unsupported_error":
+					var betamanagedagentsselfhostedresourcesunsupportedrunerror BetaManagedAgentsSelfHostedResourcesUnsupportedRunError
+					if err := json.Unmarshal(data, &betamanagedagentsselfhostedresourcesunsupportedrunerror); err != nil {
+						return err
+					}
+					u.BetaManagedAgentsSelfHostedResourcesUnsupportedRunError = &betamanagedagentsselfhostedresourcesunsupportedrunerror
+					return nil
+				case "mcp_egress_blocked_error":
+					var betamanagedagentsmcpegressblockedrunerror BetaManagedAgentsMcpEgressBlockedRunError
+					if err := json.Unmarshal(data, &betamanagedagentsmcpegressblockedrunerror); err != nil {
+						return err
+					}
+					u.BetaManagedAgentsMcpEgressBlockedRunError = &betamanagedagentsmcpegressblockedrunerror
 					return nil
 				default:
 					u.Unknown = append(json.RawMessage(nil), data...)
@@ -502,9 +136,197 @@ func (u *BetaManagedAgentsSessionMultiagent) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
-	var betamanagedagentssessionmultiagentcoordinator BetaManagedAgentsSessionMultiagentCoordinator
-	if err := json.Unmarshal(data, &betamanagedagentssessionmultiagentcoordinator); err == nil && isNonEmptyBetaManagedAgentsSessionMultiagentBetaManagedAgentsSessionMultiagentCoordinator(betamanagedagentssessionmultiagentcoordinator) {
-		u.BetaManagedAgentsSessionMultiagentCoordinator = &betamanagedagentssessionmultiagentcoordinator
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaManagedAgentsEnvironmentArchivedRunError
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaManagedAgentsEnvironmentArchivedRunError = &lossless0
+			return nil
+		}
+		var lossless1 BetaManagedAgentsAgentArchivedRunError
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaManagedAgentsAgentArchivedRunError = &lossless1
+			return nil
+		}
+		var lossless2 BetaManagedAgentsEnvironmentNotFoundRunError
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaManagedAgentsEnvironmentNotFoundRunError = &lossless2
+			return nil
+		}
+		var lossless3 BetaManagedAgentsVaultNotFoundRunError
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.BetaManagedAgentsVaultNotFoundRunError = &lossless3
+			return nil
+		}
+		var lossless4 BetaManagedAgentsVaultArchivedRunError
+		if json.Unmarshal(data, &lossless4) == nil && keepsEveryKey(raw, lossless4) {
+			u.BetaManagedAgentsVaultArchivedRunError = &lossless4
+			return nil
+		}
+		var lossless5 BetaManagedAgentsFileNotFoundRunError
+		if json.Unmarshal(data, &lossless5) == nil && keepsEveryKey(raw, lossless5) {
+			u.BetaManagedAgentsFileNotFoundRunError = &lossless5
+			return nil
+		}
+		var lossless6 BetaManagedAgentsMemoryStoreArchivedRunError
+		if json.Unmarshal(data, &lossless6) == nil && keepsEveryKey(raw, lossless6) {
+			u.BetaManagedAgentsMemoryStoreArchivedRunError = &lossless6
+			return nil
+		}
+		var lossless7 BetaManagedAgentsSkillNotFoundRunError
+		if json.Unmarshal(data, &lossless7) == nil && keepsEveryKey(raw, lossless7) {
+			u.BetaManagedAgentsSkillNotFoundRunError = &lossless7
+			return nil
+		}
+		var lossless8 BetaManagedAgentsSessionResourceNotFoundRunError
+		if json.Unmarshal(data, &lossless8) == nil && keepsEveryKey(raw, lossless8) {
+			u.BetaManagedAgentsSessionResourceNotFoundRunError = &lossless8
+			return nil
+		}
+		var lossless9 BetaManagedAgentsWorkspaceArchivedRunError
+		if json.Unmarshal(data, &lossless9) == nil && keepsEveryKey(raw, lossless9) {
+			u.BetaManagedAgentsWorkspaceArchivedRunError = &lossless9
+			return nil
+		}
+		var lossless10 BetaManagedAgentsOrganizationDisabledRunError
+		if json.Unmarshal(data, &lossless10) == nil && keepsEveryKey(raw, lossless10) {
+			u.BetaManagedAgentsOrganizationDisabledRunError = &lossless10
+			return nil
+		}
+		var lossless11 BetaManagedAgentsSessionRateLimitedRunError
+		if json.Unmarshal(data, &lossless11) == nil && keepsEveryKey(raw, lossless11) {
+			u.BetaManagedAgentsSessionRateLimitedRunError = &lossless11
+			return nil
+		}
+		var lossless12 BetaManagedAgentsSessionCreationRejectedRunError
+		if json.Unmarshal(data, &lossless12) == nil && keepsEveryKey(raw, lossless12) {
+			u.BetaManagedAgentsSessionCreationRejectedRunError = &lossless12
+			return nil
+		}
+		var lossless13 BetaManagedAgentsUnknownRunError
+		if json.Unmarshal(data, &lossless13) == nil && keepsEveryKey(raw, lossless13) {
+			u.BetaManagedAgentsUnknownRunError = &lossless13
+			return nil
+		}
+		var lossless14 BetaManagedAgentsSelfHostedResourcesUnsupportedRunError
+		if json.Unmarshal(data, &lossless14) == nil && keepsEveryKey(raw, lossless14) {
+			u.BetaManagedAgentsSelfHostedResourcesUnsupportedRunError = &lossless14
+			return nil
+		}
+		var lossless15 BetaManagedAgentsMcpEgressBlockedRunError
+		if json.Unmarshal(data, &lossless15) == nil && keepsEveryKey(raw, lossless15) {
+			u.BetaManagedAgentsMcpEgressBlockedRunError = &lossless15
+			return nil
+		}
+	}
+	var betamanagedagentsenvironmentarchivedrunerror BetaManagedAgentsEnvironmentArchivedRunError
+	if err := json.Unmarshal(data, &betamanagedagentsenvironmentarchivedrunerror); err == nil && isNonEmptyBetaManagedAgentsRunErrorBetaManagedAgentsEnvironmentArchivedRunError(betamanagedagentsenvironmentarchivedrunerror) {
+		u.BetaManagedAgentsEnvironmentArchivedRunError = &betamanagedagentsenvironmentarchivedrunerror
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
+	}
+	var betamanagedagentsagentarchivedrunerror BetaManagedAgentsAgentArchivedRunError
+	if err := json.Unmarshal(data, &betamanagedagentsagentarchivedrunerror); err == nil && isNonEmptyBetaManagedAgentsRunErrorBetaManagedAgentsAgentArchivedRunError(betamanagedagentsagentarchivedrunerror) {
+		u.BetaManagedAgentsAgentArchivedRunError = &betamanagedagentsagentarchivedrunerror
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
+	}
+	var betamanagedagentsenvironmentnotfoundrunerror BetaManagedAgentsEnvironmentNotFoundRunError
+	if err := json.Unmarshal(data, &betamanagedagentsenvironmentnotfoundrunerror); err == nil && isNonEmptyBetaManagedAgentsRunErrorBetaManagedAgentsEnvironmentNotFoundRunError(betamanagedagentsenvironmentnotfoundrunerror) {
+		u.BetaManagedAgentsEnvironmentNotFoundRunError = &betamanagedagentsenvironmentnotfoundrunerror
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
+	}
+	var betamanagedagentsvaultnotfoundrunerror BetaManagedAgentsVaultNotFoundRunError
+	if err := json.Unmarshal(data, &betamanagedagentsvaultnotfoundrunerror); err == nil && isNonEmptyBetaManagedAgentsRunErrorBetaManagedAgentsVaultNotFoundRunError(betamanagedagentsvaultnotfoundrunerror) {
+		u.BetaManagedAgentsVaultNotFoundRunError = &betamanagedagentsvaultnotfoundrunerror
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
+	}
+	var betamanagedagentsvaultarchivedrunerror BetaManagedAgentsVaultArchivedRunError
+	if err := json.Unmarshal(data, &betamanagedagentsvaultarchivedrunerror); err == nil && isNonEmptyBetaManagedAgentsRunErrorBetaManagedAgentsVaultArchivedRunError(betamanagedagentsvaultarchivedrunerror) {
+		u.BetaManagedAgentsVaultArchivedRunError = &betamanagedagentsvaultarchivedrunerror
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
+	}
+	var betamanagedagentsfilenotfoundrunerror BetaManagedAgentsFileNotFoundRunError
+	if err := json.Unmarshal(data, &betamanagedagentsfilenotfoundrunerror); err == nil && isNonEmptyBetaManagedAgentsRunErrorBetaManagedAgentsFileNotFoundRunError(betamanagedagentsfilenotfoundrunerror) {
+		u.BetaManagedAgentsFileNotFoundRunError = &betamanagedagentsfilenotfoundrunerror
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
+	}
+	var betamanagedagentsmemorystorearchivedrunerror BetaManagedAgentsMemoryStoreArchivedRunError
+	if err := json.Unmarshal(data, &betamanagedagentsmemorystorearchivedrunerror); err == nil && isNonEmptyBetaManagedAgentsRunErrorBetaManagedAgentsMemoryStoreArchivedRunError(betamanagedagentsmemorystorearchivedrunerror) {
+		u.BetaManagedAgentsMemoryStoreArchivedRunError = &betamanagedagentsmemorystorearchivedrunerror
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
+	}
+	var betamanagedagentsskillnotfoundrunerror BetaManagedAgentsSkillNotFoundRunError
+	if err := json.Unmarshal(data, &betamanagedagentsskillnotfoundrunerror); err == nil && isNonEmptyBetaManagedAgentsRunErrorBetaManagedAgentsSkillNotFoundRunError(betamanagedagentsskillnotfoundrunerror) {
+		u.BetaManagedAgentsSkillNotFoundRunError = &betamanagedagentsskillnotfoundrunerror
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
+	}
+	var betamanagedagentssessionresourcenotfoundrunerror BetaManagedAgentsSessionResourceNotFoundRunError
+	if err := json.Unmarshal(data, &betamanagedagentssessionresourcenotfoundrunerror); err == nil && isNonEmptyBetaManagedAgentsRunErrorBetaManagedAgentsSessionResourceNotFoundRunError(betamanagedagentssessionresourcenotfoundrunerror) {
+		u.BetaManagedAgentsSessionResourceNotFoundRunError = &betamanagedagentssessionresourcenotfoundrunerror
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
+	}
+	var betamanagedagentsworkspacearchivedrunerror BetaManagedAgentsWorkspaceArchivedRunError
+	if err := json.Unmarshal(data, &betamanagedagentsworkspacearchivedrunerror); err == nil && isNonEmptyBetaManagedAgentsRunErrorBetaManagedAgentsWorkspaceArchivedRunError(betamanagedagentsworkspacearchivedrunerror) {
+		u.BetaManagedAgentsWorkspaceArchivedRunError = &betamanagedagentsworkspacearchivedrunerror
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
+	}
+	var betamanagedagentsorganizationdisabledrunerror BetaManagedAgentsOrganizationDisabledRunError
+	if err := json.Unmarshal(data, &betamanagedagentsorganizationdisabledrunerror); err == nil && isNonEmptyBetaManagedAgentsRunErrorBetaManagedAgentsOrganizationDisabledRunError(betamanagedagentsorganizationdisabledrunerror) {
+		u.BetaManagedAgentsOrganizationDisabledRunError = &betamanagedagentsorganizationdisabledrunerror
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
+	}
+	var betamanagedagentssessionratelimitedrunerror BetaManagedAgentsSessionRateLimitedRunError
+	if err := json.Unmarshal(data, &betamanagedagentssessionratelimitedrunerror); err == nil && isNonEmptyBetaManagedAgentsRunErrorBetaManagedAgentsSessionRateLimitedRunError(betamanagedagentssessionratelimitedrunerror) {
+		u.BetaManagedAgentsSessionRateLimitedRunError = &betamanagedagentssessionratelimitedrunerror
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
+	}
+	var betamanagedagentssessioncreationrejectedrunerror BetaManagedAgentsSessionCreationRejectedRunError
+	if err := json.Unmarshal(data, &betamanagedagentssessioncreationrejectedrunerror); err == nil && isNonEmptyBetaManagedAgentsRunErrorBetaManagedAgentsSessionCreationRejectedRunError(betamanagedagentssessioncreationrejectedrunerror) {
+		u.BetaManagedAgentsSessionCreationRejectedRunError = &betamanagedagentssessioncreationrejectedrunerror
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
+	}
+	var betamanagedagentsunknownrunerror BetaManagedAgentsUnknownRunError
+	if err := json.Unmarshal(data, &betamanagedagentsunknownrunerror); err == nil && isNonEmptyBetaManagedAgentsRunErrorBetaManagedAgentsUnknownRunError(betamanagedagentsunknownrunerror) {
+		u.BetaManagedAgentsUnknownRunError = &betamanagedagentsunknownrunerror
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
+	}
+	var betamanagedagentsselfhostedresourcesunsupportedrunerror BetaManagedAgentsSelfHostedResourcesUnsupportedRunError
+	if err := json.Unmarshal(data, &betamanagedagentsselfhostedresourcesunsupportedrunerror); err == nil && isNonEmptyBetaManagedAgentsRunErrorBetaManagedAgentsSelfHostedResourcesUnsupportedRunError(betamanagedagentsselfhostedresourcesunsupportedrunerror) {
+		u.BetaManagedAgentsSelfHostedResourcesUnsupportedRunError = &betamanagedagentsselfhostedresourcesunsupportedrunerror
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
+	}
+	var betamanagedagentsmcpegressblockedrunerror BetaManagedAgentsMcpEgressBlockedRunError
+	if err := json.Unmarshal(data, &betamanagedagentsmcpegressblockedrunerror); err == nil && isNonEmptyBetaManagedAgentsRunErrorBetaManagedAgentsMcpEgressBlockedRunError(betamanagedagentsmcpegressblockedrunerror) {
+		u.BetaManagedAgentsMcpEgressBlockedRunError = &betamanagedagentsmcpegressblockedrunerror
 		return nil
 	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
 		refusal = err
@@ -512,9 +334,54 @@ func (u *BetaManagedAgentsSessionMultiagent) UnmarshalJSON(data []byte) error {
 	return refusal
 }
 
-func (u BetaManagedAgentsSessionMultiagent) MarshalJSON() ([]byte, error) {
-	if u.BetaManagedAgentsSessionMultiagentCoordinator != nil {
-		return json.Marshal(u.BetaManagedAgentsSessionMultiagentCoordinator)
+func (u BetaManagedAgentsRunError) MarshalJSON() ([]byte, error) {
+	if u.BetaManagedAgentsEnvironmentArchivedRunError != nil {
+		return json.Marshal(u.BetaManagedAgentsEnvironmentArchivedRunError)
+	}
+	if u.BetaManagedAgentsAgentArchivedRunError != nil {
+		return json.Marshal(u.BetaManagedAgentsAgentArchivedRunError)
+	}
+	if u.BetaManagedAgentsEnvironmentNotFoundRunError != nil {
+		return json.Marshal(u.BetaManagedAgentsEnvironmentNotFoundRunError)
+	}
+	if u.BetaManagedAgentsVaultNotFoundRunError != nil {
+		return json.Marshal(u.BetaManagedAgentsVaultNotFoundRunError)
+	}
+	if u.BetaManagedAgentsVaultArchivedRunError != nil {
+		return json.Marshal(u.BetaManagedAgentsVaultArchivedRunError)
+	}
+	if u.BetaManagedAgentsFileNotFoundRunError != nil {
+		return json.Marshal(u.BetaManagedAgentsFileNotFoundRunError)
+	}
+	if u.BetaManagedAgentsMemoryStoreArchivedRunError != nil {
+		return json.Marshal(u.BetaManagedAgentsMemoryStoreArchivedRunError)
+	}
+	if u.BetaManagedAgentsSkillNotFoundRunError != nil {
+		return json.Marshal(u.BetaManagedAgentsSkillNotFoundRunError)
+	}
+	if u.BetaManagedAgentsSessionResourceNotFoundRunError != nil {
+		return json.Marshal(u.BetaManagedAgentsSessionResourceNotFoundRunError)
+	}
+	if u.BetaManagedAgentsWorkspaceArchivedRunError != nil {
+		return json.Marshal(u.BetaManagedAgentsWorkspaceArchivedRunError)
+	}
+	if u.BetaManagedAgentsOrganizationDisabledRunError != nil {
+		return json.Marshal(u.BetaManagedAgentsOrganizationDisabledRunError)
+	}
+	if u.BetaManagedAgentsSessionRateLimitedRunError != nil {
+		return json.Marshal(u.BetaManagedAgentsSessionRateLimitedRunError)
+	}
+	if u.BetaManagedAgentsSessionCreationRejectedRunError != nil {
+		return json.Marshal(u.BetaManagedAgentsSessionCreationRejectedRunError)
+	}
+	if u.BetaManagedAgentsUnknownRunError != nil {
+		return json.Marshal(u.BetaManagedAgentsUnknownRunError)
+	}
+	if u.BetaManagedAgentsSelfHostedResourcesUnsupportedRunError != nil {
+		return json.Marshal(u.BetaManagedAgentsSelfHostedResourcesUnsupportedRunError)
+	}
+	if u.BetaManagedAgentsMcpEgressBlockedRunError != nil {
+		return json.Marshal(u.BetaManagedAgentsMcpEgressBlockedRunError)
 	}
 	if u.Unknown != nil {
 		return u.Unknown, nil
@@ -522,178 +389,334 @@ func (u BetaManagedAgentsSessionMultiagent) MarshalJSON() ([]byte, error) {
 	return []byte("null"), nil
 }
 
-func isNonEmptyBetaManagedAgentsSessionMultiagentBetaManagedAgentsSessionMultiagentCoordinator(v BetaManagedAgentsSessionMultiagentCoordinator) bool {
+func isNonEmptyBetaManagedAgentsRunErrorBetaManagedAgentsEnvironmentArchivedRunError(v BetaManagedAgentsEnvironmentArchivedRunError) bool {
 	b, _ := json.Marshal(v)
 	return string(b) != "{}" && string(b) != "null"
 }
 
-// UnmarshalBetaManagedAgentsSessionMultiagent converts an untyped value to BetaManagedAgentsSessionMultiagent.
-func UnmarshalBetaManagedAgentsSessionMultiagent(v any) BetaManagedAgentsSessionMultiagent {
+func isNonEmptyBetaManagedAgentsRunErrorBetaManagedAgentsAgentArchivedRunError(v BetaManagedAgentsAgentArchivedRunError) bool {
 	b, _ := json.Marshal(v)
-	var result BetaManagedAgentsSessionMultiagent
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsRunErrorBetaManagedAgentsEnvironmentNotFoundRunError(v BetaManagedAgentsEnvironmentNotFoundRunError) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsRunErrorBetaManagedAgentsVaultNotFoundRunError(v BetaManagedAgentsVaultNotFoundRunError) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsRunErrorBetaManagedAgentsVaultArchivedRunError(v BetaManagedAgentsVaultArchivedRunError) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsRunErrorBetaManagedAgentsFileNotFoundRunError(v BetaManagedAgentsFileNotFoundRunError) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsRunErrorBetaManagedAgentsMemoryStoreArchivedRunError(v BetaManagedAgentsMemoryStoreArchivedRunError) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsRunErrorBetaManagedAgentsSkillNotFoundRunError(v BetaManagedAgentsSkillNotFoundRunError) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsRunErrorBetaManagedAgentsSessionResourceNotFoundRunError(v BetaManagedAgentsSessionResourceNotFoundRunError) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsRunErrorBetaManagedAgentsWorkspaceArchivedRunError(v BetaManagedAgentsWorkspaceArchivedRunError) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsRunErrorBetaManagedAgentsOrganizationDisabledRunError(v BetaManagedAgentsOrganizationDisabledRunError) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsRunErrorBetaManagedAgentsSessionRateLimitedRunError(v BetaManagedAgentsSessionRateLimitedRunError) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsRunErrorBetaManagedAgentsSessionCreationRejectedRunError(v BetaManagedAgentsSessionCreationRejectedRunError) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsRunErrorBetaManagedAgentsUnknownRunError(v BetaManagedAgentsUnknownRunError) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsRunErrorBetaManagedAgentsSelfHostedResourcesUnsupportedRunError(v BetaManagedAgentsSelfHostedResourcesUnsupportedRunError) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsRunErrorBetaManagedAgentsMcpEgressBlockedRunError(v BetaManagedAgentsMcpEgressBlockedRunError) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+// UnmarshalBetaManagedAgentsRunError converts an untyped value to BetaManagedAgentsRunError.
+func UnmarshalBetaManagedAgentsRunError(v any) BetaManagedAgentsRunError {
+	b, _ := json.Marshal(v)
+	var result BetaManagedAgentsRunError
 	_ = json.Unmarshal(b, &result)
 	return result
 }
 
-// BetaManagedAgentsSessionMultiagentCoordinator Resolved coordinator topology with full agent definitions for each roster member.
-type BetaManagedAgentsSessionMultiagentCoordinator struct {
-	// Type Required enumerated value serialized in the `type` wire field.
-	Type BetaManagedAgentsSessionMultiagentCoordinatorTypeEnum `json:"type"`
-	// Agents Full `agent` definitions the coordinator may spawn as session threads.
-	Agents []BetaManagedAgentsSessionRosterEntry `json:"agents"`
+// BetaManagedAgentsSchedule represents a union type.
+type BetaManagedAgentsSchedule struct {
+	BetaManagedAgentsCronSchedule *BetaManagedAgentsCronSchedule
+
+	// Unknown holds a member whose type names no branch this SDK knows, as received.
+	Unknown json.RawMessage
 }
 
-func (value *BetaManagedAgentsSessionMultiagentCoordinator) UnmarshalJSON(data []byte) error {
+func (u *BetaManagedAgentsSchedule) UnmarshalJSON(data []byte) error {
+	*u = BetaManagedAgentsSchedule{}
+	var refusal error
+	var object map[string]json.RawMessage
+	if err := json.Unmarshal(data, &object); err == nil {
+		if rawDiscriminator, ok := object["type"]; ok {
+			var discriminatorValue string
+			if err := json.Unmarshal(rawDiscriminator, &discriminatorValue); err == nil {
+				switch discriminatorValue {
+				case "cron":
+					var betamanagedagentscronschedule BetaManagedAgentsCronSchedule
+					if err := json.Unmarshal(data, &betamanagedagentscronschedule); err != nil {
+						return err
+					}
+					u.BetaManagedAgentsCronSchedule = &betamanagedagentscronschedule
+					return nil
+				default:
+					u.Unknown = append(json.RawMessage(nil), data...)
+					return nil
+				}
+			}
+		}
+	}
+	var betamanagedagentscronschedule BetaManagedAgentsCronSchedule
+	if err := json.Unmarshal(data, &betamanagedagentscronschedule); err == nil && isNonEmptyBetaManagedAgentsScheduleBetaManagedAgentsCronSchedule(betamanagedagentscronschedule) {
+		u.BetaManagedAgentsCronSchedule = &betamanagedagentscronschedule
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
+	}
+	return refusal
+}
+
+func (u BetaManagedAgentsSchedule) MarshalJSON() ([]byte, error) {
+	if u.BetaManagedAgentsCronSchedule != nil {
+		return json.Marshal(u.BetaManagedAgentsCronSchedule)
+	}
+	if u.Unknown != nil {
+		return u.Unknown, nil
+	}
+	return []byte("null"), nil
+}
+
+func isNonEmptyBetaManagedAgentsScheduleBetaManagedAgentsCronSchedule(v BetaManagedAgentsCronSchedule) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+// UnmarshalBetaManagedAgentsSchedule converts an untyped value to BetaManagedAgentsSchedule.
+func UnmarshalBetaManagedAgentsSchedule(v any) BetaManagedAgentsSchedule {
+	b, _ := json.Marshal(v)
+	var result BetaManagedAgentsSchedule
+	_ = json.Unmarshal(b, &result)
+	return result
+}
+
+// BetaManagedAgentsScheduleParams represents a union type.
+type BetaManagedAgentsScheduleParams struct {
+	BetaManagedAgentsCronScheduleParams *BetaManagedAgentsCronScheduleParams
+
+	// Unknown holds a member whose type names no branch this SDK knows, as received.
+	Unknown json.RawMessage
+}
+
+func (u *BetaManagedAgentsScheduleParams) UnmarshalJSON(data []byte) error {
+	*u = BetaManagedAgentsScheduleParams{}
+	var refusal error
+	var object map[string]json.RawMessage
+	if err := json.Unmarshal(data, &object); err == nil {
+		if rawDiscriminator, ok := object["type"]; ok {
+			var discriminatorValue string
+			if err := json.Unmarshal(rawDiscriminator, &discriminatorValue); err == nil {
+				switch discriminatorValue {
+				case "cron":
+					var betamanagedagentscronscheduleparams BetaManagedAgentsCronScheduleParams
+					if err := json.Unmarshal(data, &betamanagedagentscronscheduleparams); err != nil {
+						return err
+					}
+					u.BetaManagedAgentsCronScheduleParams = &betamanagedagentscronscheduleparams
+					return nil
+				default:
+					u.Unknown = append(json.RawMessage(nil), data...)
+					return nil
+				}
+			}
+		}
+	}
+	var betamanagedagentscronscheduleparams BetaManagedAgentsCronScheduleParams
+	if err := json.Unmarshal(data, &betamanagedagentscronscheduleparams); err == nil && isNonEmptyBetaManagedAgentsScheduleParamsBetaManagedAgentsCronScheduleParams(betamanagedagentscronscheduleparams) {
+		u.BetaManagedAgentsCronScheduleParams = &betamanagedagentscronscheduleparams
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
+	}
+	return refusal
+}
+
+func (u BetaManagedAgentsScheduleParams) MarshalJSON() ([]byte, error) {
+	if u.BetaManagedAgentsCronScheduleParams != nil {
+		return json.Marshal(u.BetaManagedAgentsCronScheduleParams)
+	}
+	if u.Unknown != nil {
+		return u.Unknown, nil
+	}
+	return []byte("null"), nil
+}
+
+func isNonEmptyBetaManagedAgentsScheduleParamsBetaManagedAgentsCronScheduleParams(v BetaManagedAgentsCronScheduleParams) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+// UnmarshalBetaManagedAgentsScheduleParams converts an untyped value to BetaManagedAgentsScheduleParams.
+func UnmarshalBetaManagedAgentsScheduleParams(v any) BetaManagedAgentsScheduleParams {
+	b, _ := json.Marshal(v)
+	var result BetaManagedAgentsScheduleParams
+	_ = json.Unmarshal(b, &result)
+	return result
+}
+
+// BetaManagedAgentsScheduleTriggerContext The run was fired by the deployment's cron schedule.
+type BetaManagedAgentsScheduleTriggerContext struct {
+	// Type Required enumerated value serialized in the `type` wire field.
+	Type BetaManagedAgentsScheduleTriggerContextTypeEnum `json:"type"`
+	// ScheduledAt The UTC instant at which the cron expression matched in the configured timezone, before jitter is applied. At most one run is recorded per (`deployment_id`, `scheduled_at`) pair.
+	ScheduledAt string `json:"scheduled_at"`
+}
+
+func (value *BetaManagedAgentsScheduleTriggerContext) UnmarshalJSON(data []byte) error {
 	var rawFields map[string]json.RawMessage
 	if err := json.Unmarshal(data, &rawFields); err != nil {
 		return err
 	}
-	if err := ValidateRawEnum("type", rawFields["type"], []string{"coordinator"}); err != nil {
+	if err := ValidateRawEnum("type", rawFields["type"], []string{"schedule"}); err != nil {
 		return err
 	}
-	type BetaManagedAgentsSessionMultiagentCoordinatorAlias BetaManagedAgentsSessionMultiagentCoordinator
-	var decoded BetaManagedAgentsSessionMultiagentCoordinatorAlias
+	type BetaManagedAgentsScheduleTriggerContextAlias BetaManagedAgentsScheduleTriggerContext
+	var decoded BetaManagedAgentsScheduleTriggerContextAlias
 	if err := json.Unmarshal(data, &decoded); err != nil {
 		return err
 	}
-	*value = BetaManagedAgentsSessionMultiagentCoordinator(decoded)
-	if err := ValidateRequired(rawFields, []string{"type", "agents"}); err != nil {
+	*value = BetaManagedAgentsScheduleTriggerContext(decoded)
+	if err := ValidateRequired(rawFields, []string{"type", "scheduled_at"}); err != nil {
 		return err
 	}
-	if err := ValidateNotNull(rawFields, []string{"type", "agents"}); err != nil {
+	if err := ValidateNotNull(rawFields, []string{"type", "scheduled_at"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-// NewBetaManagedAgentsSessionMultiagentCoordinator returns a validated BetaManagedAgentsSessionMultiagentCoordinator built from named fields.
+// NewBetaManagedAgentsScheduleTriggerContext returns a validated BetaManagedAgentsScheduleTriggerContext built from named fields.
 // Optional fields may be left unset; a value that violates the schema is
 // reported as *SdkValidationError.
-func NewBetaManagedAgentsSessionMultiagentCoordinator(fields BetaManagedAgentsSessionMultiagentCoordinator) (*BetaManagedAgentsSessionMultiagentCoordinator, error) {
+func NewBetaManagedAgentsScheduleTriggerContext(fields BetaManagedAgentsScheduleTriggerContext) (*BetaManagedAgentsScheduleTriggerContext, error) {
 	return ConstructModel(fields)
 }
 
-// BetaManagedAgentsSessionMultiagentCoordinatorTypeEnum Required enumerated value serialized in the `type` wire field.
-type BetaManagedAgentsSessionMultiagentCoordinatorTypeEnum string
+// BetaManagedAgentsScheduleTriggerContextTypeEnum Required enumerated value serialized in the `type` wire field.
+type BetaManagedAgentsScheduleTriggerContextTypeEnum string
 
 const (
-	BetaManagedAgentsSessionMultiagentCoordinatorTypeEnumCoordinator BetaManagedAgentsSessionMultiagentCoordinatorTypeEnum = "coordinator"
+	BetaManagedAgentsScheduleTriggerContextTypeEnumSchedule BetaManagedAgentsScheduleTriggerContextTypeEnum = "schedule"
 )
 
-func (value *BetaManagedAgentsSessionMultiagentCoordinatorTypeEnum) UnmarshalJSON(data []byte) error {
+func (value *BetaManagedAgentsScheduleTriggerContextTypeEnum) UnmarshalJSON(data []byte) error {
 	var raw string
 	if err := json.Unmarshal(data, &raw); err != nil {
 		return err
 	}
 	switch raw {
-	case "coordinator":
-		*value = BetaManagedAgentsSessionMultiagentCoordinatorTypeEnum(raw)
+	case "schedule":
+		*value = BetaManagedAgentsScheduleTriggerContextTypeEnum(raw)
 		return nil
 	default:
-		return &SdkValidationError{Field: "BetaManagedAgentsSessionMultiagentCoordinatorTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsSessionMultiagentCoordinatorTypeEnum: %v", raw)}
+		return &SdkValidationError{Field: "BetaManagedAgentsScheduleTriggerContextTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsScheduleTriggerContextTypeEnum: %v", raw)}
 	}
 }
 
-// BetaManagedAgentsSessionRateLimitedRunError Session creation was rejected due to rate limiting. The schedule keeps firing; subsequent runs may succeed.
-type BetaManagedAgentsSessionRateLimitedRunError struct {
+// BetaManagedAgentsSearchResultBlock A block containing a web search result.
+type BetaManagedAgentsSearchResultBlock struct {
 	// Type Required enumerated value serialized in the `type` wire field.
-	Type BetaManagedAgentsSessionRateLimitedRunErrorTypeEnum `json:"type"`
-	// Message Human-readable error description.
-	Message string `json:"message"`
+	Type BetaManagedAgentsSearchResultBlockTypeEnum `json:"type"`
+	// Source The URL source of the search result.
+	Source string `json:"source"`
+	// Title The title of the search result.
+	Title string `json:"title"`
+	// Content Array of text content blocks from the search result.
+	Content []BetaManagedAgentsSearchResultContent `json:"content"`
+	// Citations Citation settings for this search result.
+	Citations BetaManagedAgentsSearchResultCitations `json:"citations"`
 }
 
-func (value *BetaManagedAgentsSessionRateLimitedRunError) UnmarshalJSON(data []byte) error {
+func (value *BetaManagedAgentsSearchResultBlock) UnmarshalJSON(data []byte) error {
 	var rawFields map[string]json.RawMessage
 	if err := json.Unmarshal(data, &rawFields); err != nil {
 		return err
 	}
-	if err := ValidateRawEnum("type", rawFields["type"], []string{"session_rate_limited_error"}); err != nil {
+	if err := ValidateRawEnum("type", rawFields["type"], []string{"search_result"}); err != nil {
 		return err
 	}
-	type BetaManagedAgentsSessionRateLimitedRunErrorAlias BetaManagedAgentsSessionRateLimitedRunError
-	var decoded BetaManagedAgentsSessionRateLimitedRunErrorAlias
+	type BetaManagedAgentsSearchResultBlockAlias BetaManagedAgentsSearchResultBlock
+	var decoded BetaManagedAgentsSearchResultBlockAlias
 	if err := json.Unmarshal(data, &decoded); err != nil {
 		return err
 	}
-	*value = BetaManagedAgentsSessionRateLimitedRunError(decoded)
-	if err := ValidateRequired(rawFields, []string{"type", "message"}); err != nil {
+	*value = BetaManagedAgentsSearchResultBlock(decoded)
+	if err := ValidateRequired(rawFields, []string{"type", "source", "title", "content", "citations"}); err != nil {
 		return err
 	}
-	if err := ValidateNotNull(rawFields, []string{"type", "message"}); err != nil {
+	if err := ValidateNotNull(rawFields, []string{"type", "source", "title", "content", "citations"}); err != nil {
+		return err
+	}
+	if err := ValidateLength("source", value.Source, LengthOpts{Min: Ptr[int](1)}); err != nil {
+		return err
+	}
+	if err := ValidateLength("title", value.Title, LengthOpts{Min: Ptr[int](1)}); err != nil {
 		return err
 	}
 	return nil
 }
 
-// NewBetaManagedAgentsSessionRateLimitedRunError returns a validated BetaManagedAgentsSessionRateLimitedRunError built from named fields.
+// NewBetaManagedAgentsSearchResultBlock returns a validated BetaManagedAgentsSearchResultBlock built from named fields.
 // Optional fields may be left unset; a value that violates the schema is
 // reported as *SdkValidationError.
-func NewBetaManagedAgentsSessionRateLimitedRunError(fields BetaManagedAgentsSessionRateLimitedRunError) (*BetaManagedAgentsSessionRateLimitedRunError, error) {
+func NewBetaManagedAgentsSearchResultBlock(fields BetaManagedAgentsSearchResultBlock) (*BetaManagedAgentsSearchResultBlock, error) {
 	return ConstructModel(fields)
 }
 
-// BetaManagedAgentsSessionRateLimitedRunErrorTypeEnum Required enumerated value serialized in the `type` wire field.
-type BetaManagedAgentsSessionRateLimitedRunErrorTypeEnum string
+// BetaManagedAgentsSearchResultBlockTypeEnum Required enumerated value serialized in the `type` wire field.
+type BetaManagedAgentsSearchResultBlockTypeEnum string
 
 const (
-	BetaManagedAgentsSessionRateLimitedRunErrorTypeEnumSessionRateLimitedError BetaManagedAgentsSessionRateLimitedRunErrorTypeEnum = "session_rate_limited_error"
-)
-
-func (value *BetaManagedAgentsSessionRateLimitedRunErrorTypeEnum) UnmarshalJSON(data []byte) error {
-	var raw string
-	if err := json.Unmarshal(data, &raw); err != nil {
-		return err
-	}
-	switch raw {
-	case "session_rate_limited_error":
-		*value = BetaManagedAgentsSessionRateLimitedRunErrorTypeEnum(raw)
-		return nil
-	default:
-		return &SdkValidationError{Field: "BetaManagedAgentsSessionRateLimitedRunErrorTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsSessionRateLimitedRunErrorTypeEnum: %v", raw)}
-	}
-}
-
-// BetaManagedAgentsSessionRequiresAction The agent is idle waiting on one or more blocking user-input events (tool confirmation, custom tool result, etc.). Resolving all of them transitions the session back to running.
-type BetaManagedAgentsSessionRequiresAction struct {
-	// Type Required enumerated value serialized in the `type` wire field.
-	Type BetaManagedAgentsSessionRequiresActionTypeEnum `json:"type"`
-	// EventIds The ids of events the agent is blocked on. Resolving fewer than all re-emits `session.status_idle` with the remainder.
-	EventIds []string `json:"event_ids"`
-}
-
-func (value *BetaManagedAgentsSessionRequiresAction) UnmarshalJSON(data []byte) error {
-	var rawFields map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawFields); err != nil {
-		return err
-	}
-	if err := ValidateRawEnum("type", rawFields["type"], []string{"requires_action"}); err != nil {
-		return err
-	}
-	type BetaManagedAgentsSessionRequiresActionAlias BetaManagedAgentsSessionRequiresAction
-	var decoded BetaManagedAgentsSessionRequiresActionAlias
-	if err := json.Unmarshal(data, &decoded); err != nil {
-		return err
-	}
-	*value = BetaManagedAgentsSessionRequiresAction(decoded)
-	if err := ValidateRequired(rawFields, []string{"type", "event_ids"}); err != nil {
-		return err
-	}
-	if err := ValidateNotNull(rawFields, []string{"type", "event_ids"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-// NewBetaManagedAgentsSessionRequiresAction returns a validated BetaManagedAgentsSessionRequiresAction built from named fields.
-// Optional fields may be left unset; a value that violates the schema is
-// reported as *SdkValidationError.
-func NewBetaManagedAgentsSessionRequiresAction(fields BetaManagedAgentsSessionRequiresAction) (*BetaManagedAgentsSessionRequiresAction, error) {
-	return ConstructModel(fields)
-}
-
-// BetaManagedAgentsSessionRequiresActionTypeEnum Required enumerated value serialized in the `type` wire field.
-type BetaManagedAgentsSessionRequiresActionTypeEnum string
-
-const (
-	BetaManagedAgentsSessionRequiresActionTypeEnumRequiresAction BetaManagedAgentsSessionRequiresActionTypeEnum = "requires_action"
+	BetaManagedAgentsSearchResultBlockTypeEnumSearchResult BetaManagedAgentsSearchResultBlockTypeEnum = "search_result"
 )

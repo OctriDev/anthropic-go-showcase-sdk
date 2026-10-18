@@ -276,6 +276,19 @@ type BetaRequestWebSearchToolResultBlockContent struct {
 func (u *BetaRequestWebSearchToolResultBlockContent) UnmarshalJSON(data []byte) error {
 	*u = BetaRequestWebSearchToolResultBlockContent{}
 	var refusal error
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 []BetaRequestWebSearchResultBlock
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.ListOfBetaRequestWebSearchResultBlock = &lossless0
+			return nil
+		}
+		var lossless1 BetaRequestWebSearchToolResultError
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaRequestWebSearchToolResultError = &lossless1
+			return nil
+		}
+	}
 	var listofbetarequestwebsearchresultblock []BetaRequestWebSearchResultBlock
 	if err := json.Unmarshal(data, &listofbetarequestwebsearchresultblock); err == nil && isNonEmptyBetaRequestWebSearchToolResultBlockContentListOfBetaRequestWebSearchResultBlock(listofbetarequestwebsearchresultblock) {
 		u.ListOfBetaRequestWebSearchResultBlock = &listofbetarequestwebsearchresultblock
@@ -403,6 +416,24 @@ func (u *BetaRequestWebSearchToolResultBlockCaller) UnmarshalJSON(data []byte) e
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaDirectCaller
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaDirectCaller = &lossless0
+			return nil
+		}
+		var lossless1 BetaServerToolCaller
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaServerToolCaller = &lossless1
+			return nil
+		}
+		var lossless2 BetaServerToolCaller20260120
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaServerToolCaller20260120 = &lossless2
+			return nil
+		}
+	}
 	var betadirectcaller BetaDirectCaller
 	if err := json.Unmarshal(data, &betadirectcaller); err == nil && isNonEmptyBetaRequestWebSearchToolResultBlockCallerBetaDirectCaller(betadirectcaller) {
 		u.BetaDirectCaller = &betadirectcaller
@@ -513,6 +544,24 @@ func (u *BetaRequestWebFetchToolResultBlockCaller) UnmarshalJSON(data []byte) er
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaDirectCaller
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaDirectCaller = &lossless0
+			return nil
+		}
+		var lossless1 BetaServerToolCaller
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaServerToolCaller = &lossless1
+			return nil
+		}
+		var lossless2 BetaServerToolCaller20260120
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaServerToolCaller20260120 = &lossless2
+			return nil
+		}
+	}
 	var betadirectcaller BetaDirectCaller
 	if err := json.Unmarshal(data, &betadirectcaller); err == nil && isNonEmptyBetaRequestWebFetchToolResultBlockCallerBetaDirectCaller(betadirectcaller) {
 		u.BetaDirectCaller = &betadirectcaller
@@ -615,6 +664,19 @@ func (u *BetaRequestWebFetchToolResultBlockContent) UnmarshalJSON(data []byte) e
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaRequestWebFetchToolResultError
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaRequestWebFetchToolResultError = &lossless0
+			return nil
+		}
+		var lossless1 BetaRequestWebFetchResultBlock
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaRequestWebFetchResultBlock = &lossless1
+			return nil
+		}
+	}
 	var betarequestwebfetchtoolresulterror BetaRequestWebFetchToolResultError
 	if err := json.Unmarshal(data, &betarequestwebfetchtoolresulterror); err == nil && isNonEmptyBetaRequestWebFetchToolResultBlockContentBetaRequestWebFetchToolResultError(betarequestwebfetchtoolresulterror) {
 		u.BetaRequestWebFetchToolResultError = &betarequestwebfetchtoolresulterror
@@ -648,17 +710,4 @@ func (u BetaRequestWebFetchToolResultBlockContent) MarshalJSON() ([]byte, error)
 func isNonEmptyBetaRequestWebFetchToolResultBlockContentBetaRequestWebFetchToolResultError(v BetaRequestWebFetchToolResultError) bool {
 	b, _ := json.Marshal(v)
 	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaRequestWebFetchToolResultBlockContentBetaRequestWebFetchResultBlock(v BetaRequestWebFetchResultBlock) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-// UnmarshalBetaRequestWebFetchToolResultBlockContent converts an untyped value to BetaRequestWebFetchToolResultBlockContent.
-func UnmarshalBetaRequestWebFetchToolResultBlockContent(v any) BetaRequestWebFetchToolResultBlockContent {
-	b, _ := json.Marshal(v)
-	var result BetaRequestWebFetchToolResultBlockContent
-	_ = json.Unmarshal(b, &result)
-	return result
 }

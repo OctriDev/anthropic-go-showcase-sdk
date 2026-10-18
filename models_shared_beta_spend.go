@@ -260,6 +260,34 @@ func (u *BetaSpendLimitScope) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaUserScope
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaUserScope = &lossless0
+			return nil
+		}
+		var lossless1 BetaSeatTierScope
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaSeatTierScope = &lossless1
+			return nil
+		}
+		var lossless2 BetaRbacGroupScope
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaRbacGroupScope = &lossless2
+			return nil
+		}
+		var lossless3 BetaOrgServiceScope
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.BetaOrgServiceScope = &lossless3
+			return nil
+		}
+		var lossless4 BetaOrganizationScope
+		if json.Unmarshal(data, &lossless4) == nil && keepsEveryKey(raw, lossless4) {
+			u.BetaOrganizationScope = &lossless4
+			return nil
+		}
+	}
 	var betauserscope BetaUserScope
 	if err := json.Unmarshal(data, &betauserscope); err == nil && isNonEmptyBetaSpendLimitScopeBetaUserScope(betauserscope) {
 		u.BetaUserScope = &betauserscope
@@ -416,6 +444,34 @@ func (u *BetaSpendSummarySource) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaUserScope
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaUserScope = &lossless0
+			return nil
+		}
+		var lossless1 BetaSeatTierScope
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaSeatTierScope = &lossless1
+			return nil
+		}
+		var lossless2 BetaRbacGroupScope
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaRbacGroupScope = &lossless2
+			return nil
+		}
+		var lossless3 BetaOrgServiceScope
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.BetaOrgServiceScope = &lossless3
+			return nil
+		}
+		var lossless4 BetaOrganizationScope
+		if json.Unmarshal(data, &lossless4) == nil && keepsEveryKey(raw, lossless4) {
+			u.BetaOrganizationScope = &lossless4
+			return nil
+		}
+	}
 	var betauserscope BetaUserScope
 	if err := json.Unmarshal(data, &betauserscope); err == nil && isNonEmptyBetaSpendSummarySourceBetaUserScope(betauserscope) {
 		u.BetaUserScope = &betauserscope
@@ -546,6 +602,19 @@ func (u *BetaSpendLimitIncreaseRequestSchemaResolvedBy) UnmarshalJSON(data []byt
 					return nil
 				}
 			}
+		}
+	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaUserActorSchema
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaUserActorSchema = &lossless0
+			return nil
+		}
+		var lossless1 BetaScopedApiKeyActorSchema
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaScopedApiKeyActorSchema = &lossless1
+			return nil
 		}
 	}
 	var betauseractorschema BetaUserActorSchema

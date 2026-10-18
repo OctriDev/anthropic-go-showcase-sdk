@@ -316,6 +316,39 @@ func (u *BetaMessageStreamEvent) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaMessageStartEvent
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaMessageStartEvent = &lossless0
+			return nil
+		}
+		var lossless1 BetaMessageDeltaEvent
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaMessageDeltaEvent = &lossless1
+			return nil
+		}
+		var lossless2 BetaMessageStopEvent
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaMessageStopEvent = &lossless2
+			return nil
+		}
+		var lossless3 BetaContentBlockStartEvent
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.BetaContentBlockStartEvent = &lossless3
+			return nil
+		}
+		var lossless4 BetaContentBlockDeltaEvent
+		if json.Unmarshal(data, &lossless4) == nil && keepsEveryKey(raw, lossless4) {
+			u.BetaContentBlockDeltaEvent = &lossless4
+			return nil
+		}
+		var lossless5 BetaContentBlockStopEvent
+		if json.Unmarshal(data, &lossless5) == nil && keepsEveryKey(raw, lossless5) {
+			u.BetaContentBlockStopEvent = &lossless5
+			return nil
+		}
+	}
 	var betamessagestartevent BetaMessageStartEvent
 	if err := json.Unmarshal(data, &betamessagestartevent); err == nil && isNonEmptyBetaMessageStreamEventBetaMessageStartEvent(betamessagestartevent) {
 		u.BetaMessageStartEvent = &betamessagestartevent

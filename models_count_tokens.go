@@ -417,6 +417,114 @@ func (u *CountMessageTokensParamsToolsItem) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 Tool
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.Tool = &lossless0
+			return nil
+		}
+		var lossless1 BashTool20250124
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BashTool20250124 = &lossless1
+			return nil
+		}
+		var lossless2 CodeExecutionTool20250522
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.CodeExecutionTool20250522 = &lossless2
+			return nil
+		}
+		var lossless3 CodeExecutionTool20250825
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.CodeExecutionTool20250825 = &lossless3
+			return nil
+		}
+		var lossless4 CodeExecutionTool20260120
+		if json.Unmarshal(data, &lossless4) == nil && keepsEveryKey(raw, lossless4) {
+			u.CodeExecutionTool20260120 = &lossless4
+			return nil
+		}
+		var lossless5 CodeExecutionTool20260521
+		if json.Unmarshal(data, &lossless5) == nil && keepsEveryKey(raw, lossless5) {
+			u.CodeExecutionTool20260521 = &lossless5
+			return nil
+		}
+		var lossless6 BrowserToolset20260801
+		if json.Unmarshal(data, &lossless6) == nil && keepsEveryKey(raw, lossless6) {
+			u.BrowserToolset20260801 = &lossless6
+			return nil
+		}
+		var lossless7 MemoryTool20250818
+		if json.Unmarshal(data, &lossless7) == nil && keepsEveryKey(raw, lossless7) {
+			u.MemoryTool20250818 = &lossless7
+			return nil
+		}
+		var lossless8 ComputerToolset20260801
+		if json.Unmarshal(data, &lossless8) == nil && keepsEveryKey(raw, lossless8) {
+			u.ComputerToolset20260801 = &lossless8
+			return nil
+		}
+		var lossless9 TextEditor20250124
+		if json.Unmarshal(data, &lossless9) == nil && keepsEveryKey(raw, lossless9) {
+			u.TextEditor20250124 = &lossless9
+			return nil
+		}
+		var lossless10 TextEditor20250429
+		if json.Unmarshal(data, &lossless10) == nil && keepsEveryKey(raw, lossless10) {
+			u.TextEditor20250429 = &lossless10
+			return nil
+		}
+		var lossless11 TextEditor20250728
+		if json.Unmarshal(data, &lossless11) == nil && keepsEveryKey(raw, lossless11) {
+			u.TextEditor20250728 = &lossless11
+			return nil
+		}
+		var lossless12 WebSearchTool20250305
+		if json.Unmarshal(data, &lossless12) == nil && keepsEveryKey(raw, lossless12) {
+			u.WebSearchTool20250305 = &lossless12
+			return nil
+		}
+		var lossless13 WebFetchTool20250910
+		if json.Unmarshal(data, &lossless13) == nil && keepsEveryKey(raw, lossless13) {
+			u.WebFetchTool20250910 = &lossless13
+			return nil
+		}
+		var lossless14 WebSearchTool20260209
+		if json.Unmarshal(data, &lossless14) == nil && keepsEveryKey(raw, lossless14) {
+			u.WebSearchTool20260209 = &lossless14
+			return nil
+		}
+		var lossless15 WebFetchTool20260209
+		if json.Unmarshal(data, &lossless15) == nil && keepsEveryKey(raw, lossless15) {
+			u.WebFetchTool20260209 = &lossless15
+			return nil
+		}
+		var lossless16 WebFetchTool20260309
+		if json.Unmarshal(data, &lossless16) == nil && keepsEveryKey(raw, lossless16) {
+			u.WebFetchTool20260309 = &lossless16
+			return nil
+		}
+		var lossless17 WebSearchTool20260318
+		if json.Unmarshal(data, &lossless17) == nil && keepsEveryKey(raw, lossless17) {
+			u.WebSearchTool20260318 = &lossless17
+			return nil
+		}
+		var lossless18 WebFetchTool20260318
+		if json.Unmarshal(data, &lossless18) == nil && keepsEveryKey(raw, lossless18) {
+			u.WebFetchTool20260318 = &lossless18
+			return nil
+		}
+		var lossless19 ToolSearchToolBM2520251119
+		if json.Unmarshal(data, &lossless19) == nil && keepsEveryKey(raw, lossless19) {
+			u.ToolSearchToolBM2520251119 = &lossless19
+			return nil
+		}
+		var lossless20 ToolSearchToolRegex20251119
+		if json.Unmarshal(data, &lossless20) == nil && keepsEveryKey(raw, lossless20) {
+			u.ToolSearchToolRegex20251119 = &lossless20
+			return nil
+		}
+	}
 	var tool Tool
 	if err := json.Unmarshal(data, &tool); err == nil && isNonEmptyCountMessageTokensParamsToolsItemTool(tool) {
 		u.Tool = &tool
@@ -632,94 +740,4 @@ func (u CountMessageTokensParamsToolsItem) MarshalJSON() ([]byte, error) {
 		return json.Marshal(u.ToolSearchToolRegex20251119)
 	}
 	return []byte("null"), nil
-}
-
-func isNonEmptyCountMessageTokensParamsToolsItemTool(v Tool) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyCountMessageTokensParamsToolsItemBashTool20250124(v BashTool20250124) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyCountMessageTokensParamsToolsItemCodeExecutionTool20250522(v CodeExecutionTool20250522) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyCountMessageTokensParamsToolsItemCodeExecutionTool20250825(v CodeExecutionTool20250825) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyCountMessageTokensParamsToolsItemCodeExecutionTool20260120(v CodeExecutionTool20260120) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyCountMessageTokensParamsToolsItemCodeExecutionTool20260521(v CodeExecutionTool20260521) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyCountMessageTokensParamsToolsItemBrowserToolset20260801(v BrowserToolset20260801) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyCountMessageTokensParamsToolsItemMemoryTool20250818(v MemoryTool20250818) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyCountMessageTokensParamsToolsItemComputerToolset20260801(v ComputerToolset20260801) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyCountMessageTokensParamsToolsItemTextEditor20250124(v TextEditor20250124) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyCountMessageTokensParamsToolsItemTextEditor20250429(v TextEditor20250429) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyCountMessageTokensParamsToolsItemTextEditor20250728(v TextEditor20250728) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyCountMessageTokensParamsToolsItemWebSearchTool20250305(v WebSearchTool20250305) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyCountMessageTokensParamsToolsItemWebFetchTool20250910(v WebFetchTool20250910) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyCountMessageTokensParamsToolsItemWebSearchTool20260209(v WebSearchTool20260209) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyCountMessageTokensParamsToolsItemWebFetchTool20260209(v WebFetchTool20260209) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyCountMessageTokensParamsToolsItemWebFetchTool20260309(v WebFetchTool20260309) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyCountMessageTokensParamsToolsItemWebSearchTool20260318(v WebSearchTool20260318) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
 }

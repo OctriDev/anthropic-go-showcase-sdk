@@ -358,6 +358,34 @@ func (u *BetaRequestTextBlockCitationsItem) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaRequestCharLocationCitation
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaRequestCharLocationCitation = &lossless0
+			return nil
+		}
+		var lossless1 BetaRequestPageLocationCitation
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaRequestPageLocationCitation = &lossless1
+			return nil
+		}
+		var lossless2 BetaRequestContentBlockLocationCitation
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaRequestContentBlockLocationCitation = &lossless2
+			return nil
+		}
+		var lossless3 BetaRequestWebSearchResultLocationCitation
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.BetaRequestWebSearchResultLocationCitation = &lossless3
+			return nil
+		}
+		var lossless4 BetaRequestSearchResultLocationCitation
+		if json.Unmarshal(data, &lossless4) == nil && keepsEveryKey(raw, lossless4) {
+			u.BetaRequestSearchResultLocationCitation = &lossless4
+			return nil
+		}
+	}
 	var betarequestcharlocationcitation BetaRequestCharLocationCitation
 	if err := json.Unmarshal(data, &betarequestcharlocationcitation); err == nil && isNonEmptyBetaRequestTextBlockCitationsItemBetaRequestCharLocationCitation(betarequestcharlocationcitation) {
 		u.BetaRequestCharLocationCitation = &betarequestcharlocationcitation
@@ -504,6 +532,29 @@ func (u *BetaRequestTextEditorCodeExecutionToolResultBlockContent) UnmarshalJSON
 					return nil
 				}
 			}
+		}
+	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaRequestTextEditorCodeExecutionToolResultError
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaRequestTextEditorCodeExecutionToolResultError = &lossless0
+			return nil
+		}
+		var lossless1 BetaRequestTextEditorCodeExecutionViewResultBlock
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaRequestTextEditorCodeExecutionViewResultBlock = &lossless1
+			return nil
+		}
+		var lossless2 BetaRequestTextEditorCodeExecutionCreateResultBlock
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaRequestTextEditorCodeExecutionCreateResultBlock = &lossless2
+			return nil
+		}
+		var lossless3 BetaRequestTextEditorCodeExecutionStrReplaceResultBlock
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.BetaRequestTextEditorCodeExecutionStrReplaceResultBlock = &lossless3
+			return nil
 		}
 	}
 	var betarequesttexteditorcodeexecutiontoolresulterror BetaRequestTextEditorCodeExecutionToolResultError

@@ -118,6 +118,24 @@ func (u *BetaRequestServerToolUseBlockCaller) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaDirectCaller
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaDirectCaller = &lossless0
+			return nil
+		}
+		var lossless1 BetaServerToolCaller
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaServerToolCaller = &lossless1
+			return nil
+		}
+		var lossless2 BetaServerToolCaller20260120
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaServerToolCaller20260120 = &lossless2
+			return nil
+		}
+	}
 	var betadirectcaller BetaDirectCaller
 	if err := json.Unmarshal(data, &betadirectcaller); err == nil && isNonEmptyBetaRequestServerToolUseBlockCallerBetaDirectCaller(betadirectcaller) {
 		u.BetaDirectCaller = &betadirectcaller

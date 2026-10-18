@@ -252,6 +252,19 @@ func (u *BetaApiKeyPrincipal) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaApiKeyUserActor
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaApiKeyUserActor = &lossless0
+			return nil
+		}
+		var lossless1 BetaApiKeyServiceAccountActor
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaApiKeyServiceAccountActor = &lossless1
+			return nil
+		}
+	}
 	var betaapikeyuseractor BetaApiKeyUserActor
 	if err := json.Unmarshal(data, &betaapikeyuseractor); err == nil && isNonEmptyBetaApiKeyPrincipalBetaApiKeyUserActor(betaapikeyuseractor) {
 		u.BetaApiKeyUserActor = &betaapikeyuseractor
@@ -337,6 +350,19 @@ func (u *BetaApiKeyScope) UnmarshalJSON(data []byte) error {
 					return nil
 				}
 			}
+		}
+	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaApiKeyOrganizationScope
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaApiKeyOrganizationScope = &lossless0
+			return nil
+		}
+		var lossless1 BetaApiKeyWorkspaceScope
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaApiKeyWorkspaceScope = &lossless1
+			return nil
 		}
 	}
 	var betaapikeyorganizationscope BetaApiKeyOrganizationScope

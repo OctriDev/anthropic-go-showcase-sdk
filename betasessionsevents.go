@@ -281,7 +281,7 @@ func StreamBetaSessionsEvents(ctx context.Context, clientConfig ClientConfig, pa
 	anthropicBeta := params.AnthropicBeta
 	anthropicWorkspaceId := params.AnthropicWorkspaceId
 
-	resp, err := DoUnionCfg[BetaManagedAgentsStreamSessionEvents](ctx, &clientConfig, "GET", fmt.Sprintf("/v1/sessions/%s/events/stream?beta=true", EncodePathSegment(sessionId)), &RequestOpts{
+	resp, err := DoCfg[BetaManagedAgentsStreamSessionEvents](ctx, &clientConfig, "GET", fmt.Sprintf("/v1/sessions/%s/events/stream?beta=true", EncodePathSegment(sessionId)), &RequestOpts{
 		Query: map[string]any{
 			"event_deltas[]": QueryValue{Value: eventDeltas, Style: "form", Explode: true},
 		},
@@ -293,7 +293,7 @@ func StreamBetaSessionsEvents(ctx context.Context, clientConfig ClientConfig, pa
 		OperationID: "StreamBetaSessionsEvents",
 		Errors:      ErrorDecoders{"400": decodeErrorData[BetaErrorResponse], "401": decodeErrorData[BetaErrorResponse], "403": decodeErrorData[BetaErrorResponse], "404": decodeErrorData[BetaErrorResponse], "408": decodeErrorData[BetaErrorResponse], "409": decodeErrorData[BetaErrorResponse], "412": decodeErrorData[BetaErrorResponse], "413": decodeErrorData[BetaErrorResponse], "429": decodeErrorData[BetaErrorResponse], "431": decodeErrorData[BetaErrorResponse], "499": decodeErrorData[BetaErrorResponse], "500": decodeErrorData[BetaErrorResponse], "501": decodeErrorData[BetaErrorResponse], "503": decodeErrorData[BetaErrorResponse], "504": decodeErrorData[BetaErrorResponse]},
 		Options:     opts,
-	}, UnmarshalBetaManagedAgentsStreamSessionEvents)
+	})
 	if err != nil {
 		return nil, err
 	}

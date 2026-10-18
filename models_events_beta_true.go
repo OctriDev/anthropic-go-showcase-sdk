@@ -87,6 +87,44 @@ func (u *BetaManagedAgentsEventParams) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaManagedAgentsUserMessageEventParams
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaManagedAgentsUserMessageEventParams = &lossless0
+			return nil
+		}
+		var lossless1 BetaManagedAgentsUserInterruptEventParams
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaManagedAgentsUserInterruptEventParams = &lossless1
+			return nil
+		}
+		var lossless2 BetaManagedAgentsUserToolConfirmationEventParams
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaManagedAgentsUserToolConfirmationEventParams = &lossless2
+			return nil
+		}
+		var lossless3 BetaManagedAgentsUserCustomToolResultEventParams
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.BetaManagedAgentsUserCustomToolResultEventParams = &lossless3
+			return nil
+		}
+		var lossless4 BetaManagedAgentsUserDefineOutcomeEventParams
+		if json.Unmarshal(data, &lossless4) == nil && keepsEveryKey(raw, lossless4) {
+			u.BetaManagedAgentsUserDefineOutcomeEventParams = &lossless4
+			return nil
+		}
+		var lossless5 BetaManagedAgentsUserToolResultEventParams
+		if json.Unmarshal(data, &lossless5) == nil && keepsEveryKey(raw, lossless5) {
+			u.BetaManagedAgentsUserToolResultEventParams = &lossless5
+			return nil
+		}
+		var lossless6 BetaManagedAgentsSystemMessageEventParams
+		if json.Unmarshal(data, &lossless6) == nil && keepsEveryKey(raw, lossless6) {
+			u.BetaManagedAgentsSystemMessageEventParams = &lossless6
+			return nil
+		}
+	}
 	var betamanagedagentsusermessageeventparams BetaManagedAgentsUserMessageEventParams
 	if err := json.Unmarshal(data, &betamanagedagentsusermessageeventparams); err == nil && isNonEmptyBetaManagedAgentsEventParamsBetaManagedAgentsUserMessageEventParams(betamanagedagentsusermessageeventparams) {
 		u.BetaManagedAgentsUserMessageEventParams = &betamanagedagentsusermessageeventparams
@@ -287,6 +325,44 @@ func (u *BetaManagedAgentsInputEvent) UnmarshalJSON(data []byte) error {
 					return nil
 				}
 			}
+		}
+	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaManagedAgentsUserMessageEvent
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaManagedAgentsUserMessageEvent = &lossless0
+			return nil
+		}
+		var lossless1 BetaManagedAgentsUserInterruptEvent
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaManagedAgentsUserInterruptEvent = &lossless1
+			return nil
+		}
+		var lossless2 BetaManagedAgentsUserToolConfirmationEvent
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaManagedAgentsUserToolConfirmationEvent = &lossless2
+			return nil
+		}
+		var lossless3 BetaManagedAgentsUserCustomToolResultEvent
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.BetaManagedAgentsUserCustomToolResultEvent = &lossless3
+			return nil
+		}
+		var lossless4 BetaManagedAgentsUserDefineOutcomeEvent
+		if json.Unmarshal(data, &lossless4) == nil && keepsEveryKey(raw, lossless4) {
+			u.BetaManagedAgentsUserDefineOutcomeEvent = &lossless4
+			return nil
+		}
+		var lossless5 BetaManagedAgentsUserToolResultEvent
+		if json.Unmarshal(data, &lossless5) == nil && keepsEveryKey(raw, lossless5) {
+			u.BetaManagedAgentsUserToolResultEvent = &lossless5
+			return nil
+		}
+		var lossless6 BetaManagedAgentsSystemMessageEvent
+		if json.Unmarshal(data, &lossless6) == nil && keepsEveryKey(raw, lossless6) {
+			u.BetaManagedAgentsSystemMessageEvent = &lossless6
+			return nil
 		}
 	}
 	var betamanagedagentsusermessageevent BetaManagedAgentsUserMessageEvent

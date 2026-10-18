@@ -77,6 +77,19 @@ func (u *BetaResponseContextManagementAppliedEditsItem) UnmarshalJSON(data []byt
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaResponseClearToolUses20250919Edit
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaResponseClearToolUses20250919Edit = &lossless0
+			return nil
+		}
+		var lossless1 BetaResponseClearThinking20251015Edit
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaResponseClearThinking20251015Edit = &lossless1
+			return nil
+		}
+	}
 	var betaresponsecleartooluses20250919edit BetaResponseClearToolUses20250919Edit
 	if err := json.Unmarshal(data, &betaresponsecleartooluses20250919edit); err == nil && isNonEmptyBetaResponseContextManagementAppliedEditsItemBetaResponseClearToolUses20250919Edit(betaresponsecleartooluses20250919edit) {
 		u.BetaResponseClearToolUses20250919Edit = &betaresponsecleartooluses20250919edit

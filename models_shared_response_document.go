@@ -83,6 +83,19 @@ func (u *ResponseDocumentBlockSource) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 Base64PDFSource
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.Base64PDFSource = &lossless0
+			return nil
+		}
+		var lossless1 PlainTextSource
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.PlainTextSource = &lossless1
+			return nil
+		}
+	}
 	var base64pdfsource Base64PDFSource
 	if err := json.Unmarshal(data, &base64pdfsource); err == nil && isNonEmptyResponseDocumentBlockSourceBase64PDFSource(base64pdfsource) {
 		u.Base64PDFSource = &base64pdfsource

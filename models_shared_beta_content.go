@@ -246,6 +246,94 @@ func (u *BetaContentBlock) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaResponseTextBlock
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaResponseTextBlock = &lossless0
+			return nil
+		}
+		var lossless1 BetaResponseThinkingBlock
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaResponseThinkingBlock = &lossless1
+			return nil
+		}
+		var lossless2 BetaResponseRedactedThinkingBlock
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaResponseRedactedThinkingBlock = &lossless2
+			return nil
+		}
+		var lossless3 BetaResponseToolUseBlock
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.BetaResponseToolUseBlock = &lossless3
+			return nil
+		}
+		var lossless4 BetaResponseServerToolUseBlock
+		if json.Unmarshal(data, &lossless4) == nil && keepsEveryKey(raw, lossless4) {
+			u.BetaResponseServerToolUseBlock = &lossless4
+			return nil
+		}
+		var lossless5 BetaResponseWebSearchToolResultBlock
+		if json.Unmarshal(data, &lossless5) == nil && keepsEveryKey(raw, lossless5) {
+			u.BetaResponseWebSearchToolResultBlock = &lossless5
+			return nil
+		}
+		var lossless6 BetaResponseWebFetchToolResultBlock
+		if json.Unmarshal(data, &lossless6) == nil && keepsEveryKey(raw, lossless6) {
+			u.BetaResponseWebFetchToolResultBlock = &lossless6
+			return nil
+		}
+		var lossless7 BetaResponseAdvisorToolResultBlock
+		if json.Unmarshal(data, &lossless7) == nil && keepsEveryKey(raw, lossless7) {
+			u.BetaResponseAdvisorToolResultBlock = &lossless7
+			return nil
+		}
+		var lossless8 BetaResponseCodeExecutionToolResultBlock
+		if json.Unmarshal(data, &lossless8) == nil && keepsEveryKey(raw, lossless8) {
+			u.BetaResponseCodeExecutionToolResultBlock = &lossless8
+			return nil
+		}
+		var lossless9 BetaResponseBashCodeExecutionToolResultBlock
+		if json.Unmarshal(data, &lossless9) == nil && keepsEveryKey(raw, lossless9) {
+			u.BetaResponseBashCodeExecutionToolResultBlock = &lossless9
+			return nil
+		}
+		var lossless10 BetaResponseTextEditorCodeExecutionToolResultBlock
+		if json.Unmarshal(data, &lossless10) == nil && keepsEveryKey(raw, lossless10) {
+			u.BetaResponseTextEditorCodeExecutionToolResultBlock = &lossless10
+			return nil
+		}
+		var lossless11 BetaResponseToolSearchToolResultBlock
+		if json.Unmarshal(data, &lossless11) == nil && keepsEveryKey(raw, lossless11) {
+			u.BetaResponseToolSearchToolResultBlock = &lossless11
+			return nil
+		}
+		var lossless12 BetaResponseMCPToolUseBlock
+		if json.Unmarshal(data, &lossless12) == nil && keepsEveryKey(raw, lossless12) {
+			u.BetaResponseMCPToolUseBlock = &lossless12
+			return nil
+		}
+		var lossless13 BetaResponseMCPToolResultBlock
+		if json.Unmarshal(data, &lossless13) == nil && keepsEveryKey(raw, lossless13) {
+			u.BetaResponseMCPToolResultBlock = &lossless13
+			return nil
+		}
+		var lossless14 BetaResponseContainerUploadBlock
+		if json.Unmarshal(data, &lossless14) == nil && keepsEveryKey(raw, lossless14) {
+			u.BetaResponseContainerUploadBlock = &lossless14
+			return nil
+		}
+		var lossless15 BetaResponseCompactionBlock
+		if json.Unmarshal(data, &lossless15) == nil && keepsEveryKey(raw, lossless15) {
+			u.BetaResponseCompactionBlock = &lossless15
+			return nil
+		}
+		var lossless16 BetaResponseFallbackBlock
+		if json.Unmarshal(data, &lossless16) == nil && keepsEveryKey(raw, lossless16) {
+			u.BetaResponseFallbackBlock = &lossless16
+			return nil
+		}
+	}
 	var betaresponsetextblock BetaResponseTextBlock
 	if err := json.Unmarshal(data, &betaresponsetextblock); err == nil && isNonEmptyBetaContentBlockBetaResponseTextBlock(betaresponsetextblock) {
 		u.BetaResponseTextBlock = &betaresponsetextblock
@@ -556,6 +644,19 @@ func (u *BetaContentBlockSourceContentItem) UnmarshalJSON(data []byte) error {
 					return nil
 				}
 			}
+		}
+	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaRequestTextBlock
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaRequestTextBlock = &lossless0
+			return nil
+		}
+		var lossless1 BetaRequestImageBlock
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaRequestImageBlock = &lossless1
+			return nil
 		}
 	}
 	var betarequesttextblock BetaRequestTextBlock

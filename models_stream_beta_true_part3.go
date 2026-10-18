@@ -5,6 +5,199 @@ package sdk
 
 import "encoding/json"
 
+func (u BetaManagedAgentsStreamSessionEvents) MarshalJSON() ([]byte, error) {
+	if u.BetaManagedAgentsUserMessageEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsUserMessageEvent)
+	}
+	if u.BetaManagedAgentsUserInterruptEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsUserInterruptEvent)
+	}
+	if u.BetaManagedAgentsUserToolConfirmationEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsUserToolConfirmationEvent)
+	}
+	if u.BetaManagedAgentsUserCustomToolResultEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsUserCustomToolResultEvent)
+	}
+	if u.BetaManagedAgentsAgentCustomToolUseEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsAgentCustomToolUseEvent)
+	}
+	if u.BetaManagedAgentsAgentMessageEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsAgentMessageEvent)
+	}
+	if u.BetaManagedAgentsAgentThinkingEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsAgentThinkingEvent)
+	}
+	if u.BetaManagedAgentsAgentMcpToolUseEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsAgentMcpToolUseEvent)
+	}
+	if u.BetaManagedAgentsAgentMcpToolResultEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsAgentMcpToolResultEvent)
+	}
+	if u.BetaManagedAgentsAgentToolUseEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsAgentToolUseEvent)
+	}
+	if u.BetaManagedAgentsAgentToolResultEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsAgentToolResultEvent)
+	}
+	if u.BetaManagedAgentsAgentThreadMessageReceivedEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsAgentThreadMessageReceivedEvent)
+	}
+	if u.BetaManagedAgentsAgentThreadMessageSentEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsAgentThreadMessageSentEvent)
+	}
+	if u.BetaManagedAgentsAgentThreadContextCompactedEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsAgentThreadContextCompactedEvent)
+	}
+	if u.BetaManagedAgentsSessionErrorEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSessionErrorEvent)
+	}
+	if u.BetaManagedAgentsSessionStatusRescheduledEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSessionStatusRescheduledEvent)
+	}
+	if u.BetaManagedAgentsSessionStatusRunningEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSessionStatusRunningEvent)
+	}
+	if u.BetaManagedAgentsSessionStatusIdleEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSessionStatusIdleEvent)
+	}
+	if u.BetaManagedAgentsSessionStatusTerminatedEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSessionStatusTerminatedEvent)
+	}
+	if u.BetaManagedAgentsSessionThreadCreatedEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSessionThreadCreatedEvent)
+	}
+	if u.BetaManagedAgentsSpanOutcomeEvaluationStartEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSpanOutcomeEvaluationStartEvent)
+	}
+	if u.BetaManagedAgentsSpanOutcomeEvaluationEndEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSpanOutcomeEvaluationEndEvent)
+	}
+	if u.BetaManagedAgentsSpanModelRequestStartEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSpanModelRequestStartEvent)
+	}
+	if u.BetaManagedAgentsSpanModelRequestEndEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSpanModelRequestEndEvent)
+	}
+	if u.BetaManagedAgentsSpanOutcomeEvaluationOngoingEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSpanOutcomeEvaluationOngoingEvent)
+	}
+	if u.BetaManagedAgentsUserDefineOutcomeEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsUserDefineOutcomeEvent)
+	}
+	if u.BetaManagedAgentsSessionDeletedEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSessionDeletedEvent)
+	}
+	if u.BetaManagedAgentsSessionThreadStatusRunningEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSessionThreadStatusRunningEvent)
+	}
+	if u.BetaManagedAgentsSessionThreadStatusIdleEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSessionThreadStatusIdleEvent)
+	}
+	if u.BetaManagedAgentsSessionThreadStatusTerminatedEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSessionThreadStatusTerminatedEvent)
+	}
+	if u.BetaManagedAgentsUserToolResultEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsUserToolResultEvent)
+	}
+	if u.BetaManagedAgentsSessionThreadStatusRescheduledEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSessionThreadStatusRescheduledEvent)
+	}
+	if u.BetaManagedAgentsSessionUpdatedEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSessionUpdatedEvent)
+	}
+	if u.BetaManagedAgentsEventStartEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsEventStartEvent)
+	}
+	if u.BetaManagedAgentsEventDeltaEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsEventDeltaEvent)
+	}
+	if u.BetaManagedAgentsSystemMessageEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSystemMessageEvent)
+	}
+	if u.BetaManagedAgentsSessionUsageEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSessionUsageEvent)
+	}
+	if u.Unknown != nil {
+		return u.Unknown, nil
+	}
+	return []byte("null"), nil
+}
+
+func isNonEmptyBetaManagedAgentsStreamSessionEventsBetaManagedAgentsUserMessageEvent(v BetaManagedAgentsUserMessageEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsStreamSessionEventsBetaManagedAgentsUserInterruptEvent(v BetaManagedAgentsUserInterruptEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsStreamSessionEventsBetaManagedAgentsUserToolConfirmationEvent(v BetaManagedAgentsUserToolConfirmationEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsStreamSessionEventsBetaManagedAgentsUserCustomToolResultEvent(v BetaManagedAgentsUserCustomToolResultEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsStreamSessionEventsBetaManagedAgentsAgentCustomToolUseEvent(v BetaManagedAgentsAgentCustomToolUseEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsStreamSessionEventsBetaManagedAgentsAgentMessageEvent(v BetaManagedAgentsAgentMessageEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsStreamSessionEventsBetaManagedAgentsAgentThinkingEvent(v BetaManagedAgentsAgentThinkingEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsStreamSessionEventsBetaManagedAgentsAgentMcpToolUseEvent(v BetaManagedAgentsAgentMcpToolUseEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsStreamSessionEventsBetaManagedAgentsAgentMcpToolResultEvent(v BetaManagedAgentsAgentMcpToolResultEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsStreamSessionEventsBetaManagedAgentsAgentToolUseEvent(v BetaManagedAgentsAgentToolUseEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsStreamSessionEventsBetaManagedAgentsAgentToolResultEvent(v BetaManagedAgentsAgentToolResultEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsStreamSessionEventsBetaManagedAgentsAgentThreadMessageReceivedEvent(v BetaManagedAgentsAgentThreadMessageReceivedEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsStreamSessionEventsBetaManagedAgentsAgentThreadMessageSentEvent(v BetaManagedAgentsAgentThreadMessageSentEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsStreamSessionEventsBetaManagedAgentsAgentThreadContextCompactedEvent(v BetaManagedAgentsAgentThreadContextCompactedEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsStreamSessionEventsBetaManagedAgentsSessionErrorEvent(v BetaManagedAgentsSessionErrorEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
 func isNonEmptyBetaManagedAgentsStreamSessionEventsBetaManagedAgentsSessionStatusRescheduledEvent(v BetaManagedAgentsSessionStatusRescheduledEvent) bool {
 	b, _ := json.Marshal(v)
 	return string(b) != "{}" && string(b) != "null"
@@ -165,541 +358,4 @@ type BetaManagedAgentsStreamSessionThreadEvents struct {
 
 	// Unknown holds a member whose type names no branch this SDK knows, as received.
 	Unknown json.RawMessage
-}
-
-func (u *BetaManagedAgentsStreamSessionThreadEvents) UnmarshalJSON(data []byte) error {
-	*u = BetaManagedAgentsStreamSessionThreadEvents{}
-	var refusal error
-	var object map[string]json.RawMessage
-	if err := json.Unmarshal(data, &object); err == nil {
-		if rawDiscriminator, ok := object["type"]; ok {
-			var discriminatorValue string
-			if err := json.Unmarshal(rawDiscriminator, &discriminatorValue); err == nil {
-				switch discriminatorValue {
-				case "user.message":
-					var betamanagedagentsusermessageevent BetaManagedAgentsUserMessageEvent
-					if err := json.Unmarshal(data, &betamanagedagentsusermessageevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsUserMessageEvent = &betamanagedagentsusermessageevent
-					return nil
-				case "user.interrupt":
-					var betamanagedagentsuserinterruptevent BetaManagedAgentsUserInterruptEvent
-					if err := json.Unmarshal(data, &betamanagedagentsuserinterruptevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsUserInterruptEvent = &betamanagedagentsuserinterruptevent
-					return nil
-				case "user.tool_confirmation":
-					var betamanagedagentsusertoolconfirmationevent BetaManagedAgentsUserToolConfirmationEvent
-					if err := json.Unmarshal(data, &betamanagedagentsusertoolconfirmationevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsUserToolConfirmationEvent = &betamanagedagentsusertoolconfirmationevent
-					return nil
-				case "user.custom_tool_result":
-					var betamanagedagentsusercustomtoolresultevent BetaManagedAgentsUserCustomToolResultEvent
-					if err := json.Unmarshal(data, &betamanagedagentsusercustomtoolresultevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsUserCustomToolResultEvent = &betamanagedagentsusercustomtoolresultevent
-					return nil
-				case "agent.custom_tool_use":
-					var betamanagedagentsagentcustomtooluseevent BetaManagedAgentsAgentCustomToolUseEvent
-					if err := json.Unmarshal(data, &betamanagedagentsagentcustomtooluseevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsAgentCustomToolUseEvent = &betamanagedagentsagentcustomtooluseevent
-					return nil
-				case "agent.message":
-					var betamanagedagentsagentmessageevent BetaManagedAgentsAgentMessageEvent
-					if err := json.Unmarshal(data, &betamanagedagentsagentmessageevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsAgentMessageEvent = &betamanagedagentsagentmessageevent
-					return nil
-				case "agent.thinking":
-					var betamanagedagentsagentthinkingevent BetaManagedAgentsAgentThinkingEvent
-					if err := json.Unmarshal(data, &betamanagedagentsagentthinkingevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsAgentThinkingEvent = &betamanagedagentsagentthinkingevent
-					return nil
-				case "agent.mcp_tool_use":
-					var betamanagedagentsagentmcptooluseevent BetaManagedAgentsAgentMcpToolUseEvent
-					if err := json.Unmarshal(data, &betamanagedagentsagentmcptooluseevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsAgentMcpToolUseEvent = &betamanagedagentsagentmcptooluseevent
-					return nil
-				case "agent.mcp_tool_result":
-					var betamanagedagentsagentmcptoolresultevent BetaManagedAgentsAgentMcpToolResultEvent
-					if err := json.Unmarshal(data, &betamanagedagentsagentmcptoolresultevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsAgentMcpToolResultEvent = &betamanagedagentsagentmcptoolresultevent
-					return nil
-				case "agent.tool_use":
-					var betamanagedagentsagenttooluseevent BetaManagedAgentsAgentToolUseEvent
-					if err := json.Unmarshal(data, &betamanagedagentsagenttooluseevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsAgentToolUseEvent = &betamanagedagentsagenttooluseevent
-					return nil
-				case "agent.tool_result":
-					var betamanagedagentsagenttoolresultevent BetaManagedAgentsAgentToolResultEvent
-					if err := json.Unmarshal(data, &betamanagedagentsagenttoolresultevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsAgentToolResultEvent = &betamanagedagentsagenttoolresultevent
-					return nil
-				case "agent.thread_message_received":
-					var betamanagedagentsagentthreadmessagereceivedevent BetaManagedAgentsAgentThreadMessageReceivedEvent
-					if err := json.Unmarshal(data, &betamanagedagentsagentthreadmessagereceivedevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsAgentThreadMessageReceivedEvent = &betamanagedagentsagentthreadmessagereceivedevent
-					return nil
-				case "agent.thread_message_sent":
-					var betamanagedagentsagentthreadmessagesentevent BetaManagedAgentsAgentThreadMessageSentEvent
-					if err := json.Unmarshal(data, &betamanagedagentsagentthreadmessagesentevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsAgentThreadMessageSentEvent = &betamanagedagentsagentthreadmessagesentevent
-					return nil
-				case "agent.thread_context_compacted":
-					var betamanagedagentsagentthreadcontextcompactedevent BetaManagedAgentsAgentThreadContextCompactedEvent
-					if err := json.Unmarshal(data, &betamanagedagentsagentthreadcontextcompactedevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsAgentThreadContextCompactedEvent = &betamanagedagentsagentthreadcontextcompactedevent
-					return nil
-				case "session.error":
-					var betamanagedagentssessionerrorevent BetaManagedAgentsSessionErrorEvent
-					if err := json.Unmarshal(data, &betamanagedagentssessionerrorevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsSessionErrorEvent = &betamanagedagentssessionerrorevent
-					return nil
-				case "session.status_rescheduled":
-					var betamanagedagentssessionstatusrescheduledevent BetaManagedAgentsSessionStatusRescheduledEvent
-					if err := json.Unmarshal(data, &betamanagedagentssessionstatusrescheduledevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsSessionStatusRescheduledEvent = &betamanagedagentssessionstatusrescheduledevent
-					return nil
-				case "session.status_running":
-					var betamanagedagentssessionstatusrunningevent BetaManagedAgentsSessionStatusRunningEvent
-					if err := json.Unmarshal(data, &betamanagedagentssessionstatusrunningevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsSessionStatusRunningEvent = &betamanagedagentssessionstatusrunningevent
-					return nil
-				case "session.status_idle":
-					var betamanagedagentssessionstatusidleevent BetaManagedAgentsSessionStatusIdleEvent
-					if err := json.Unmarshal(data, &betamanagedagentssessionstatusidleevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsSessionStatusIdleEvent = &betamanagedagentssessionstatusidleevent
-					return nil
-				case "session.status_terminated":
-					var betamanagedagentssessionstatusterminatedevent BetaManagedAgentsSessionStatusTerminatedEvent
-					if err := json.Unmarshal(data, &betamanagedagentssessionstatusterminatedevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsSessionStatusTerminatedEvent = &betamanagedagentssessionstatusterminatedevent
-					return nil
-				case "session.thread_created":
-					var betamanagedagentssessionthreadcreatedevent BetaManagedAgentsSessionThreadCreatedEvent
-					if err := json.Unmarshal(data, &betamanagedagentssessionthreadcreatedevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsSessionThreadCreatedEvent = &betamanagedagentssessionthreadcreatedevent
-					return nil
-				case "span.outcome_evaluation_start":
-					var betamanagedagentsspanoutcomeevaluationstartevent BetaManagedAgentsSpanOutcomeEvaluationStartEvent
-					if err := json.Unmarshal(data, &betamanagedagentsspanoutcomeevaluationstartevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsSpanOutcomeEvaluationStartEvent = &betamanagedagentsspanoutcomeevaluationstartevent
-					return nil
-				case "span.outcome_evaluation_end":
-					var betamanagedagentsspanoutcomeevaluationendevent BetaManagedAgentsSpanOutcomeEvaluationEndEvent
-					if err := json.Unmarshal(data, &betamanagedagentsspanoutcomeevaluationendevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsSpanOutcomeEvaluationEndEvent = &betamanagedagentsspanoutcomeevaluationendevent
-					return nil
-				case "span.model_request_start":
-					var betamanagedagentsspanmodelrequeststartevent BetaManagedAgentsSpanModelRequestStartEvent
-					if err := json.Unmarshal(data, &betamanagedagentsspanmodelrequeststartevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsSpanModelRequestStartEvent = &betamanagedagentsspanmodelrequeststartevent
-					return nil
-				case "span.model_request_end":
-					var betamanagedagentsspanmodelrequestendevent BetaManagedAgentsSpanModelRequestEndEvent
-					if err := json.Unmarshal(data, &betamanagedagentsspanmodelrequestendevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsSpanModelRequestEndEvent = &betamanagedagentsspanmodelrequestendevent
-					return nil
-				case "span.outcome_evaluation_ongoing":
-					var betamanagedagentsspanoutcomeevaluationongoingevent BetaManagedAgentsSpanOutcomeEvaluationOngoingEvent
-					if err := json.Unmarshal(data, &betamanagedagentsspanoutcomeevaluationongoingevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsSpanOutcomeEvaluationOngoingEvent = &betamanagedagentsspanoutcomeevaluationongoingevent
-					return nil
-				case "user.define_outcome":
-					var betamanagedagentsuserdefineoutcomeevent BetaManagedAgentsUserDefineOutcomeEvent
-					if err := json.Unmarshal(data, &betamanagedagentsuserdefineoutcomeevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsUserDefineOutcomeEvent = &betamanagedagentsuserdefineoutcomeevent
-					return nil
-				case "session.deleted":
-					var betamanagedagentssessiondeletedevent BetaManagedAgentsSessionDeletedEvent
-					if err := json.Unmarshal(data, &betamanagedagentssessiondeletedevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsSessionDeletedEvent = &betamanagedagentssessiondeletedevent
-					return nil
-				case "session.thread_status_running":
-					var betamanagedagentssessionthreadstatusrunningevent BetaManagedAgentsSessionThreadStatusRunningEvent
-					if err := json.Unmarshal(data, &betamanagedagentssessionthreadstatusrunningevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsSessionThreadStatusRunningEvent = &betamanagedagentssessionthreadstatusrunningevent
-					return nil
-				case "session.thread_status_idle":
-					var betamanagedagentssessionthreadstatusidleevent BetaManagedAgentsSessionThreadStatusIdleEvent
-					if err := json.Unmarshal(data, &betamanagedagentssessionthreadstatusidleevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsSessionThreadStatusIdleEvent = &betamanagedagentssessionthreadstatusidleevent
-					return nil
-				case "session.thread_status_terminated":
-					var betamanagedagentssessionthreadstatusterminatedevent BetaManagedAgentsSessionThreadStatusTerminatedEvent
-					if err := json.Unmarshal(data, &betamanagedagentssessionthreadstatusterminatedevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsSessionThreadStatusTerminatedEvent = &betamanagedagentssessionthreadstatusterminatedevent
-					return nil
-				case "user.tool_result":
-					var betamanagedagentsusertoolresultevent BetaManagedAgentsUserToolResultEvent
-					if err := json.Unmarshal(data, &betamanagedagentsusertoolresultevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsUserToolResultEvent = &betamanagedagentsusertoolresultevent
-					return nil
-				case "session.thread_status_rescheduled":
-					var betamanagedagentssessionthreadstatusrescheduledevent BetaManagedAgentsSessionThreadStatusRescheduledEvent
-					if err := json.Unmarshal(data, &betamanagedagentssessionthreadstatusrescheduledevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsSessionThreadStatusRescheduledEvent = &betamanagedagentssessionthreadstatusrescheduledevent
-					return nil
-				case "session.updated":
-					var betamanagedagentssessionupdatedevent BetaManagedAgentsSessionUpdatedEvent
-					if err := json.Unmarshal(data, &betamanagedagentssessionupdatedevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsSessionUpdatedEvent = &betamanagedagentssessionupdatedevent
-					return nil
-				case "event_start":
-					var betamanagedagentseventstartevent BetaManagedAgentsEventStartEvent
-					if err := json.Unmarshal(data, &betamanagedagentseventstartevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsEventStartEvent = &betamanagedagentseventstartevent
-					return nil
-				case "event_delta":
-					var betamanagedagentseventdeltaevent BetaManagedAgentsEventDeltaEvent
-					if err := json.Unmarshal(data, &betamanagedagentseventdeltaevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsEventDeltaEvent = &betamanagedagentseventdeltaevent
-					return nil
-				case "system.message":
-					var betamanagedagentssystemmessageevent BetaManagedAgentsSystemMessageEvent
-					if err := json.Unmarshal(data, &betamanagedagentssystemmessageevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsSystemMessageEvent = &betamanagedagentssystemmessageevent
-					return nil
-				case "session.usage":
-					var betamanagedagentssessionusageevent BetaManagedAgentsSessionUsageEvent
-					if err := json.Unmarshal(data, &betamanagedagentssessionusageevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsSessionUsageEvent = &betamanagedagentssessionusageevent
-					return nil
-				default:
-					u.Unknown = append(json.RawMessage(nil), data...)
-					return nil
-				}
-			}
-		}
-	}
-	var betamanagedagentsusermessageevent BetaManagedAgentsUserMessageEvent
-	if err := json.Unmarshal(data, &betamanagedagentsusermessageevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsUserMessageEvent(betamanagedagentsusermessageevent) {
-		u.BetaManagedAgentsUserMessageEvent = &betamanagedagentsusermessageevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsuserinterruptevent BetaManagedAgentsUserInterruptEvent
-	if err := json.Unmarshal(data, &betamanagedagentsuserinterruptevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsUserInterruptEvent(betamanagedagentsuserinterruptevent) {
-		u.BetaManagedAgentsUserInterruptEvent = &betamanagedagentsuserinterruptevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsusertoolconfirmationevent BetaManagedAgentsUserToolConfirmationEvent
-	if err := json.Unmarshal(data, &betamanagedagentsusertoolconfirmationevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsUserToolConfirmationEvent(betamanagedagentsusertoolconfirmationevent) {
-		u.BetaManagedAgentsUserToolConfirmationEvent = &betamanagedagentsusertoolconfirmationevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsusercustomtoolresultevent BetaManagedAgentsUserCustomToolResultEvent
-	if err := json.Unmarshal(data, &betamanagedagentsusercustomtoolresultevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsUserCustomToolResultEvent(betamanagedagentsusercustomtoolresultevent) {
-		u.BetaManagedAgentsUserCustomToolResultEvent = &betamanagedagentsusercustomtoolresultevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsagentcustomtooluseevent BetaManagedAgentsAgentCustomToolUseEvent
-	if err := json.Unmarshal(data, &betamanagedagentsagentcustomtooluseevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsAgentCustomToolUseEvent(betamanagedagentsagentcustomtooluseevent) {
-		u.BetaManagedAgentsAgentCustomToolUseEvent = &betamanagedagentsagentcustomtooluseevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsagentmessageevent BetaManagedAgentsAgentMessageEvent
-	if err := json.Unmarshal(data, &betamanagedagentsagentmessageevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsAgentMessageEvent(betamanagedagentsagentmessageevent) {
-		u.BetaManagedAgentsAgentMessageEvent = &betamanagedagentsagentmessageevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsagentthinkingevent BetaManagedAgentsAgentThinkingEvent
-	if err := json.Unmarshal(data, &betamanagedagentsagentthinkingevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsAgentThinkingEvent(betamanagedagentsagentthinkingevent) {
-		u.BetaManagedAgentsAgentThinkingEvent = &betamanagedagentsagentthinkingevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsagentmcptooluseevent BetaManagedAgentsAgentMcpToolUseEvent
-	if err := json.Unmarshal(data, &betamanagedagentsagentmcptooluseevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsAgentMcpToolUseEvent(betamanagedagentsagentmcptooluseevent) {
-		u.BetaManagedAgentsAgentMcpToolUseEvent = &betamanagedagentsagentmcptooluseevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsagentmcptoolresultevent BetaManagedAgentsAgentMcpToolResultEvent
-	if err := json.Unmarshal(data, &betamanagedagentsagentmcptoolresultevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsAgentMcpToolResultEvent(betamanagedagentsagentmcptoolresultevent) {
-		u.BetaManagedAgentsAgentMcpToolResultEvent = &betamanagedagentsagentmcptoolresultevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsagenttooluseevent BetaManagedAgentsAgentToolUseEvent
-	if err := json.Unmarshal(data, &betamanagedagentsagenttooluseevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsAgentToolUseEvent(betamanagedagentsagenttooluseevent) {
-		u.BetaManagedAgentsAgentToolUseEvent = &betamanagedagentsagenttooluseevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsagenttoolresultevent BetaManagedAgentsAgentToolResultEvent
-	if err := json.Unmarshal(data, &betamanagedagentsagenttoolresultevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsAgentToolResultEvent(betamanagedagentsagenttoolresultevent) {
-		u.BetaManagedAgentsAgentToolResultEvent = &betamanagedagentsagenttoolresultevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsagentthreadmessagereceivedevent BetaManagedAgentsAgentThreadMessageReceivedEvent
-	if err := json.Unmarshal(data, &betamanagedagentsagentthreadmessagereceivedevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsAgentThreadMessageReceivedEvent(betamanagedagentsagentthreadmessagereceivedevent) {
-		u.BetaManagedAgentsAgentThreadMessageReceivedEvent = &betamanagedagentsagentthreadmessagereceivedevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsagentthreadmessagesentevent BetaManagedAgentsAgentThreadMessageSentEvent
-	if err := json.Unmarshal(data, &betamanagedagentsagentthreadmessagesentevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsAgentThreadMessageSentEvent(betamanagedagentsagentthreadmessagesentevent) {
-		u.BetaManagedAgentsAgentThreadMessageSentEvent = &betamanagedagentsagentthreadmessagesentevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsagentthreadcontextcompactedevent BetaManagedAgentsAgentThreadContextCompactedEvent
-	if err := json.Unmarshal(data, &betamanagedagentsagentthreadcontextcompactedevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsAgentThreadContextCompactedEvent(betamanagedagentsagentthreadcontextcompactedevent) {
-		u.BetaManagedAgentsAgentThreadContextCompactedEvent = &betamanagedagentsagentthreadcontextcompactedevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentssessionerrorevent BetaManagedAgentsSessionErrorEvent
-	if err := json.Unmarshal(data, &betamanagedagentssessionerrorevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsSessionErrorEvent(betamanagedagentssessionerrorevent) {
-		u.BetaManagedAgentsSessionErrorEvent = &betamanagedagentssessionerrorevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentssessionstatusrescheduledevent BetaManagedAgentsSessionStatusRescheduledEvent
-	if err := json.Unmarshal(data, &betamanagedagentssessionstatusrescheduledevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsSessionStatusRescheduledEvent(betamanagedagentssessionstatusrescheduledevent) {
-		u.BetaManagedAgentsSessionStatusRescheduledEvent = &betamanagedagentssessionstatusrescheduledevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentssessionstatusrunningevent BetaManagedAgentsSessionStatusRunningEvent
-	if err := json.Unmarshal(data, &betamanagedagentssessionstatusrunningevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsSessionStatusRunningEvent(betamanagedagentssessionstatusrunningevent) {
-		u.BetaManagedAgentsSessionStatusRunningEvent = &betamanagedagentssessionstatusrunningevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentssessionstatusidleevent BetaManagedAgentsSessionStatusIdleEvent
-	if err := json.Unmarshal(data, &betamanagedagentssessionstatusidleevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsSessionStatusIdleEvent(betamanagedagentssessionstatusidleevent) {
-		u.BetaManagedAgentsSessionStatusIdleEvent = &betamanagedagentssessionstatusidleevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentssessionstatusterminatedevent BetaManagedAgentsSessionStatusTerminatedEvent
-	if err := json.Unmarshal(data, &betamanagedagentssessionstatusterminatedevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsSessionStatusTerminatedEvent(betamanagedagentssessionstatusterminatedevent) {
-		u.BetaManagedAgentsSessionStatusTerminatedEvent = &betamanagedagentssessionstatusterminatedevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentssessionthreadcreatedevent BetaManagedAgentsSessionThreadCreatedEvent
-	if err := json.Unmarshal(data, &betamanagedagentssessionthreadcreatedevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsSessionThreadCreatedEvent(betamanagedagentssessionthreadcreatedevent) {
-		u.BetaManagedAgentsSessionThreadCreatedEvent = &betamanagedagentssessionthreadcreatedevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsspanoutcomeevaluationstartevent BetaManagedAgentsSpanOutcomeEvaluationStartEvent
-	if err := json.Unmarshal(data, &betamanagedagentsspanoutcomeevaluationstartevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsSpanOutcomeEvaluationStartEvent(betamanagedagentsspanoutcomeevaluationstartevent) {
-		u.BetaManagedAgentsSpanOutcomeEvaluationStartEvent = &betamanagedagentsspanoutcomeevaluationstartevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsspanoutcomeevaluationendevent BetaManagedAgentsSpanOutcomeEvaluationEndEvent
-	if err := json.Unmarshal(data, &betamanagedagentsspanoutcomeevaluationendevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsSpanOutcomeEvaluationEndEvent(betamanagedagentsspanoutcomeevaluationendevent) {
-		u.BetaManagedAgentsSpanOutcomeEvaluationEndEvent = &betamanagedagentsspanoutcomeevaluationendevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsspanmodelrequeststartevent BetaManagedAgentsSpanModelRequestStartEvent
-	if err := json.Unmarshal(data, &betamanagedagentsspanmodelrequeststartevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsSpanModelRequestStartEvent(betamanagedagentsspanmodelrequeststartevent) {
-		u.BetaManagedAgentsSpanModelRequestStartEvent = &betamanagedagentsspanmodelrequeststartevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsspanmodelrequestendevent BetaManagedAgentsSpanModelRequestEndEvent
-	if err := json.Unmarshal(data, &betamanagedagentsspanmodelrequestendevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsSpanModelRequestEndEvent(betamanagedagentsspanmodelrequestendevent) {
-		u.BetaManagedAgentsSpanModelRequestEndEvent = &betamanagedagentsspanmodelrequestendevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsspanoutcomeevaluationongoingevent BetaManagedAgentsSpanOutcomeEvaluationOngoingEvent
-	if err := json.Unmarshal(data, &betamanagedagentsspanoutcomeevaluationongoingevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsSpanOutcomeEvaluationOngoingEvent(betamanagedagentsspanoutcomeevaluationongoingevent) {
-		u.BetaManagedAgentsSpanOutcomeEvaluationOngoingEvent = &betamanagedagentsspanoutcomeevaluationongoingevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsuserdefineoutcomeevent BetaManagedAgentsUserDefineOutcomeEvent
-	if err := json.Unmarshal(data, &betamanagedagentsuserdefineoutcomeevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsUserDefineOutcomeEvent(betamanagedagentsuserdefineoutcomeevent) {
-		u.BetaManagedAgentsUserDefineOutcomeEvent = &betamanagedagentsuserdefineoutcomeevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentssessiondeletedevent BetaManagedAgentsSessionDeletedEvent
-	if err := json.Unmarshal(data, &betamanagedagentssessiondeletedevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsSessionDeletedEvent(betamanagedagentssessiondeletedevent) {
-		u.BetaManagedAgentsSessionDeletedEvent = &betamanagedagentssessiondeletedevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentssessionthreadstatusrunningevent BetaManagedAgentsSessionThreadStatusRunningEvent
-	if err := json.Unmarshal(data, &betamanagedagentssessionthreadstatusrunningevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsSessionThreadStatusRunningEvent(betamanagedagentssessionthreadstatusrunningevent) {
-		u.BetaManagedAgentsSessionThreadStatusRunningEvent = &betamanagedagentssessionthreadstatusrunningevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentssessionthreadstatusidleevent BetaManagedAgentsSessionThreadStatusIdleEvent
-	if err := json.Unmarshal(data, &betamanagedagentssessionthreadstatusidleevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsSessionThreadStatusIdleEvent(betamanagedagentssessionthreadstatusidleevent) {
-		u.BetaManagedAgentsSessionThreadStatusIdleEvent = &betamanagedagentssessionthreadstatusidleevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentssessionthreadstatusterminatedevent BetaManagedAgentsSessionThreadStatusTerminatedEvent
-	if err := json.Unmarshal(data, &betamanagedagentssessionthreadstatusterminatedevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsSessionThreadStatusTerminatedEvent(betamanagedagentssessionthreadstatusterminatedevent) {
-		u.BetaManagedAgentsSessionThreadStatusTerminatedEvent = &betamanagedagentssessionthreadstatusterminatedevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsusertoolresultevent BetaManagedAgentsUserToolResultEvent
-	if err := json.Unmarshal(data, &betamanagedagentsusertoolresultevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsUserToolResultEvent(betamanagedagentsusertoolresultevent) {
-		u.BetaManagedAgentsUserToolResultEvent = &betamanagedagentsusertoolresultevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentssessionthreadstatusrescheduledevent BetaManagedAgentsSessionThreadStatusRescheduledEvent
-	if err := json.Unmarshal(data, &betamanagedagentssessionthreadstatusrescheduledevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsSessionThreadStatusRescheduledEvent(betamanagedagentssessionthreadstatusrescheduledevent) {
-		u.BetaManagedAgentsSessionThreadStatusRescheduledEvent = &betamanagedagentssessionthreadstatusrescheduledevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentssessionupdatedevent BetaManagedAgentsSessionUpdatedEvent
-	if err := json.Unmarshal(data, &betamanagedagentssessionupdatedevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsSessionUpdatedEvent(betamanagedagentssessionupdatedevent) {
-		u.BetaManagedAgentsSessionUpdatedEvent = &betamanagedagentssessionupdatedevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentseventstartevent BetaManagedAgentsEventStartEvent
-	if err := json.Unmarshal(data, &betamanagedagentseventstartevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsEventStartEvent(betamanagedagentseventstartevent) {
-		u.BetaManagedAgentsEventStartEvent = &betamanagedagentseventstartevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentseventdeltaevent BetaManagedAgentsEventDeltaEvent
-	if err := json.Unmarshal(data, &betamanagedagentseventdeltaevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsEventDeltaEvent(betamanagedagentseventdeltaevent) {
-		u.BetaManagedAgentsEventDeltaEvent = &betamanagedagentseventdeltaevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentssystemmessageevent BetaManagedAgentsSystemMessageEvent
-	if err := json.Unmarshal(data, &betamanagedagentssystemmessageevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsSystemMessageEvent(betamanagedagentssystemmessageevent) {
-		u.BetaManagedAgentsSystemMessageEvent = &betamanagedagentssystemmessageevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentssessionusageevent BetaManagedAgentsSessionUsageEvent
-	if err := json.Unmarshal(data, &betamanagedagentssessionusageevent); err == nil && isNonEmptyBetaManagedAgentsStreamSessionThreadEventsBetaManagedAgentsSessionUsageEvent(betamanagedagentssessionusageevent) {
-		u.BetaManagedAgentsSessionUsageEvent = &betamanagedagentssessionusageevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	return refusal
 }

@@ -9,6 +9,612 @@ import (
 	"fmt"
 )
 
+// BetaManagedAgentsMCPToolset Typed representation of the `BetaManagedAgentsMCPToolset` API schema.
+type BetaManagedAgentsMCPToolset struct {
+	// Type Required enumerated value serialized in the `type` wire field.
+	Type BetaManagedAgentsMCPToolsetTypeEnum `json:"type"`
+	// McpServerName Required `string` value serialized in the `mcp_server_name` wire field.
+	McpServerName string `json:"mcp_server_name"`
+	// DefaultConfig Resolved default configuration for all tools from an MCP server.
+	DefaultConfig BetaManagedAgentsMCPToolsetDefaultConfig `json:"default_config"`
+	// Configs Required array value serialized in the `configs` wire field.
+	Configs []BetaManagedAgentsMCPToolConfig `json:"configs"`
+}
+
+func (value *BetaManagedAgentsMCPToolset) UnmarshalJSON(data []byte) error {
+	var rawFields map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawFields); err != nil {
+		return err
+	}
+	if err := ValidateRawEnum("type", rawFields["type"], []string{"mcp_toolset"}); err != nil {
+		return err
+	}
+	type BetaManagedAgentsMCPToolsetAlias BetaManagedAgentsMCPToolset
+	var decoded BetaManagedAgentsMCPToolsetAlias
+	if err := json.Unmarshal(data, &decoded); err != nil {
+		return err
+	}
+	*value = BetaManagedAgentsMCPToolset(decoded)
+	if err := ValidateRequired(rawFields, []string{"type", "mcp_server_name", "default_config", "configs"}); err != nil {
+		return err
+	}
+	if err := ValidateNotNull(rawFields, []string{"type", "mcp_server_name", "default_config", "configs"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+// NewBetaManagedAgentsMCPToolset returns a validated BetaManagedAgentsMCPToolset built from named fields.
+// Optional fields may be left unset; a value that violates the schema is
+// reported as *SdkValidationError.
+func NewBetaManagedAgentsMCPToolset(fields BetaManagedAgentsMCPToolset) (*BetaManagedAgentsMCPToolset, error) {
+	return ConstructModel(fields)
+}
+
+// BetaManagedAgentsMCPToolsetTypeEnum Required enumerated value serialized in the `type` wire field.
+type BetaManagedAgentsMCPToolsetTypeEnum string
+
+const (
+	BetaManagedAgentsMCPToolsetTypeEnumMcpToolset BetaManagedAgentsMCPToolsetTypeEnum = "mcp_toolset"
+)
+
+func (value *BetaManagedAgentsMCPToolsetTypeEnum) UnmarshalJSON(data []byte) error {
+	var raw string
+	if err := json.Unmarshal(data, &raw); err != nil {
+		return err
+	}
+	switch raw {
+	case "mcp_toolset":
+		*value = BetaManagedAgentsMCPToolsetTypeEnum(raw)
+		return nil
+	default:
+		return &SdkValidationError{Field: "BetaManagedAgentsMCPToolsetTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsMCPToolsetTypeEnum: %v", raw)}
+	}
+}
+
+// BetaManagedAgentsMCPToolsetDefaultConfig Resolved default configuration for all tools from an MCP server.
+type BetaManagedAgentsMCPToolsetDefaultConfig struct {
+	// Enabled Required `boolean` value serialized in the `enabled` wire field.
+	Enabled bool `json:"enabled"`
+	// PermissionPolicy Permission policy for tool execution.
+	PermissionPolicy BetaManagedAgentsPermissionPolicy `json:"permission_policy"`
+}
+
+func (value *BetaManagedAgentsMCPToolsetDefaultConfig) UnmarshalJSON(data []byte) error {
+	type BetaManagedAgentsMCPToolsetDefaultConfigAlias BetaManagedAgentsMCPToolsetDefaultConfig
+	var decoded BetaManagedAgentsMCPToolsetDefaultConfigAlias
+	if err := json.Unmarshal(data, &decoded); err != nil {
+		return err
+	}
+	*value = BetaManagedAgentsMCPToolsetDefaultConfig(decoded)
+	var rawFields map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawFields); err != nil {
+		return err
+	}
+	if err := ValidateRequired(rawFields, []string{"enabled", "permission_policy"}); err != nil {
+		return err
+	}
+	if err := ValidateNotNull(rawFields, []string{"enabled", "permission_policy"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+// NewBetaManagedAgentsMCPToolsetDefaultConfig returns a validated BetaManagedAgentsMCPToolsetDefaultConfig built from named fields.
+// Optional fields may be left unset; a value that violates the schema is
+// reported as *SdkValidationError.
+func NewBetaManagedAgentsMCPToolsetDefaultConfig(fields BetaManagedAgentsMCPToolsetDefaultConfig) (*BetaManagedAgentsMCPToolsetDefaultConfig, error) {
+	return ConstructModel(fields)
+}
+
+// BetaManagedAgentsMCPToolsetDefaultConfigParams Default configuration for all tools from an MCP server.
+type BetaManagedAgentsMCPToolsetDefaultConfigParams struct {
+	// Enabled Whether tools are enabled by default. Defaults to true if not specified.
+	Enabled *NullableValue[bool] `json:"enabled,omitempty"`
+	// PermissionPolicy Default permission policy for tools from this server.
+	PermissionPolicy *NullableValue[BetaManagedAgentsPermissionPolicy] `json:"permission_policy,omitempty"`
+}
+
+func (value *BetaManagedAgentsMCPToolsetDefaultConfigParams) UnmarshalJSON(data []byte) error {
+	type BetaManagedAgentsMCPToolsetDefaultConfigParamsAlias BetaManagedAgentsMCPToolsetDefaultConfigParams
+	var decoded BetaManagedAgentsMCPToolsetDefaultConfigParamsAlias
+	if err := json.Unmarshal(data, &decoded); err != nil {
+		return err
+	}
+	*value = BetaManagedAgentsMCPToolsetDefaultConfigParams(decoded)
+	var rawFields map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawFields); err != nil {
+		return err
+	}
+	if raw, ok := rawFields["enabled"]; ok && bytes.Equal(bytes.TrimSpace(raw), []byte("null")) {
+		value.Enabled = &NullableValue[bool]{}
+	}
+	if raw, ok := rawFields["permission_policy"]; ok && bytes.Equal(bytes.TrimSpace(raw), []byte("null")) {
+		value.PermissionPolicy = &NullableValue[BetaManagedAgentsPermissionPolicy]{}
+	}
+	return nil
+}
+
+// NewBetaManagedAgentsMCPToolsetDefaultConfigParams returns a validated BetaManagedAgentsMCPToolsetDefaultConfigParams built from named fields.
+// Optional fields may be left unset; a value that violates the schema is
+// reported as *SdkValidationError.
+func NewBetaManagedAgentsMCPToolsetDefaultConfigParams(fields BetaManagedAgentsMCPToolsetDefaultConfigParams) (*BetaManagedAgentsMCPToolsetDefaultConfigParams, error) {
+	return ConstructModel(fields)
+}
+
+// BetaManagedAgentsMCPToolsetParams Configuration for tools from an MCP server defined in `mcp_servers`.
+type BetaManagedAgentsMCPToolsetParams struct {
+	// Type Required enumerated value serialized in the `type` wire field.
+	Type BetaManagedAgentsMCPToolsetParamsTypeEnum `json:"type"`
+	// McpServerName Name of the MCP server. Must match a server name from the mcp_servers array. 1-255 characters.
+	McpServerName string `json:"mcp_server_name"`
+	// DefaultConfig Default configuration for all tools from this server.
+	DefaultConfig *NullableValue[BetaManagedAgentsMCPToolsetDefaultConfigParams] `json:"default_config,omitempty"`
+	// Configs Per-tool configuration overrides.
+	Configs []BetaManagedAgentsMCPToolConfigParams `json:"configs,omitempty"`
+}
+
+func (value *BetaManagedAgentsMCPToolsetParams) UnmarshalJSON(data []byte) error {
+	var rawFields map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawFields); err != nil {
+		return err
+	}
+	if err := ValidateRawEnum("type", rawFields["type"], []string{"mcp_toolset"}); err != nil {
+		return err
+	}
+	type BetaManagedAgentsMCPToolsetParamsAlias BetaManagedAgentsMCPToolsetParams
+	var decoded BetaManagedAgentsMCPToolsetParamsAlias
+	if err := json.Unmarshal(data, &decoded); err != nil {
+		return err
+	}
+	*value = BetaManagedAgentsMCPToolsetParams(decoded)
+	if err := ValidateRequired(rawFields, []string{"type", "mcp_server_name"}); err != nil {
+		return err
+	}
+	if err := ValidateNotNull(rawFields, []string{"type", "mcp_server_name"}); err != nil {
+		return err
+	}
+	if err := ValidateLength("mcp_server_name", value.McpServerName, LengthOpts{Min: Ptr[int](1), Max: Ptr[int](255)}); err != nil {
+		return err
+	}
+	if raw, ok := rawFields["default_config"]; ok && bytes.Equal(bytes.TrimSpace(raw), []byte("null")) {
+		value.DefaultConfig = &NullableValue[BetaManagedAgentsMCPToolsetDefaultConfigParams]{}
+	}
+	return nil
+}
+
+// NewBetaManagedAgentsMCPToolsetParams returns a validated BetaManagedAgentsMCPToolsetParams built from named fields.
+// Optional fields may be left unset; a value that violates the schema is
+// reported as *SdkValidationError.
+func NewBetaManagedAgentsMCPToolsetParams(fields BetaManagedAgentsMCPToolsetParams) (*BetaManagedAgentsMCPToolsetParams, error) {
+	return ConstructModel(fields)
+}
+
+// BetaManagedAgentsMCPToolsetParamsTypeEnum Required enumerated value serialized in the `type` wire field.
+type BetaManagedAgentsMCPToolsetParamsTypeEnum string
+
+const (
+	BetaManagedAgentsMCPToolsetParamsTypeEnumMcpToolset BetaManagedAgentsMCPToolsetParamsTypeEnum = "mcp_toolset"
+)
+
+func (value *BetaManagedAgentsMCPToolsetParamsTypeEnum) UnmarshalJSON(data []byte) error {
+	var raw string
+	if err := json.Unmarshal(data, &raw); err != nil {
+		return err
+	}
+	switch raw {
+	case "mcp_toolset":
+		*value = BetaManagedAgentsMCPToolsetParamsTypeEnum(raw)
+		return nil
+	default:
+		return &SdkValidationError{Field: "BetaManagedAgentsMCPToolsetParamsTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsMCPToolsetParamsTypeEnum: %v", raw)}
+	}
+}
+
+// BetaManagedAgentsManualDeploymentPausedReason The caller invoked the pause endpoint on the deployment.
+type BetaManagedAgentsManualDeploymentPausedReason struct {
+	// Type Required enumerated value serialized in the `type` wire field.
+	Type BetaManagedAgentsManualDeploymentPausedReasonTypeEnum `json:"type"`
+}
+
+func (value *BetaManagedAgentsManualDeploymentPausedReason) UnmarshalJSON(data []byte) error {
+	var rawFields map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawFields); err != nil {
+		return err
+	}
+	if err := ValidateRawEnum("type", rawFields["type"], []string{"manual"}); err != nil {
+		return err
+	}
+	type BetaManagedAgentsManualDeploymentPausedReasonAlias BetaManagedAgentsManualDeploymentPausedReason
+	var decoded BetaManagedAgentsManualDeploymentPausedReasonAlias
+	if err := json.Unmarshal(data, &decoded); err != nil {
+		return err
+	}
+	*value = BetaManagedAgentsManualDeploymentPausedReason(decoded)
+	if err := ValidateRequired(rawFields, []string{"type"}); err != nil {
+		return err
+	}
+	if err := ValidateNotNull(rawFields, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+// NewBetaManagedAgentsManualDeploymentPausedReason returns a validated BetaManagedAgentsManualDeploymentPausedReason built from named fields.
+// Optional fields may be left unset; a value that violates the schema is
+// reported as *SdkValidationError.
+func NewBetaManagedAgentsManualDeploymentPausedReason(fields BetaManagedAgentsManualDeploymentPausedReason) (*BetaManagedAgentsManualDeploymentPausedReason, error) {
+	return ConstructModel(fields)
+}
+
+// BetaManagedAgentsManualDeploymentPausedReasonTypeEnum Required enumerated value serialized in the `type` wire field.
+type BetaManagedAgentsManualDeploymentPausedReasonTypeEnum string
+
+const (
+	BetaManagedAgentsManualDeploymentPausedReasonTypeEnumManual BetaManagedAgentsManualDeploymentPausedReasonTypeEnum = "manual"
+)
+
+func (value *BetaManagedAgentsManualDeploymentPausedReasonTypeEnum) UnmarshalJSON(data []byte) error {
+	var raw string
+	if err := json.Unmarshal(data, &raw); err != nil {
+		return err
+	}
+	switch raw {
+	case "manual":
+		*value = BetaManagedAgentsManualDeploymentPausedReasonTypeEnum(raw)
+		return nil
+	default:
+		return &SdkValidationError{Field: "BetaManagedAgentsManualDeploymentPausedReasonTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsManualDeploymentPausedReasonTypeEnum: %v", raw)}
+	}
+}
+
+// BetaManagedAgentsManualTriggerContext The run was started manually by creating a session directly against the deployment.
+type BetaManagedAgentsManualTriggerContext struct {
+	// Type Required enumerated value serialized in the `type` wire field.
+	Type BetaManagedAgentsManualTriggerContextTypeEnum `json:"type"`
+}
+
+func (value *BetaManagedAgentsManualTriggerContext) UnmarshalJSON(data []byte) error {
+	var rawFields map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawFields); err != nil {
+		return err
+	}
+	if err := ValidateRawEnum("type", rawFields["type"], []string{"manual"}); err != nil {
+		return err
+	}
+	type BetaManagedAgentsManualTriggerContextAlias BetaManagedAgentsManualTriggerContext
+	var decoded BetaManagedAgentsManualTriggerContextAlias
+	if err := json.Unmarshal(data, &decoded); err != nil {
+		return err
+	}
+	*value = BetaManagedAgentsManualTriggerContext(decoded)
+	if err := ValidateRequired(rawFields, []string{"type"}); err != nil {
+		return err
+	}
+	if err := ValidateNotNull(rawFields, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+// NewBetaManagedAgentsManualTriggerContext returns a validated BetaManagedAgentsManualTriggerContext built from named fields.
+// Optional fields may be left unset; a value that violates the schema is
+// reported as *SdkValidationError.
+func NewBetaManagedAgentsManualTriggerContext(fields BetaManagedAgentsManualTriggerContext) (*BetaManagedAgentsManualTriggerContext, error) {
+	return ConstructModel(fields)
+}
+
+// BetaManagedAgentsManualTriggerContextTypeEnum Required enumerated value serialized in the `type` wire field.
+type BetaManagedAgentsManualTriggerContextTypeEnum string
+
+const (
+	BetaManagedAgentsManualTriggerContextTypeEnumManual BetaManagedAgentsManualTriggerContextTypeEnum = "manual"
+)
+
+func (value *BetaManagedAgentsManualTriggerContextTypeEnum) UnmarshalJSON(data []byte) error {
+	var raw string
+	if err := json.Unmarshal(data, &raw); err != nil {
+		return err
+	}
+	switch raw {
+	case "manual":
+		*value = BetaManagedAgentsManualTriggerContextTypeEnum(raw)
+		return nil
+	default:
+		return &SdkValidationError{Field: "BetaManagedAgentsManualTriggerContextTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsManualTriggerContextTypeEnum: %v", raw)}
+	}
+}
+
+// BetaManagedAgentsMcpAuthenticationFailedError Authentication to an MCP server failed.
+type BetaManagedAgentsMcpAuthenticationFailedError struct {
+	// Type Required enumerated value serialized in the `type` wire field.
+	Type BetaManagedAgentsMcpAuthenticationFailedErrorTypeEnum `json:"type"`
+	// Message Human-readable error description.
+	Message string `json:"message"`
+	// RetryStatus What the client should do next.
+	RetryStatus BetaManagedAgentsRetryStatus `json:"retry_status"`
+	// McpServerName Name of the MCP server that failed authentication.
+	McpServerName string `json:"mcp_server_name"`
+}
+
+func (value *BetaManagedAgentsMcpAuthenticationFailedError) UnmarshalJSON(data []byte) error {
+	var rawFields map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawFields); err != nil {
+		return err
+	}
+	if err := ValidateRawEnum("type", rawFields["type"], []string{"mcp_authentication_failed_error"}); err != nil {
+		return err
+	}
+	type BetaManagedAgentsMcpAuthenticationFailedErrorAlias BetaManagedAgentsMcpAuthenticationFailedError
+	var decoded BetaManagedAgentsMcpAuthenticationFailedErrorAlias
+	if err := json.Unmarshal(data, &decoded); err != nil {
+		return err
+	}
+	*value = BetaManagedAgentsMcpAuthenticationFailedError(decoded)
+	if err := ValidateRequired(rawFields, []string{"type", "message", "retry_status", "mcp_server_name"}); err != nil {
+		return err
+	}
+	if err := ValidateNotNull(rawFields, []string{"type", "message", "retry_status", "mcp_server_name"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+// NewBetaManagedAgentsMcpAuthenticationFailedError returns a validated BetaManagedAgentsMcpAuthenticationFailedError built from named fields.
+// Optional fields may be left unset; a value that violates the schema is
+// reported as *SdkValidationError.
+func NewBetaManagedAgentsMcpAuthenticationFailedError(fields BetaManagedAgentsMcpAuthenticationFailedError) (*BetaManagedAgentsMcpAuthenticationFailedError, error) {
+	return ConstructModel(fields)
+}
+
+// BetaManagedAgentsMcpAuthenticationFailedErrorTypeEnum Required enumerated value serialized in the `type` wire field.
+type BetaManagedAgentsMcpAuthenticationFailedErrorTypeEnum string
+
+const (
+	BetaManagedAgentsMcpAuthenticationFailedErrorTypeEnumMcpAuthenticationFailedError BetaManagedAgentsMcpAuthenticationFailedErrorTypeEnum = "mcp_authentication_failed_error"
+)
+
+func (value *BetaManagedAgentsMcpAuthenticationFailedErrorTypeEnum) UnmarshalJSON(data []byte) error {
+	var raw string
+	if err := json.Unmarshal(data, &raw); err != nil {
+		return err
+	}
+	switch raw {
+	case "mcp_authentication_failed_error":
+		*value = BetaManagedAgentsMcpAuthenticationFailedErrorTypeEnum(raw)
+		return nil
+	default:
+		return &SdkValidationError{Field: "BetaManagedAgentsMcpAuthenticationFailedErrorTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsMcpAuthenticationFailedErrorTypeEnum: %v", raw)}
+	}
+}
+
+// BetaManagedAgentsMcpConnectionFailedError Failed to connect to an MCP server.
+type BetaManagedAgentsMcpConnectionFailedError struct {
+	// Type Required enumerated value serialized in the `type` wire field.
+	Type BetaManagedAgentsMcpConnectionFailedErrorTypeEnum `json:"type"`
+	// Message Human-readable error description.
+	Message string `json:"message"`
+	// RetryStatus What the client should do next.
+	RetryStatus BetaManagedAgentsRetryStatus `json:"retry_status"`
+	// McpServerName Name of the MCP server that failed to connect.
+	McpServerName string `json:"mcp_server_name"`
+}
+
+func (value *BetaManagedAgentsMcpConnectionFailedError) UnmarshalJSON(data []byte) error {
+	var rawFields map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawFields); err != nil {
+		return err
+	}
+	if err := ValidateRawEnum("type", rawFields["type"], []string{"mcp_connection_failed_error"}); err != nil {
+		return err
+	}
+	type BetaManagedAgentsMcpConnectionFailedErrorAlias BetaManagedAgentsMcpConnectionFailedError
+	var decoded BetaManagedAgentsMcpConnectionFailedErrorAlias
+	if err := json.Unmarshal(data, &decoded); err != nil {
+		return err
+	}
+	*value = BetaManagedAgentsMcpConnectionFailedError(decoded)
+	if err := ValidateRequired(rawFields, []string{"type", "message", "retry_status", "mcp_server_name"}); err != nil {
+		return err
+	}
+	if err := ValidateNotNull(rawFields, []string{"type", "message", "retry_status", "mcp_server_name"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+// NewBetaManagedAgentsMcpConnectionFailedError returns a validated BetaManagedAgentsMcpConnectionFailedError built from named fields.
+// Optional fields may be left unset; a value that violates the schema is
+// reported as *SdkValidationError.
+func NewBetaManagedAgentsMcpConnectionFailedError(fields BetaManagedAgentsMcpConnectionFailedError) (*BetaManagedAgentsMcpConnectionFailedError, error) {
+	return ConstructModel(fields)
+}
+
+// BetaManagedAgentsMcpConnectionFailedErrorTypeEnum Required enumerated value serialized in the `type` wire field.
+type BetaManagedAgentsMcpConnectionFailedErrorTypeEnum string
+
+const (
+	BetaManagedAgentsMcpConnectionFailedErrorTypeEnumMcpConnectionFailedError BetaManagedAgentsMcpConnectionFailedErrorTypeEnum = "mcp_connection_failed_error"
+)
+
+func (value *BetaManagedAgentsMcpConnectionFailedErrorTypeEnum) UnmarshalJSON(data []byte) error {
+	var raw string
+	if err := json.Unmarshal(data, &raw); err != nil {
+		return err
+	}
+	switch raw {
+	case "mcp_connection_failed_error":
+		*value = BetaManagedAgentsMcpConnectionFailedErrorTypeEnum(raw)
+		return nil
+	default:
+		return &SdkValidationError{Field: "BetaManagedAgentsMcpConnectionFailedErrorTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsMcpConnectionFailedErrorTypeEnum: %v", raw)}
+	}
+}
+
+// BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonError An MCP server host used by the deployment's agent is blocked by the environment's network policy.
+type BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonError struct {
+	// Type Required enumerated value serialized in the `type` wire field.
+	Type BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonErrorTypeEnum `json:"type"`
+}
+
+func (value *BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonError) UnmarshalJSON(data []byte) error {
+	var rawFields map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawFields); err != nil {
+		return err
+	}
+	if err := ValidateRawEnum("type", rawFields["type"], []string{"mcp_egress_blocked_error"}); err != nil {
+		return err
+	}
+	type BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonErrorAlias BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonError
+	var decoded BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonErrorAlias
+	if err := json.Unmarshal(data, &decoded); err != nil {
+		return err
+	}
+	*value = BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonError(decoded)
+	if err := ValidateRequired(rawFields, []string{"type"}); err != nil {
+		return err
+	}
+	if err := ValidateNotNull(rawFields, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+// NewBetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonError returns a validated BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonError built from named fields.
+// Optional fields may be left unset; a value that violates the schema is
+// reported as *SdkValidationError.
+func NewBetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonError(fields BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonError) (*BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonError, error) {
+	return ConstructModel(fields)
+}
+
+// BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonErrorTypeEnum Required enumerated value serialized in the `type` wire field.
+type BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonErrorTypeEnum string
+
+const (
+	BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonErrorTypeEnumMcpEgressBlockedError BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonErrorTypeEnum = "mcp_egress_blocked_error"
+)
+
+func (value *BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonErrorTypeEnum) UnmarshalJSON(data []byte) error {
+	var raw string
+	if err := json.Unmarshal(data, &raw); err != nil {
+		return err
+	}
+	switch raw {
+	case "mcp_egress_blocked_error":
+		*value = BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonErrorTypeEnum(raw)
+		return nil
+	default:
+		return &SdkValidationError{Field: "BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonErrorTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonErrorTypeEnum: %v", raw)}
+	}
+}
+
+// BetaManagedAgentsMcpEgressBlockedRunError An MCP server host used by the deployment's agent is blocked by the environment's network policy.
+type BetaManagedAgentsMcpEgressBlockedRunError struct {
+	// Type Required enumerated value serialized in the `type` wire field.
+	Type BetaManagedAgentsMcpEgressBlockedRunErrorTypeEnum `json:"type"`
+	// Message Human-readable error description.
+	Message string `json:"message"`
+}
+
+func (value *BetaManagedAgentsMcpEgressBlockedRunError) UnmarshalJSON(data []byte) error {
+	var rawFields map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawFields); err != nil {
+		return err
+	}
+	if err := ValidateRawEnum("type", rawFields["type"], []string{"mcp_egress_blocked_error"}); err != nil {
+		return err
+	}
+	type BetaManagedAgentsMcpEgressBlockedRunErrorAlias BetaManagedAgentsMcpEgressBlockedRunError
+	var decoded BetaManagedAgentsMcpEgressBlockedRunErrorAlias
+	if err := json.Unmarshal(data, &decoded); err != nil {
+		return err
+	}
+	*value = BetaManagedAgentsMcpEgressBlockedRunError(decoded)
+	if err := ValidateRequired(rawFields, []string{"type", "message"}); err != nil {
+		return err
+	}
+	if err := ValidateNotNull(rawFields, []string{"type", "message"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+// NewBetaManagedAgentsMcpEgressBlockedRunError returns a validated BetaManagedAgentsMcpEgressBlockedRunError built from named fields.
+// Optional fields may be left unset; a value that violates the schema is
+// reported as *SdkValidationError.
+func NewBetaManagedAgentsMcpEgressBlockedRunError(fields BetaManagedAgentsMcpEgressBlockedRunError) (*BetaManagedAgentsMcpEgressBlockedRunError, error) {
+	return ConstructModel(fields)
+}
+
+// BetaManagedAgentsMcpEgressBlockedRunErrorTypeEnum Required enumerated value serialized in the `type` wire field.
+type BetaManagedAgentsMcpEgressBlockedRunErrorTypeEnum string
+
+const (
+	BetaManagedAgentsMcpEgressBlockedRunErrorTypeEnumMcpEgressBlockedError BetaManagedAgentsMcpEgressBlockedRunErrorTypeEnum = "mcp_egress_blocked_error"
+)
+
+func (value *BetaManagedAgentsMcpEgressBlockedRunErrorTypeEnum) UnmarshalJSON(data []byte) error {
+	var raw string
+	if err := json.Unmarshal(data, &raw); err != nil {
+		return err
+	}
+	switch raw {
+	case "mcp_egress_blocked_error":
+		*value = BetaManagedAgentsMcpEgressBlockedRunErrorTypeEnum(raw)
+		return nil
+	default:
+		return &SdkValidationError{Field: "BetaManagedAgentsMcpEgressBlockedRunErrorTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsMcpEgressBlockedRunErrorTypeEnum: %v", raw)}
+	}
+}
+
+// BetaManagedAgentsMcpOauthAuthResponse OAuth credential details for an MCP server.
+type BetaManagedAgentsMcpOauthAuthResponse struct {
+	// Type Required enumerated value serialized in the `type` wire field.
+	Type BetaManagedAgentsMcpOauthAuthResponseTypeEnum `json:"type"`
+	// McpServerUrl URL of the MCP server this credential authenticates against.
+	McpServerUrl string `json:"mcp_server_url"`
+	// ExpiresAt Optional API value serialized in the `expires_at` wire field.
+	ExpiresAt *NullableValue[string] `json:"expires_at,omitempty"`
+	// Refresh Refresh token configuration, if the credential supports token refresh.
+	Refresh *NullableValue[BetaManagedAgentsMcpOauthRefreshResponse] `json:"refresh,omitempty"`
+}
+
+func (value *BetaManagedAgentsMcpOauthAuthResponse) UnmarshalJSON(data []byte) error {
+	var rawFields map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawFields); err != nil {
+		return err
+	}
+	if err := ValidateRawEnum("type", rawFields["type"], []string{"mcp_oauth"}); err != nil {
+		return err
+	}
+	type BetaManagedAgentsMcpOauthAuthResponseAlias BetaManagedAgentsMcpOauthAuthResponse
+	var decoded BetaManagedAgentsMcpOauthAuthResponseAlias
+	if err := json.Unmarshal(data, &decoded); err != nil {
+		return err
+	}
+	*value = BetaManagedAgentsMcpOauthAuthResponse(decoded)
+	if err := ValidateRequired(rawFields, []string{"type", "mcp_server_url"}); err != nil {
+		return err
+	}
+	if err := ValidateNotNull(rawFields, []string{"type", "mcp_server_url"}); err != nil {
+		return err
+	}
+	if raw, ok := rawFields["expires_at"]; ok && bytes.Equal(bytes.TrimSpace(raw), []byte("null")) {
+		value.ExpiresAt = &NullableValue[string]{}
+	}
+	if raw, ok := rawFields["refresh"]; ok && bytes.Equal(bytes.TrimSpace(raw), []byte("null")) {
+		value.Refresh = &NullableValue[BetaManagedAgentsMcpOauthRefreshResponse]{}
+	}
+	return nil
+}
+
+// NewBetaManagedAgentsMcpOauthAuthResponse returns a validated BetaManagedAgentsMcpOauthAuthResponse built from named fields.
+// Optional fields may be left unset; a value that violates the schema is
+// reported as *SdkValidationError.
+func NewBetaManagedAgentsMcpOauthAuthResponse(fields BetaManagedAgentsMcpOauthAuthResponse) (*BetaManagedAgentsMcpOauthAuthResponse, error) {
+	return ConstructModel(fields)
+}
+
 // BetaManagedAgentsMcpOauthAuthResponseTypeEnum Required enumerated value serialized in the `type` wire field.
 type BetaManagedAgentsMcpOauthAuthResponseTypeEnum string
 
@@ -99,619 +705,4 @@ type BetaManagedAgentsMemory struct {
 	CreatedAt string `json:"created_at"`
 	// UpdatedAt When this memory was last modified, in RFC 3339 format. Use this as a cheap freshness signal; for who made the change, look up the head version's `created_by` via List memory versions.
 	UpdatedAt string `json:"updated_at"`
-}
-
-func (value *BetaManagedAgentsMemory) UnmarshalJSON(data []byte) error {
-	var rawFields map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawFields); err != nil {
-		return err
-	}
-	if err := ValidateRawEnum("type", rawFields["type"], []string{"memory"}); err != nil {
-		return err
-	}
-	type BetaManagedAgentsMemoryAlias BetaManagedAgentsMemory
-	var decoded BetaManagedAgentsMemoryAlias
-	if err := json.Unmarshal(data, &decoded); err != nil {
-		return err
-	}
-	*value = BetaManagedAgentsMemory(decoded)
-	if err := ValidateRequired(rawFields, []string{"type", "id", "memory_store_id", "path", "content_size_bytes", "content_sha256", "memory_version_id", "created_at", "updated_at"}); err != nil {
-		return err
-	}
-	if err := ValidateNotNull(rawFields, []string{"type", "id", "memory_store_id", "path", "content_size_bytes", "content_sha256", "memory_version_id", "created_at", "updated_at"}); err != nil {
-		return err
-	}
-	if raw, ok := rawFields["content"]; ok && bytes.Equal(bytes.TrimSpace(raw), []byte("null")) {
-		value.Content = &NullableValue[string]{}
-	}
-	return nil
-}
-
-// NewBetaManagedAgentsMemory returns a validated BetaManagedAgentsMemory built from named fields.
-// Optional fields may be left unset; a value that violates the schema is
-// reported as *SdkValidationError.
-func NewBetaManagedAgentsMemory(fields BetaManagedAgentsMemory) (*BetaManagedAgentsMemory, error) {
-	return ConstructModel(fields)
-}
-
-// BetaManagedAgentsMemoryTypeEnum Required enumerated value serialized in the `type` wire field.
-type BetaManagedAgentsMemoryTypeEnum string
-
-const (
-	BetaManagedAgentsMemoryTypeEnumMemory BetaManagedAgentsMemoryTypeEnum = "memory"
-)
-
-func (value *BetaManagedAgentsMemoryTypeEnum) UnmarshalJSON(data []byte) error {
-	var raw string
-	if err := json.Unmarshal(data, &raw); err != nil {
-		return err
-	}
-	switch raw {
-	case "memory":
-		*value = BetaManagedAgentsMemoryTypeEnum(raw)
-		return nil
-	default:
-		return &SdkValidationError{Field: "BetaManagedAgentsMemoryTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsMemoryTypeEnum: %v", raw)}
-	}
-}
-
-// BetaManagedAgentsMemoryPathConflictError Typed representation of the `BetaManagedAgentsMemoryPathConflictError` API schema.
-type BetaManagedAgentsMemoryPathConflictError struct {
-	// Type Required enumerated value serialized in the `type` wire field.
-	Type BetaManagedAgentsMemoryPathConflictErrorTypeEnum `json:"type"`
-	// Message Optional `string` value serialized in the `message` wire field.
-	Message *string `json:"message,omitempty"`
-	// ConflictingPath Optional `string` value serialized in the `conflicting_path` wire field.
-	ConflictingPath *string `json:"conflicting_path,omitempty"`
-	// ConflictingMemoryId Optional `string` value serialized in the `conflicting_memory_id` wire field.
-	ConflictingMemoryId *string `json:"conflicting_memory_id,omitempty"`
-}
-
-func (value *BetaManagedAgentsMemoryPathConflictError) UnmarshalJSON(data []byte) error {
-	var rawFields map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawFields); err != nil {
-		return err
-	}
-	if err := ValidateRawEnum("type", rawFields["type"], []string{"memory_path_conflict_error"}); err != nil {
-		return err
-	}
-	type BetaManagedAgentsMemoryPathConflictErrorAlias BetaManagedAgentsMemoryPathConflictError
-	var decoded BetaManagedAgentsMemoryPathConflictErrorAlias
-	if err := json.Unmarshal(data, &decoded); err != nil {
-		return err
-	}
-	*value = BetaManagedAgentsMemoryPathConflictError(decoded)
-	if err := ValidateRequired(rawFields, []string{"type"}); err != nil {
-		return err
-	}
-	if err := ValidateNotNull(rawFields, []string{"type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-// NewBetaManagedAgentsMemoryPathConflictError returns a validated BetaManagedAgentsMemoryPathConflictError built from named fields.
-// Optional fields may be left unset; a value that violates the schema is
-// reported as *SdkValidationError.
-func NewBetaManagedAgentsMemoryPathConflictError(fields BetaManagedAgentsMemoryPathConflictError) (*BetaManagedAgentsMemoryPathConflictError, error) {
-	return ConstructModel(fields)
-}
-
-// BetaManagedAgentsMemoryPathConflictErrorTypeEnum Required enumerated value serialized in the `type` wire field.
-type BetaManagedAgentsMemoryPathConflictErrorTypeEnum string
-
-const (
-	BetaManagedAgentsMemoryPathConflictErrorTypeEnumMemoryPathConflictError BetaManagedAgentsMemoryPathConflictErrorTypeEnum = "memory_path_conflict_error"
-)
-
-func (value *BetaManagedAgentsMemoryPathConflictErrorTypeEnum) UnmarshalJSON(data []byte) error {
-	var raw string
-	if err := json.Unmarshal(data, &raw); err != nil {
-		return err
-	}
-	switch raw {
-	case "memory_path_conflict_error":
-		*value = BetaManagedAgentsMemoryPathConflictErrorTypeEnum(raw)
-		return nil
-	default:
-		return &SdkValidationError{Field: "BetaManagedAgentsMemoryPathConflictErrorTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsMemoryPathConflictErrorTypeEnum: %v", raw)}
-	}
-}
-
-// BetaManagedAgentsMemoryPreconditionFailedError Typed representation of the `BetaManagedAgentsMemoryPreconditionFailedError` API schema.
-type BetaManagedAgentsMemoryPreconditionFailedError struct {
-	// Type Required enumerated value serialized in the `type` wire field.
-	Type BetaManagedAgentsMemoryPreconditionFailedErrorTypeEnum `json:"type"`
-	// Message Optional `string` value serialized in the `message` wire field.
-	Message *string `json:"message,omitempty"`
-}
-
-func (value *BetaManagedAgentsMemoryPreconditionFailedError) UnmarshalJSON(data []byte) error {
-	var rawFields map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawFields); err != nil {
-		return err
-	}
-	if err := ValidateRawEnum("type", rawFields["type"], []string{"memory_precondition_failed_error"}); err != nil {
-		return err
-	}
-	type BetaManagedAgentsMemoryPreconditionFailedErrorAlias BetaManagedAgentsMemoryPreconditionFailedError
-	var decoded BetaManagedAgentsMemoryPreconditionFailedErrorAlias
-	if err := json.Unmarshal(data, &decoded); err != nil {
-		return err
-	}
-	*value = BetaManagedAgentsMemoryPreconditionFailedError(decoded)
-	if err := ValidateRequired(rawFields, []string{"type"}); err != nil {
-		return err
-	}
-	if err := ValidateNotNull(rawFields, []string{"type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-// NewBetaManagedAgentsMemoryPreconditionFailedError returns a validated BetaManagedAgentsMemoryPreconditionFailedError built from named fields.
-// Optional fields may be left unset; a value that violates the schema is
-// reported as *SdkValidationError.
-func NewBetaManagedAgentsMemoryPreconditionFailedError(fields BetaManagedAgentsMemoryPreconditionFailedError) (*BetaManagedAgentsMemoryPreconditionFailedError, error) {
-	return ConstructModel(fields)
-}
-
-// BetaManagedAgentsMemoryPreconditionFailedErrorTypeEnum Required enumerated value serialized in the `type` wire field.
-type BetaManagedAgentsMemoryPreconditionFailedErrorTypeEnum string
-
-const (
-	BetaManagedAgentsMemoryPreconditionFailedErrorTypeEnumMemoryPreconditionFailedError BetaManagedAgentsMemoryPreconditionFailedErrorTypeEnum = "memory_precondition_failed_error"
-)
-
-func (value *BetaManagedAgentsMemoryPreconditionFailedErrorTypeEnum) UnmarshalJSON(data []byte) error {
-	var raw string
-	if err := json.Unmarshal(data, &raw); err != nil {
-		return err
-	}
-	switch raw {
-	case "memory_precondition_failed_error":
-		*value = BetaManagedAgentsMemoryPreconditionFailedErrorTypeEnum(raw)
-		return nil
-	default:
-		return &SdkValidationError{Field: "BetaManagedAgentsMemoryPreconditionFailedErrorTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsMemoryPreconditionFailedErrorTypeEnum: %v", raw)}
-	}
-}
-
-// BetaManagedAgentsMemoryStore A `memory_store`: a named container for agent memories, scoped to a workspace. Attach a store to a session via `resources[]` to mount it as a directory the agent can read and write.
-type BetaManagedAgentsMemoryStore struct {
-	// Type Required enumerated value serialized in the `type` wire field.
-	Type BetaManagedAgentsMemoryStoreTypeEnum `json:"type"`
-	// Id Unique identifier for the memory store (a `memstore_...` tagged ID). Use this when attaching the store to a session, or in the `{memory_store_id}` path parameter of subsequent calls.
-	Id string `json:"id"`
-	// Name Human-readable name for the store. 1–255 characters. The store's mount-path slug under `/mnt/memory/` is derived from this name.
-	Name string `json:"name"`
-	// Description Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
-	Description *string `json:"description,omitempty"`
-	// CreatedAt Timestamp when the store was created.
-	CreatedAt string `json:"created_at"`
-	// UpdatedAt Timestamp when the store's `name`, `description`, or `metadata` was last modified. Memory writes inside the store do not advance this.
-	UpdatedAt string `json:"updated_at"`
-	// Metadata Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
-	Metadata map[string]string `json:"metadata,omitempty"`
-	// ArchivedAt Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
-	ArchivedAt *NullableValue[string] `json:"archived_at,omitempty"`
-}
-
-func (value *BetaManagedAgentsMemoryStore) UnmarshalJSON(data []byte) error {
-	var rawFields map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawFields); err != nil {
-		return err
-	}
-	if err := ValidateRawEnum("type", rawFields["type"], []string{"memory_store"}); err != nil {
-		return err
-	}
-	type BetaManagedAgentsMemoryStoreAlias BetaManagedAgentsMemoryStore
-	var decoded BetaManagedAgentsMemoryStoreAlias
-	if err := json.Unmarshal(data, &decoded); err != nil {
-		return err
-	}
-	*value = BetaManagedAgentsMemoryStore(decoded)
-	if err := ValidateRequired(rawFields, []string{"type", "id", "name", "created_at", "updated_at"}); err != nil {
-		return err
-	}
-	if err := ValidateNotNull(rawFields, []string{"type", "id", "name", "created_at", "updated_at"}); err != nil {
-		return err
-	}
-	if raw, ok := rawFields["archived_at"]; ok && bytes.Equal(bytes.TrimSpace(raw), []byte("null")) {
-		value.ArchivedAt = &NullableValue[string]{}
-	}
-	return nil
-}
-
-// NewBetaManagedAgentsMemoryStore returns a validated BetaManagedAgentsMemoryStore built from named fields.
-// Optional fields may be left unset; a value that violates the schema is
-// reported as *SdkValidationError.
-func NewBetaManagedAgentsMemoryStore(fields BetaManagedAgentsMemoryStore) (*BetaManagedAgentsMemoryStore, error) {
-	return ConstructModel(fields)
-}
-
-// BetaManagedAgentsMemoryStoreTypeEnum Required enumerated value serialized in the `type` wire field.
-type BetaManagedAgentsMemoryStoreTypeEnum string
-
-const (
-	BetaManagedAgentsMemoryStoreTypeEnumMemoryStore BetaManagedAgentsMemoryStoreTypeEnum = "memory_store"
-)
-
-func (value *BetaManagedAgentsMemoryStoreTypeEnum) UnmarshalJSON(data []byte) error {
-	var raw string
-	if err := json.Unmarshal(data, &raw); err != nil {
-		return err
-	}
-	switch raw {
-	case "memory_store":
-		*value = BetaManagedAgentsMemoryStoreTypeEnum(raw)
-		return nil
-	default:
-		return &SdkValidationError{Field: "BetaManagedAgentsMemoryStoreTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsMemoryStoreTypeEnum: %v", raw)}
-	}
-}
-
-// BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError A memory store referenced by the deployment is archived.
-type BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError struct {
-	// Type Required enumerated value serialized in the `type` wire field.
-	Type BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorTypeEnum `json:"type"`
-}
-
-func (value *BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError) UnmarshalJSON(data []byte) error {
-	var rawFields map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawFields); err != nil {
-		return err
-	}
-	if err := ValidateRawEnum("type", rawFields["type"], []string{"memory_store_archived_error"}); err != nil {
-		return err
-	}
-	type BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorAlias BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError
-	var decoded BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorAlias
-	if err := json.Unmarshal(data, &decoded); err != nil {
-		return err
-	}
-	*value = BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError(decoded)
-	if err := ValidateRequired(rawFields, []string{"type"}); err != nil {
-		return err
-	}
-	if err := ValidateNotNull(rawFields, []string{"type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-// NewBetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError returns a validated BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError built from named fields.
-// Optional fields may be left unset; a value that violates the schema is
-// reported as *SdkValidationError.
-func NewBetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError(fields BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError) (*BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError, error) {
-	return ConstructModel(fields)
-}
-
-// BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorTypeEnum Required enumerated value serialized in the `type` wire field.
-type BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorTypeEnum string
-
-const (
-	BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorTypeEnumMemoryStoreArchivedError BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorTypeEnum = "memory_store_archived_error"
-)
-
-func (value *BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorTypeEnum) UnmarshalJSON(data []byte) error {
-	var raw string
-	if err := json.Unmarshal(data, &raw); err != nil {
-		return err
-	}
-	switch raw {
-	case "memory_store_archived_error":
-		*value = BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorTypeEnum(raw)
-		return nil
-	default:
-		return &SdkValidationError{Field: "BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorTypeEnum: %v", raw)}
-	}
-}
-
-// BetaManagedAgentsMemoryStoreArchivedRunError A memory store referenced by the deployment is archived.
-type BetaManagedAgentsMemoryStoreArchivedRunError struct {
-	// Type Required enumerated value serialized in the `type` wire field.
-	Type BetaManagedAgentsMemoryStoreArchivedRunErrorTypeEnum `json:"type"`
-	// Message Human-readable error description.
-	Message string `json:"message"`
-}
-
-func (value *BetaManagedAgentsMemoryStoreArchivedRunError) UnmarshalJSON(data []byte) error {
-	var rawFields map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawFields); err != nil {
-		return err
-	}
-	if err := ValidateRawEnum("type", rawFields["type"], []string{"memory_store_archived_error"}); err != nil {
-		return err
-	}
-	type BetaManagedAgentsMemoryStoreArchivedRunErrorAlias BetaManagedAgentsMemoryStoreArchivedRunError
-	var decoded BetaManagedAgentsMemoryStoreArchivedRunErrorAlias
-	if err := json.Unmarshal(data, &decoded); err != nil {
-		return err
-	}
-	*value = BetaManagedAgentsMemoryStoreArchivedRunError(decoded)
-	if err := ValidateRequired(rawFields, []string{"type", "message"}); err != nil {
-		return err
-	}
-	if err := ValidateNotNull(rawFields, []string{"type", "message"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-// NewBetaManagedAgentsMemoryStoreArchivedRunError returns a validated BetaManagedAgentsMemoryStoreArchivedRunError built from named fields.
-// Optional fields may be left unset; a value that violates the schema is
-// reported as *SdkValidationError.
-func NewBetaManagedAgentsMemoryStoreArchivedRunError(fields BetaManagedAgentsMemoryStoreArchivedRunError) (*BetaManagedAgentsMemoryStoreArchivedRunError, error) {
-	return ConstructModel(fields)
-}
-
-// BetaManagedAgentsMemoryStoreArchivedRunErrorTypeEnum Required enumerated value serialized in the `type` wire field.
-type BetaManagedAgentsMemoryStoreArchivedRunErrorTypeEnum string
-
-const (
-	BetaManagedAgentsMemoryStoreArchivedRunErrorTypeEnumMemoryStoreArchivedError BetaManagedAgentsMemoryStoreArchivedRunErrorTypeEnum = "memory_store_archived_error"
-)
-
-func (value *BetaManagedAgentsMemoryStoreArchivedRunErrorTypeEnum) UnmarshalJSON(data []byte) error {
-	var raw string
-	if err := json.Unmarshal(data, &raw); err != nil {
-		return err
-	}
-	switch raw {
-	case "memory_store_archived_error":
-		*value = BetaManagedAgentsMemoryStoreArchivedRunErrorTypeEnum(raw)
-		return nil
-	default:
-		return &SdkValidationError{Field: "BetaManagedAgentsMemoryStoreArchivedRunErrorTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsMemoryStoreArchivedRunErrorTypeEnum: %v", raw)}
-	}
-}
-
-// BetaManagedAgentsMemoryStoreResource A memory store attached to an agent session.
-type BetaManagedAgentsMemoryStoreResource struct {
-	// Type Required enumerated value serialized in the `type` wire field.
-	Type BetaManagedAgentsMemoryStoreResourceTypeEnum `json:"type"`
-	// MemoryStoreId The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
-	MemoryStoreId string `json:"memory_store_id"`
-	// Access Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
-	Access *NullableValue[BetaManagedAgentsMountMode] `json:"access,omitempty"`
-	// Name Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
-	Name *NullableValue[string] `json:"name,omitempty"`
-	// Description Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
-	Description *string `json:"description,omitempty"`
-	// Instructions Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
-	Instructions *NullableValue[string] `json:"instructions,omitempty"`
-	// MountPath Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
-	MountPath *NullableValue[string] `json:"mount_path,omitempty"`
-}
-
-func (value *BetaManagedAgentsMemoryStoreResource) UnmarshalJSON(data []byte) error {
-	var rawFields map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawFields); err != nil {
-		return err
-	}
-	if err := ValidateRawEnum("type", rawFields["type"], []string{"memory_store"}); err != nil {
-		return err
-	}
-	type BetaManagedAgentsMemoryStoreResourceAlias BetaManagedAgentsMemoryStoreResource
-	var decoded BetaManagedAgentsMemoryStoreResourceAlias
-	if err := json.Unmarshal(data, &decoded); err != nil {
-		return err
-	}
-	*value = BetaManagedAgentsMemoryStoreResource(decoded)
-	if err := ValidateRequired(rawFields, []string{"type", "memory_store_id"}); err != nil {
-		return err
-	}
-	if err := ValidateNotNull(rawFields, []string{"type", "memory_store_id"}); err != nil {
-		return err
-	}
-	if raw, ok := rawFields["access"]; ok && bytes.Equal(bytes.TrimSpace(raw), []byte("null")) {
-		value.Access = &NullableValue[BetaManagedAgentsMountMode]{}
-	}
-	if raw, ok := rawFields["name"]; ok && bytes.Equal(bytes.TrimSpace(raw), []byte("null")) {
-		value.Name = &NullableValue[string]{}
-	}
-	if raw, ok := rawFields["instructions"]; ok && bytes.Equal(bytes.TrimSpace(raw), []byte("null")) {
-		value.Instructions = &NullableValue[string]{}
-	}
-	if raw, ok := rawFields["mount_path"]; ok && bytes.Equal(bytes.TrimSpace(raw), []byte("null")) {
-		value.MountPath = &NullableValue[string]{}
-	}
-	return nil
-}
-
-// NewBetaManagedAgentsMemoryStoreResource returns a validated BetaManagedAgentsMemoryStoreResource built from named fields.
-// Optional fields may be left unset; a value that violates the schema is
-// reported as *SdkValidationError.
-func NewBetaManagedAgentsMemoryStoreResource(fields BetaManagedAgentsMemoryStoreResource) (*BetaManagedAgentsMemoryStoreResource, error) {
-	return ConstructModel(fields)
-}
-
-// BetaManagedAgentsMemoryStoreResourceTypeEnum Required enumerated value serialized in the `type` wire field.
-type BetaManagedAgentsMemoryStoreResourceTypeEnum string
-
-const (
-	BetaManagedAgentsMemoryStoreResourceTypeEnumMemoryStore BetaManagedAgentsMemoryStoreResourceTypeEnum = "memory_store"
-)
-
-func (value *BetaManagedAgentsMemoryStoreResourceTypeEnum) UnmarshalJSON(data []byte) error {
-	var raw string
-	if err := json.Unmarshal(data, &raw); err != nil {
-		return err
-	}
-	switch raw {
-	case "memory_store":
-		*value = BetaManagedAgentsMemoryStoreResourceTypeEnum(raw)
-		return nil
-	default:
-		return &SdkValidationError{Field: "BetaManagedAgentsMemoryStoreResourceTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsMemoryStoreResourceTypeEnum: %v", raw)}
-	}
-}
-
-// BetaManagedAgentsMemoryStoreResourceConfig A memory store attached to each session created from this deployment.
-type BetaManagedAgentsMemoryStoreResourceConfig struct {
-	// Type Required enumerated value serialized in the `type` wire field.
-	Type BetaManagedAgentsMemoryStoreResourceConfigTypeEnum `json:"type"`
-	// MemoryStoreId The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
-	MemoryStoreId string `json:"memory_store_id"`
-	// Access Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
-	Access *NullableValue[BetaManagedAgentsMountMode] `json:"access,omitempty"`
-	// Instructions Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
-	Instructions *NullableValue[string] `json:"instructions,omitempty"`
-}
-
-func (value *BetaManagedAgentsMemoryStoreResourceConfig) UnmarshalJSON(data []byte) error {
-	var rawFields map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawFields); err != nil {
-		return err
-	}
-	if err := ValidateRawEnum("type", rawFields["type"], []string{"memory_store"}); err != nil {
-		return err
-	}
-	type BetaManagedAgentsMemoryStoreResourceConfigAlias BetaManagedAgentsMemoryStoreResourceConfig
-	var decoded BetaManagedAgentsMemoryStoreResourceConfigAlias
-	if err := json.Unmarshal(data, &decoded); err != nil {
-		return err
-	}
-	*value = BetaManagedAgentsMemoryStoreResourceConfig(decoded)
-	if err := ValidateRequired(rawFields, []string{"type", "memory_store_id"}); err != nil {
-		return err
-	}
-	if err := ValidateNotNull(rawFields, []string{"type", "memory_store_id"}); err != nil {
-		return err
-	}
-	if raw, ok := rawFields["access"]; ok && bytes.Equal(bytes.TrimSpace(raw), []byte("null")) {
-		value.Access = &NullableValue[BetaManagedAgentsMountMode]{}
-	}
-	if raw, ok := rawFields["instructions"]; ok && bytes.Equal(bytes.TrimSpace(raw), []byte("null")) {
-		value.Instructions = &NullableValue[string]{}
-	}
-	return nil
-}
-
-// NewBetaManagedAgentsMemoryStoreResourceConfig returns a validated BetaManagedAgentsMemoryStoreResourceConfig built from named fields.
-// Optional fields may be left unset; a value that violates the schema is
-// reported as *SdkValidationError.
-func NewBetaManagedAgentsMemoryStoreResourceConfig(fields BetaManagedAgentsMemoryStoreResourceConfig) (*BetaManagedAgentsMemoryStoreResourceConfig, error) {
-	return ConstructModel(fields)
-}
-
-// BetaManagedAgentsMemoryStoreResourceConfigTypeEnum Required enumerated value serialized in the `type` wire field.
-type BetaManagedAgentsMemoryStoreResourceConfigTypeEnum string
-
-const (
-	BetaManagedAgentsMemoryStoreResourceConfigTypeEnumMemoryStore BetaManagedAgentsMemoryStoreResourceConfigTypeEnum = "memory_store"
-)
-
-func (value *BetaManagedAgentsMemoryStoreResourceConfigTypeEnum) UnmarshalJSON(data []byte) error {
-	var raw string
-	if err := json.Unmarshal(data, &raw); err != nil {
-		return err
-	}
-	switch raw {
-	case "memory_store":
-		*value = BetaManagedAgentsMemoryStoreResourceConfigTypeEnum(raw)
-		return nil
-	default:
-		return &SdkValidationError{Field: "BetaManagedAgentsMemoryStoreResourceConfigTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsMemoryStoreResourceConfigTypeEnum: %v", raw)}
-	}
-}
-
-// BetaManagedAgentsMemoryStoreResourceParam Parameters for attaching a memory store to an agent session.
-type BetaManagedAgentsMemoryStoreResourceParam struct {
-	// Type Required enumerated value serialized in the `type` wire field.
-	Type BetaManagedAgentsMemoryStoreResourceParamTypeEnum `json:"type"`
-	// MemoryStoreId The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
-	MemoryStoreId string `json:"memory_store_id"`
-	// Access Access mode for the mounted store. Defaults to read_write. read_only mounts the store as a read-only filesystem.
-	Access *NullableValue[BetaManagedAgentsMountMode] `json:"access,omitempty"`
-	// Instructions Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
-	Instructions *NullableValue[string] `json:"instructions,omitempty"`
-}
-
-func (value *BetaManagedAgentsMemoryStoreResourceParam) UnmarshalJSON(data []byte) error {
-	var rawFields map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawFields); err != nil {
-		return err
-	}
-	if err := ValidateRawEnum("type", rawFields["type"], []string{"memory_store"}); err != nil {
-		return err
-	}
-	type BetaManagedAgentsMemoryStoreResourceParamAlias BetaManagedAgentsMemoryStoreResourceParam
-	var decoded BetaManagedAgentsMemoryStoreResourceParamAlias
-	if err := json.Unmarshal(data, &decoded); err != nil {
-		return err
-	}
-	*value = BetaManagedAgentsMemoryStoreResourceParam(decoded)
-	if err := ValidateRequired(rawFields, []string{"type", "memory_store_id"}); err != nil {
-		return err
-	}
-	if err := ValidateNotNull(rawFields, []string{"type", "memory_store_id"}); err != nil {
-		return err
-	}
-	if raw, ok := rawFields["access"]; ok && bytes.Equal(bytes.TrimSpace(raw), []byte("null")) {
-		value.Access = &NullableValue[BetaManagedAgentsMountMode]{}
-	}
-	if raw, ok := rawFields["instructions"]; ok && bytes.Equal(bytes.TrimSpace(raw), []byte("null")) {
-		value.Instructions = &NullableValue[string]{}
-	}
-	return nil
-}
-
-// NewBetaManagedAgentsMemoryStoreResourceParam returns a validated BetaManagedAgentsMemoryStoreResourceParam built from named fields.
-// Optional fields may be left unset; a value that violates the schema is
-// reported as *SdkValidationError.
-func NewBetaManagedAgentsMemoryStoreResourceParam(fields BetaManagedAgentsMemoryStoreResourceParam) (*BetaManagedAgentsMemoryStoreResourceParam, error) {
-	return ConstructModel(fields)
-}
-
-// BetaManagedAgentsMemoryStoreResourceParamTypeEnum Required enumerated value serialized in the `type` wire field.
-type BetaManagedAgentsMemoryStoreResourceParamTypeEnum string
-
-const (
-	BetaManagedAgentsMemoryStoreResourceParamTypeEnumMemoryStore BetaManagedAgentsMemoryStoreResourceParamTypeEnum = "memory_store"
-)
-
-func (value *BetaManagedAgentsMemoryStoreResourceParamTypeEnum) UnmarshalJSON(data []byte) error {
-	var raw string
-	if err := json.Unmarshal(data, &raw); err != nil {
-		return err
-	}
-	switch raw {
-	case "memory_store":
-		*value = BetaManagedAgentsMemoryStoreResourceParamTypeEnum(raw)
-		return nil
-	default:
-		return &SdkValidationError{Field: "BetaManagedAgentsMemoryStoreResourceParamTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsMemoryStoreResourceParamTypeEnum: %v", raw)}
-	}
-}
-
-// BetaManagedAgentsMemoryVersion A `memory_version` object: one immutable, attributed row in a memory's append-only history. Every non-no-op mutation to a memory produces a new version. Versions belong to the store (not the individual memory) and are not deleted with the memory; each version is retained for at least the version retention period after it was written, unless the store itself is deleted. Retrieving a redacted version returns 200 with `content`, `path`, `content_size_bytes`, and `content_sha256` set to `null`; branch on `redacted_at`, not HTTP status.
-type BetaManagedAgentsMemoryVersion struct {
-	// Type Required enumerated value serialized in the `type` wire field.
-	Type BetaManagedAgentsMemoryVersionTypeEnum `json:"type"`
-	// Id Unique identifier for this version (a `memver_...` value).
-	Id string `json:"id"`
-	// MemoryStoreId ID of the memory store this version belongs to (a `memstore_...` value).
-	MemoryStoreId string `json:"memory_store_id"`
-	// MemoryId ID of the memory this version snapshots (a `mem_...` value). Remains valid after the memory is deleted; pass it as `memory_id` to List memory versions to retrieve the memory's retained versions, including the `deleted` row while the lineage is retained.
-	MemoryId string `json:"memory_id"`
-	// Path The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
-	Path *NullableValue[string] `json:"path,omitempty"`
-	// Operation The kind of mutation this version records: `created`, `modified`, or `deleted`.
-	Operation BetaManagedAgentsMemoryVersionOperation `json:"operation"`
-	// Content The memory's UTF-8 text content as of this version. `null` when `view=basic`, when `operation` is `deleted`, or when `redacted_at` is set.
-	Content *NullableValue[string] `json:"content,omitempty"`
-	// ContentSizeBytes Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
-	ContentSizeBytes *NullableValue[int64] `json:"content_size_bytes,omitempty"`
-	// ContentSha256 Lowercase hex SHA-256 digest of `content` as of this version (64 characters). `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
-	ContentSha256 *NullableValue[string] `json:"content_sha256,omitempty"`
-	// CreatedBy Who performed this write: one of `session_actor`, `api_actor`, `user_actor`, or `service_account_actor`; `null` when no writer is recorded. Captured at write time and preserved through redaction.
-	CreatedBy *BetaManagedAgentsActor `json:"created_by,omitempty"`
-	// CreatedAt When this version was written, in RFC 3339 format.
-	CreatedAt string `json:"created_at"`
-	// RedactedAt When this version was redacted, in RFC 3339 format, or `null` if it has not been redacted. When set, `content`, `path`, `content_size_bytes`, and `content_sha256` are all `null`. See Redact a memory version.
-	RedactedAt *NullableValue[string] `json:"redacted_at,omitempty"`
-	// RedactedBy Who redacted this version, or `null` if it has not been redacted. In practice always an `api_actor`, `user_actor`, or `service_account_actor` (agents do not have a redact capability).
-	RedactedBy *BetaManagedAgentsActor `json:"redacted_by,omitempty"`
 }

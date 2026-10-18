@@ -455,6 +455,39 @@ func (u *BetaMemoryTool20250818Command) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaMemoryTool20250818ViewCommand
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaMemoryTool20250818ViewCommand = &lossless0
+			return nil
+		}
+		var lossless1 BetaMemoryTool20250818CreateCommand
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaMemoryTool20250818CreateCommand = &lossless1
+			return nil
+		}
+		var lossless2 BetaMemoryTool20250818StrReplaceCommand
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaMemoryTool20250818StrReplaceCommand = &lossless2
+			return nil
+		}
+		var lossless3 BetaMemoryTool20250818InsertCommand
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.BetaMemoryTool20250818InsertCommand = &lossless3
+			return nil
+		}
+		var lossless4 BetaMemoryTool20250818DeleteCommand
+		if json.Unmarshal(data, &lossless4) == nil && keepsEveryKey(raw, lossless4) {
+			u.BetaMemoryTool20250818DeleteCommand = &lossless4
+			return nil
+		}
+		var lossless5 BetaMemoryTool20250818RenameCommand
+		if json.Unmarshal(data, &lossless5) == nil && keepsEveryKey(raw, lossless5) {
+			u.BetaMemoryTool20250818RenameCommand = &lossless5
+			return nil
+		}
+	}
 	var betamemorytool20250818viewcommand BetaMemoryTool20250818ViewCommand
 	if err := json.Unmarshal(data, &betamemorytool20250818viewcommand); err == nil && isNonEmptyBetaMemoryTool20250818CommandBetaMemoryTool20250818ViewCommand(betamemorytool20250818viewcommand) {
 		u.BetaMemoryTool20250818ViewCommand = &betamemorytool20250818viewcommand

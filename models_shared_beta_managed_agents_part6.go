@@ -9,6 +9,124 @@ import (
 	"fmt"
 )
 
+const (
+	BetaManagedAgentsCredentialHostUnreachableErrorTypeEnumCredentialHostUnreachableError BetaManagedAgentsCredentialHostUnreachableErrorTypeEnum = "credential_host_unreachable_error"
+)
+
+func (value *BetaManagedAgentsCredentialHostUnreachableErrorTypeEnum) UnmarshalJSON(data []byte) error {
+	var raw string
+	if err := json.Unmarshal(data, &raw); err != nil {
+		return err
+	}
+	switch raw {
+	case "credential_host_unreachable_error":
+		*value = BetaManagedAgentsCredentialHostUnreachableErrorTypeEnum(raw)
+		return nil
+	default:
+		return &SdkValidationError{Field: "BetaManagedAgentsCredentialHostUnreachableErrorTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsCredentialHostUnreachableErrorTypeEnum: %v", raw)}
+	}
+}
+
+// BetaManagedAgentsCredentialNetworkingParams represents a union type.
+type BetaManagedAgentsCredentialNetworkingParams struct {
+	BetaManagedAgentsUnrestrictedCredentialNetworkingParams *BetaManagedAgentsUnrestrictedCredentialNetworkingParams
+	BetaManagedAgentsLimitedCredentialNetworkingParams      *BetaManagedAgentsLimitedCredentialNetworkingParams
+
+	// Unknown holds a member whose type names no branch this SDK knows, as received.
+	Unknown json.RawMessage
+}
+
+func (u *BetaManagedAgentsCredentialNetworkingParams) UnmarshalJSON(data []byte) error {
+	*u = BetaManagedAgentsCredentialNetworkingParams{}
+	var refusal error
+	var object map[string]json.RawMessage
+	if err := json.Unmarshal(data, &object); err == nil {
+		if rawDiscriminator, ok := object["type"]; ok {
+			var discriminatorValue string
+			if err := json.Unmarshal(rawDiscriminator, &discriminatorValue); err == nil {
+				switch discriminatorValue {
+				case "unrestricted":
+					var betamanagedagentsunrestrictedcredentialnetworkingparams BetaManagedAgentsUnrestrictedCredentialNetworkingParams
+					if err := json.Unmarshal(data, &betamanagedagentsunrestrictedcredentialnetworkingparams); err != nil {
+						return err
+					}
+					u.BetaManagedAgentsUnrestrictedCredentialNetworkingParams = &betamanagedagentsunrestrictedcredentialnetworkingparams
+					return nil
+				case "limited":
+					var betamanagedagentslimitedcredentialnetworkingparams BetaManagedAgentsLimitedCredentialNetworkingParams
+					if err := json.Unmarshal(data, &betamanagedagentslimitedcredentialnetworkingparams); err != nil {
+						return err
+					}
+					u.BetaManagedAgentsLimitedCredentialNetworkingParams = &betamanagedagentslimitedcredentialnetworkingparams
+					return nil
+				default:
+					u.Unknown = append(json.RawMessage(nil), data...)
+					return nil
+				}
+			}
+		}
+	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaManagedAgentsUnrestrictedCredentialNetworkingParams
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaManagedAgentsUnrestrictedCredentialNetworkingParams = &lossless0
+			return nil
+		}
+		var lossless1 BetaManagedAgentsLimitedCredentialNetworkingParams
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaManagedAgentsLimitedCredentialNetworkingParams = &lossless1
+			return nil
+		}
+	}
+	var betamanagedagentsunrestrictedcredentialnetworkingparams BetaManagedAgentsUnrestrictedCredentialNetworkingParams
+	if err := json.Unmarshal(data, &betamanagedagentsunrestrictedcredentialnetworkingparams); err == nil && isNonEmptyBetaManagedAgentsCredentialNetworkingParamsBetaManagedAgentsUnrestrictedCredentialNetworkingParams(betamanagedagentsunrestrictedcredentialnetworkingparams) {
+		u.BetaManagedAgentsUnrestrictedCredentialNetworkingParams = &betamanagedagentsunrestrictedcredentialnetworkingparams
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
+	}
+	var betamanagedagentslimitedcredentialnetworkingparams BetaManagedAgentsLimitedCredentialNetworkingParams
+	if err := json.Unmarshal(data, &betamanagedagentslimitedcredentialnetworkingparams); err == nil && isNonEmptyBetaManagedAgentsCredentialNetworkingParamsBetaManagedAgentsLimitedCredentialNetworkingParams(betamanagedagentslimitedcredentialnetworkingparams) {
+		u.BetaManagedAgentsLimitedCredentialNetworkingParams = &betamanagedagentslimitedcredentialnetworkingparams
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
+	}
+	return refusal
+}
+
+func (u BetaManagedAgentsCredentialNetworkingParams) MarshalJSON() ([]byte, error) {
+	if u.BetaManagedAgentsUnrestrictedCredentialNetworkingParams != nil {
+		return json.Marshal(u.BetaManagedAgentsUnrestrictedCredentialNetworkingParams)
+	}
+	if u.BetaManagedAgentsLimitedCredentialNetworkingParams != nil {
+		return json.Marshal(u.BetaManagedAgentsLimitedCredentialNetworkingParams)
+	}
+	if u.Unknown != nil {
+		return u.Unknown, nil
+	}
+	return []byte("null"), nil
+}
+
+func isNonEmptyBetaManagedAgentsCredentialNetworkingParamsBetaManagedAgentsUnrestrictedCredentialNetworkingParams(v BetaManagedAgentsUnrestrictedCredentialNetworkingParams) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsCredentialNetworkingParamsBetaManagedAgentsLimitedCredentialNetworkingParams(v BetaManagedAgentsLimitedCredentialNetworkingParams) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+// UnmarshalBetaManagedAgentsCredentialNetworkingParams converts an untyped value to BetaManagedAgentsCredentialNetworkingParams.
+func UnmarshalBetaManagedAgentsCredentialNetworkingParams(v any) BetaManagedAgentsCredentialNetworkingParams {
+	b, _ := json.Marshal(v)
+	var result BetaManagedAgentsCredentialNetworkingParams
+	_ = json.Unmarshal(b, &result)
+	return result
+}
+
 // BetaManagedAgentsCredentialNetworkingResponse represents a union type.
 type BetaManagedAgentsCredentialNetworkingResponse struct {
 	BetaManagedAgentsUnrestrictedCredentialNetworkingResponse *BetaManagedAgentsUnrestrictedCredentialNetworkingResponse
@@ -46,6 +164,19 @@ func (u *BetaManagedAgentsCredentialNetworkingResponse) UnmarshalJSON(data []byt
 					return nil
 				}
 			}
+		}
+	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaManagedAgentsUnrestrictedCredentialNetworkingResponse
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaManagedAgentsUnrestrictedCredentialNetworkingResponse = &lossless0
+			return nil
+		}
+		var lossless1 BetaManagedAgentsLimitedCredentialNetworkingResponse
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaManagedAgentsLimitedCredentialNetworkingResponse = &lossless1
+			return nil
 		}
 	}
 	var betamanagedagentsunrestrictedcredentialnetworkingresponse BetaManagedAgentsUnrestrictedCredentialNetworkingResponse
@@ -563,150 +694,4 @@ func (value *BetaManagedAgentsCustomToolParamsTypeEnum) UnmarshalJSON(data []byt
 	default:
 		return &SdkValidationError{Field: "BetaManagedAgentsCustomToolParamsTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsCustomToolParamsTypeEnum: %v", raw)}
 	}
-}
-
-// BetaManagedAgentsDeployment A deployment is a configured instance of an agent — it binds the agent to everything needed to run it autonomously: an environment, credentials, initial events, and an optional schedule.
-type BetaManagedAgentsDeployment struct {
-	// Type Required enumerated value serialized in the `type` wire field.
-	Type BetaManagedAgentsDeploymentTypeEnum `json:"type"`
-	// Id Unique identifier for this deployment.
-	Id string `json:"id"`
-	// Name Human-readable name.
-	Name string `json:"name"`
-	// Description Description of what the deployment does.
-	Description NullableValue[string] `json:"description"`
-	// Agent Reference to the agent this deployment runs, resolved to a concrete version.
-	Agent BetaManagedAgentsAgentReference `json:"agent"`
-	// EnvironmentId ID of the `environment` where sessions run.
-	EnvironmentId string `json:"environment_id"`
-	// VaultIds Vault IDs supplying stored credentials for sessions created from this deployment.
-	VaultIds []string `json:"vault_ids"`
-	// InitialEvents Events sent to each session immediately after creation.
-	InitialEvents []BetaManagedAgentsDeploymentInitialEvent `json:"initial_events"`
-	// Resources Resources attached to sessions created from this deployment. Echoes the input minus write-only credentials.
-	Resources []BetaManagedAgentsSessionResourceConfig `json:"resources"`
-	// Metadata Arbitrary key-value metadata. Maximum 16 pairs.
-	Metadata map[string]string `json:"metadata"`
-	// Schedule Recurring cron schedule. Presence enables scheduled execution; null means manual-only. Includes computed timestamps (next fire times, last run) on the cron variant.
-	Schedule NullableValue[BetaManagedAgentsSchedule] `json:"schedule"`
-	// Status Computed status of the deployment: `active` or `paused`. Archived deployments report `active` with `archived_at` set.
-	Status BetaManagedAgentsDeploymentStatus `json:"status"`
-	// PausedReason Why the deployment is `paused`. Non-null exactly when `status` is `paused`; null otherwise.
-	PausedReason NullableValue[BetaManagedAgentsDeploymentPausedReason] `json:"paused_reason"`
-	// Budget Spend ceiling stamped onto each session created from this deployment. Absent when no budget is set.
-	Budget *NullableValue[BetaManagedAgentsBudget] `json:"budget,omitempty"`
-	// CreatedAt Time the deployment was created.
-	CreatedAt string `json:"created_at"`
-	// UpdatedAt Time the deployment was last updated.
-	UpdatedAt string `json:"updated_at"`
-	// ArchivedAt Time the deployment was archived. Null if not archived.
-	ArchivedAt NullableValue[string] `json:"archived_at"`
-}
-
-func (value *BetaManagedAgentsDeployment) UnmarshalJSON(data []byte) error {
-	type BetaManagedAgentsDeploymentAlias BetaManagedAgentsDeployment
-	var decoded BetaManagedAgentsDeploymentAlias
-	if err := json.Unmarshal(data, &decoded); err != nil {
-		return err
-	}
-	*value = BetaManagedAgentsDeployment(decoded)
-	var rawFields map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawFields); err != nil {
-		return err
-	}
-	if err := ValidateRequired(rawFields, []string{"type", "id", "name", "description", "agent", "environment_id", "vault_ids", "initial_events", "resources", "metadata", "schedule", "status", "paused_reason", "created_at", "updated_at", "archived_at"}); err != nil {
-		return err
-	}
-	if err := ValidateNotNull(rawFields, []string{"type", "id", "name", "agent", "environment_id", "vault_ids", "initial_events", "resources", "metadata", "status", "created_at", "updated_at"}); err != nil {
-		return err
-	}
-	if raw, ok := rawFields["budget"]; ok && bytes.Equal(bytes.TrimSpace(raw), []byte("null")) {
-		value.Budget = &NullableValue[BetaManagedAgentsBudget]{}
-	}
-	return nil
-}
-
-// NewBetaManagedAgentsDeployment returns a validated BetaManagedAgentsDeployment built from named fields.
-// Optional fields may be left unset; a value that violates the schema is
-// reported as *SdkValidationError.
-func NewBetaManagedAgentsDeployment(fields BetaManagedAgentsDeployment) (*BetaManagedAgentsDeployment, error) {
-	return ConstructModel(fields)
-}
-
-// BetaManagedAgentsDeploymentTypeEnum Required enumerated value serialized in the `type` wire field.
-type BetaManagedAgentsDeploymentTypeEnum string
-
-const (
-	BetaManagedAgentsDeploymentTypeEnumDeployment BetaManagedAgentsDeploymentTypeEnum = "deployment"
-)
-
-// BetaManagedAgentsDeploymentInitialEvent represents a union type.
-type BetaManagedAgentsDeploymentInitialEvent struct {
-	BetaManagedAgentsDeploymentUserMessageEvent       *BetaManagedAgentsDeploymentUserMessageEvent
-	BetaManagedAgentsDeploymentUserDefineOutcomeEvent *BetaManagedAgentsDeploymentUserDefineOutcomeEvent
-	BetaManagedAgentsDeploymentSystemMessageEvent     *BetaManagedAgentsDeploymentSystemMessageEvent
-
-	// Unknown holds a member whose type names no branch this SDK knows, as received.
-	Unknown json.RawMessage
-}
-
-func (u *BetaManagedAgentsDeploymentInitialEvent) UnmarshalJSON(data []byte) error {
-	*u = BetaManagedAgentsDeploymentInitialEvent{}
-	var refusal error
-	var object map[string]json.RawMessage
-	if err := json.Unmarshal(data, &object); err == nil {
-		if rawDiscriminator, ok := object["type"]; ok {
-			var discriminatorValue string
-			if err := json.Unmarshal(rawDiscriminator, &discriminatorValue); err == nil {
-				switch discriminatorValue {
-				case "user.message":
-					var betamanagedagentsdeploymentusermessageevent BetaManagedAgentsDeploymentUserMessageEvent
-					if err := json.Unmarshal(data, &betamanagedagentsdeploymentusermessageevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsDeploymentUserMessageEvent = &betamanagedagentsdeploymentusermessageevent
-					return nil
-				case "user.define_outcome":
-					var betamanagedagentsdeploymentuserdefineoutcomeevent BetaManagedAgentsDeploymentUserDefineOutcomeEvent
-					if err := json.Unmarshal(data, &betamanagedagentsdeploymentuserdefineoutcomeevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsDeploymentUserDefineOutcomeEvent = &betamanagedagentsdeploymentuserdefineoutcomeevent
-					return nil
-				case "system.message":
-					var betamanagedagentsdeploymentsystemmessageevent BetaManagedAgentsDeploymentSystemMessageEvent
-					if err := json.Unmarshal(data, &betamanagedagentsdeploymentsystemmessageevent); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsDeploymentSystemMessageEvent = &betamanagedagentsdeploymentsystemmessageevent
-					return nil
-				default:
-					u.Unknown = append(json.RawMessage(nil), data...)
-					return nil
-				}
-			}
-		}
-	}
-	var betamanagedagentsdeploymentusermessageevent BetaManagedAgentsDeploymentUserMessageEvent
-	if err := json.Unmarshal(data, &betamanagedagentsdeploymentusermessageevent); err == nil && isNonEmptyBetaManagedAgentsDeploymentInitialEventBetaManagedAgentsDeploymentUserMessageEvent(betamanagedagentsdeploymentusermessageevent) {
-		u.BetaManagedAgentsDeploymentUserMessageEvent = &betamanagedagentsdeploymentusermessageevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsdeploymentuserdefineoutcomeevent BetaManagedAgentsDeploymentUserDefineOutcomeEvent
-	if err := json.Unmarshal(data, &betamanagedagentsdeploymentuserdefineoutcomeevent); err == nil && isNonEmptyBetaManagedAgentsDeploymentInitialEventBetaManagedAgentsDeploymentUserDefineOutcomeEvent(betamanagedagentsdeploymentuserdefineoutcomeevent) {
-		u.BetaManagedAgentsDeploymentUserDefineOutcomeEvent = &betamanagedagentsdeploymentuserdefineoutcomeevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsdeploymentsystemmessageevent BetaManagedAgentsDeploymentSystemMessageEvent
-	if err := json.Unmarshal(data, &betamanagedagentsdeploymentsystemmessageevent); err == nil && isNonEmptyBetaManagedAgentsDeploymentInitialEventBetaManagedAgentsDeploymentSystemMessageEvent(betamanagedagentsdeploymentsystemmessageevent) {
-		u.BetaManagedAgentsDeploymentSystemMessageEvent = &betamanagedagentsdeploymentsystemmessageevent
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	return refusal
 }

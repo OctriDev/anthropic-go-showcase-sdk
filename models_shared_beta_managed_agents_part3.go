@@ -6,7 +6,6 @@ package sdk
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 )
 
 func (u *BetaManagedAgentsAgentToolConfigUnion) UnmarshalJSON(data []byte) error {
@@ -79,6 +78,49 @@ func (u *BetaManagedAgentsAgentToolConfigUnion) UnmarshalJSON(data []byte) error
 					return nil
 				}
 			}
+		}
+	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaManagedAgentsBashToolConfig
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaManagedAgentsBashToolConfig = &lossless0
+			return nil
+		}
+		var lossless1 BetaManagedAgentsEditToolConfig
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaManagedAgentsEditToolConfig = &lossless1
+			return nil
+		}
+		var lossless2 BetaManagedAgentsReadToolConfig
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaManagedAgentsReadToolConfig = &lossless2
+			return nil
+		}
+		var lossless3 BetaManagedAgentsWriteToolConfig
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.BetaManagedAgentsWriteToolConfig = &lossless3
+			return nil
+		}
+		var lossless4 BetaManagedAgentsGlobToolConfig
+		if json.Unmarshal(data, &lossless4) == nil && keepsEveryKey(raw, lossless4) {
+			u.BetaManagedAgentsGlobToolConfig = &lossless4
+			return nil
+		}
+		var lossless5 BetaManagedAgentsGrepToolConfig
+		if json.Unmarshal(data, &lossless5) == nil && keepsEveryKey(raw, lossless5) {
+			u.BetaManagedAgentsGrepToolConfig = &lossless5
+			return nil
+		}
+		var lossless6 BetaManagedAgentsWebFetchToolConfig
+		if json.Unmarshal(data, &lossless6) == nil && keepsEveryKey(raw, lossless6) {
+			u.BetaManagedAgentsWebFetchToolConfig = &lossless6
+			return nil
+		}
+		var lossless7 BetaManagedAgentsWebSearchToolConfig
+		if json.Unmarshal(data, &lossless7) == nil && keepsEveryKey(raw, lossless7) {
+			u.BetaManagedAgentsWebSearchToolConfig = &lossless7
+			return nil
 		}
 	}
 	var betamanagedagentsbashtoolconfig BetaManagedAgentsBashToolConfig
@@ -306,6 +348,49 @@ func (u *BetaManagedAgentsAgentToolConfigUnionParams) UnmarshalJSON(data []byte)
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaManagedAgentsBashToolConfigParams
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaManagedAgentsBashToolConfigParams = &lossless0
+			return nil
+		}
+		var lossless1 BetaManagedAgentsEditToolConfigParams
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaManagedAgentsEditToolConfigParams = &lossless1
+			return nil
+		}
+		var lossless2 BetaManagedAgentsReadToolConfigParams
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaManagedAgentsReadToolConfigParams = &lossless2
+			return nil
+		}
+		var lossless3 BetaManagedAgentsWriteToolConfigParams
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.BetaManagedAgentsWriteToolConfigParams = &lossless3
+			return nil
+		}
+		var lossless4 BetaManagedAgentsGlobToolConfigParams
+		if json.Unmarshal(data, &lossless4) == nil && keepsEveryKey(raw, lossless4) {
+			u.BetaManagedAgentsGlobToolConfigParams = &lossless4
+			return nil
+		}
+		var lossless5 BetaManagedAgentsGrepToolConfigParams
+		if json.Unmarshal(data, &lossless5) == nil && keepsEveryKey(raw, lossless5) {
+			u.BetaManagedAgentsGrepToolConfigParams = &lossless5
+			return nil
+		}
+		var lossless6 BetaManagedAgentsWebFetchToolConfigParams
+		if json.Unmarshal(data, &lossless6) == nil && keepsEveryKey(raw, lossless6) {
+			u.BetaManagedAgentsWebFetchToolConfigParams = &lossless6
+			return nil
+		}
+		var lossless7 BetaManagedAgentsWebSearchToolConfigParams
+		if json.Unmarshal(data, &lossless7) == nil && keepsEveryKey(raw, lossless7) {
+			u.BetaManagedAgentsWebSearchToolConfigParams = &lossless7
+			return nil
+		}
+	}
 	var betamanagedagentsbashtoolconfigparams BetaManagedAgentsBashToolConfigParams
 	if err := json.Unmarshal(data, &betamanagedagentsbashtoolconfigparams); err == nil && isNonEmptyBetaManagedAgentsAgentToolConfigUnionParamsBetaManagedAgentsBashToolConfigParams(betamanagedagentsbashtoolconfigparams) {
 		u.BetaManagedAgentsBashToolConfigParams = &betamanagedagentsbashtoolconfigparams
@@ -491,6 +576,24 @@ func (u *BetaManagedAgentsAgentToolParams) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaManagedAgentsAgentToolset20260401Params
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaManagedAgentsAgentToolset20260401Params = &lossless0
+			return nil
+		}
+		var lossless1 BetaManagedAgentsMCPToolsetParams
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaManagedAgentsMCPToolsetParams = &lossless1
+			return nil
+		}
+		var lossless2 BetaManagedAgentsCustomToolParams
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaManagedAgentsCustomToolParams = &lossless2
+			return nil
+		}
+	}
 	var betamanagedagentsagenttoolset20260401params BetaManagedAgentsAgentToolset20260401Params
 	if err := json.Unmarshal(data, &betamanagedagentsagenttoolset20260401params); err == nil && isNonEmptyBetaManagedAgentsAgentToolParamsBetaManagedAgentsAgentToolset20260401Params(betamanagedagentsagenttoolset20260401params) {
 		u.BetaManagedAgentsAgentToolset20260401Params = &betamanagedagentsagenttoolset20260401params
@@ -609,99 +712,3 @@ type BetaManagedAgentsAgentToolResultEventTypeEnum string
 const (
 	BetaManagedAgentsAgentToolResultEventTypeEnumAgentToolResult BetaManagedAgentsAgentToolResultEventTypeEnum = "agent.tool_result"
 )
-
-func (value *BetaManagedAgentsAgentToolResultEventTypeEnum) UnmarshalJSON(data []byte) error {
-	var raw string
-	if err := json.Unmarshal(data, &raw); err != nil {
-		return err
-	}
-	switch raw {
-	case "agent.tool_result":
-		*value = BetaManagedAgentsAgentToolResultEventTypeEnum(raw)
-		return nil
-	default:
-		return &SdkValidationError{Field: "BetaManagedAgentsAgentToolResultEventTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsAgentToolResultEventTypeEnum: %v", raw)}
-	}
-}
-
-// BetaManagedAgentsAgentToolUseEvent Event emitted when the agent invokes a built-in agent tool.
-type BetaManagedAgentsAgentToolUseEvent struct {
-	// Type Required enumerated value serialized in the `type` wire field.
-	Type BetaManagedAgentsAgentToolUseEventTypeEnum `json:"type"`
-	// Id Unique identifier for this event.
-	Id string `json:"id"`
-	// Name Name of the agent tool being used.
-	Name string `json:"name"`
-	// Input Input parameters for the tool call.
-	Input BetaManagedAgentsStruct `json:"input"`
-	// ProcessedAt Timestamp when this event was processed.
-	ProcessedAt string `json:"processed_at"`
-	// EvaluatedPermission The evaluated permission policy for this tool invocation.
-	EvaluatedPermission *BetaManagedAgentsAgentEvaluatedPermission `json:"evaluated_permission,omitempty"`
-	// SessionThreadId When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
-	SessionThreadId *NullableValue[string] `json:"session_thread_id,omitempty"`
-}
-
-func (value *BetaManagedAgentsAgentToolUseEvent) UnmarshalJSON(data []byte) error {
-	var rawFields map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawFields); err != nil {
-		return err
-	}
-	if err := ValidateRawEnum("type", rawFields["type"], []string{"agent.tool_use"}); err != nil {
-		return err
-	}
-	type BetaManagedAgentsAgentToolUseEventAlias BetaManagedAgentsAgentToolUseEvent
-	var decoded BetaManagedAgentsAgentToolUseEventAlias
-	if err := json.Unmarshal(data, &decoded); err != nil {
-		return err
-	}
-	*value = BetaManagedAgentsAgentToolUseEvent(decoded)
-	if err := ValidateRequired(rawFields, []string{"type", "id", "name", "input", "processed_at"}); err != nil {
-		return err
-	}
-	if err := ValidateNotNull(rawFields, []string{"type", "id", "name", "input", "processed_at"}); err != nil {
-		return err
-	}
-	if raw, ok := rawFields["session_thread_id"]; ok && bytes.Equal(bytes.TrimSpace(raw), []byte("null")) {
-		value.SessionThreadId = &NullableValue[string]{}
-	}
-	return nil
-}
-
-// NewBetaManagedAgentsAgentToolUseEvent returns a validated BetaManagedAgentsAgentToolUseEvent built from named fields.
-// Optional fields may be left unset; a value that violates the schema is
-// reported as *SdkValidationError.
-func NewBetaManagedAgentsAgentToolUseEvent(fields BetaManagedAgentsAgentToolUseEvent) (*BetaManagedAgentsAgentToolUseEvent, error) {
-	return ConstructModel(fields)
-}
-
-// BetaManagedAgentsAgentToolUseEventTypeEnum Required enumerated value serialized in the `type` wire field.
-type BetaManagedAgentsAgentToolUseEventTypeEnum string
-
-const (
-	BetaManagedAgentsAgentToolUseEventTypeEnumAgentToolUse BetaManagedAgentsAgentToolUseEventTypeEnum = "agent.tool_use"
-)
-
-func (value *BetaManagedAgentsAgentToolUseEventTypeEnum) UnmarshalJSON(data []byte) error {
-	var raw string
-	if err := json.Unmarshal(data, &raw); err != nil {
-		return err
-	}
-	switch raw {
-	case "agent.tool_use":
-		*value = BetaManagedAgentsAgentToolUseEventTypeEnum(raw)
-		return nil
-	default:
-		return &SdkValidationError{Field: "BetaManagedAgentsAgentToolUseEventTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsAgentToolUseEventTypeEnum: %v", raw)}
-	}
-}
-
-// BetaManagedAgentsAgentToolset20260401 Typed representation of the `BetaManagedAgentsAgentToolset20260401` API schema.
-type BetaManagedAgentsAgentToolset20260401 struct {
-	// Type Required enumerated value serialized in the `type` wire field.
-	Type BetaManagedAgentsAgentToolset20260401TypeEnum `json:"type"`
-	// DefaultConfig Resolved default configuration for agent tools.
-	DefaultConfig BetaManagedAgentsAgentToolsetDefaultConfig `json:"default_config"`
-	// Configs Required array value serialized in the `configs` wire field.
-	Configs []BetaManagedAgentsAgentToolConfigUnion `json:"configs"`
-}

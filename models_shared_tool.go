@@ -403,6 +403,29 @@ func (u *ToolChoice) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 ToolChoiceAuto
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.ToolChoiceAuto = &lossless0
+			return nil
+		}
+		var lossless1 ToolChoiceAny
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.ToolChoiceAny = &lossless1
+			return nil
+		}
+		var lossless2 ToolChoiceTool
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.ToolChoiceTool = &lossless2
+			return nil
+		}
+		var lossless3 ToolChoiceNone
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.ToolChoiceNone = &lossless3
+			return nil
+		}
+	}
 	var toolchoiceauto ToolChoiceAuto
 	if err := json.Unmarshal(data, &toolchoiceauto); err == nil && isNonEmptyToolChoiceToolChoiceAuto(toolchoiceauto) {
 		u.ToolChoiceAuto = &toolchoiceauto

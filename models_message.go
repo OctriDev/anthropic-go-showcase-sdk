@@ -144,6 +144,39 @@ func (u *MessageStreamEvent) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 MessageStartEvent
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.MessageStartEvent = &lossless0
+			return nil
+		}
+		var lossless1 MessageDeltaEvent
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.MessageDeltaEvent = &lossless1
+			return nil
+		}
+		var lossless2 MessageStopEvent
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.MessageStopEvent = &lossless2
+			return nil
+		}
+		var lossless3 ContentBlockStartEvent
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.ContentBlockStartEvent = &lossless3
+			return nil
+		}
+		var lossless4 ContentBlockDeltaEvent
+		if json.Unmarshal(data, &lossless4) == nil && keepsEveryKey(raw, lossless4) {
+			u.ContentBlockDeltaEvent = &lossless4
+			return nil
+		}
+		var lossless5 ContentBlockStopEvent
+		if json.Unmarshal(data, &lossless5) == nil && keepsEveryKey(raw, lossless5) {
+			u.ContentBlockStopEvent = &lossless5
+			return nil
+		}
+	}
 	var messagestartevent MessageStartEvent
 	if err := json.Unmarshal(data, &messagestartevent); err == nil && isNonEmptyMessageStreamEventMessageStartEvent(messagestartevent) {
 		u.MessageStartEvent = &messagestartevent

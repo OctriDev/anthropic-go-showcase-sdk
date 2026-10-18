@@ -130,6 +130,24 @@ func (u *BetaExternalKeyCreateParamsProviderConfig) UnmarshalJSON(data []byte) e
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaAwsExternalKeyConfig
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaAwsExternalKeyConfig = &lossless0
+			return nil
+		}
+		var lossless1 BetaGcpExternalKeyConfig
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaGcpExternalKeyConfig = &lossless1
+			return nil
+		}
+		var lossless2 BetaAzureExternalKeyConfigParams
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaAzureExternalKeyConfigParams = &lossless2
+			return nil
+		}
+	}
 	var betaawsexternalkeyconfig BetaAwsExternalKeyConfig
 	if err := json.Unmarshal(data, &betaawsexternalkeyconfig); err == nil && isNonEmptyBetaExternalKeyCreateParamsProviderConfigBetaAwsExternalKeyConfig(betaawsexternalkeyconfig) {
 		u.BetaAwsExternalKeyConfig = &betaawsexternalkeyconfig

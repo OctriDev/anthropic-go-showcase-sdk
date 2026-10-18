@@ -126,6 +126,34 @@ func (u *BetaRequestDocumentBlockSource) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaBase64PDFSource
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaBase64PDFSource = &lossless0
+			return nil
+		}
+		var lossless1 BetaPlainTextSource
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaPlainTextSource = &lossless1
+			return nil
+		}
+		var lossless2 BetaContentBlockSource
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaContentBlockSource = &lossless2
+			return nil
+		}
+		var lossless3 BetaURLPDFSource
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.BetaURLPDFSource = &lossless3
+			return nil
+		}
+		var lossless4 BetaFileDocumentSource
+		if json.Unmarshal(data, &lossless4) == nil && keepsEveryKey(raw, lossless4) {
+			u.BetaFileDocumentSource = &lossless4
+			return nil
+		}
+	}
 	var betabase64pdfsource BetaBase64PDFSource
 	if err := json.Unmarshal(data, &betabase64pdfsource); err == nil && isNonEmptyBetaRequestDocumentBlockSourceBetaBase64PDFSource(betabase64pdfsource) {
 		u.BetaBase64PDFSource = &betabase64pdfsource

@@ -160,7 +160,7 @@ func CreateBetaSessionsResources(ctx context.Context, clientConfig ClientConfig,
 	anthropicBeta := params.AnthropicBeta
 	anthropicWorkspaceId := params.AnthropicWorkspaceId
 
-	resp, err := DoUnionCfg[BetaManagedAgentsAddSessionResource](ctx, &clientConfig, "POST", fmt.Sprintf("/v1/sessions/%s/resources?beta=true", EncodePathSegment(sessionId)), &RequestOpts{
+	resp, err := DoCfg[BetaManagedAgentsAddSessionResource](ctx, &clientConfig, "POST", fmt.Sprintf("/v1/sessions/%s/resources?beta=true", EncodePathSegment(sessionId)), &RequestOpts{
 		Body: body,
 		Headers: OperationHeaders(map[string]any{
 			"anthropic-version":      anthropicVersion,
@@ -170,7 +170,7 @@ func CreateBetaSessionsResources(ctx context.Context, clientConfig ClientConfig,
 		OperationID: "CreateBetaSessionsResources",
 		Errors:      ErrorDecoders{"400": decodeErrorData[BetaErrorResponse], "401": decodeErrorData[BetaErrorResponse], "403": decodeErrorData[BetaErrorResponse], "404": decodeErrorData[BetaErrorResponse], "408": decodeErrorData[BetaErrorResponse], "409": decodeErrorData[BetaErrorResponse], "412": decodeErrorData[BetaErrorResponse], "413": decodeErrorData[BetaErrorResponse], "429": decodeErrorData[BetaErrorResponse], "431": decodeErrorData[BetaErrorResponse], "499": decodeErrorData[BetaErrorResponse], "500": decodeErrorData[BetaErrorResponse], "501": decodeErrorData[BetaErrorResponse], "503": decodeErrorData[BetaErrorResponse], "504": decodeErrorData[BetaErrorResponse]},
 		Options:     opts,
-	}, UnmarshalBetaManagedAgentsAddSessionResource)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -203,7 +203,7 @@ func RetrieveBetaSessionsResources(ctx context.Context, clientConfig ClientConfi
 	anthropicBeta := params.AnthropicBeta
 	anthropicWorkspaceId := params.AnthropicWorkspaceId
 
-	resp, err := DoUnionCfg[BetaManagedAgentsGetSessionResource](ctx, &clientConfig, "GET", fmt.Sprintf("/v1/sessions/%s/resources/%s?beta=true", EncodePathSegment(sessionId), EncodePathSegment(resourceId)), &RequestOpts{
+	resp, err := DoCfg[BetaManagedAgentsGetSessionResource](ctx, &clientConfig, "GET", fmt.Sprintf("/v1/sessions/%s/resources/%s?beta=true", EncodePathSegment(sessionId), EncodePathSegment(resourceId)), &RequestOpts{
 		Headers: OperationHeaders(map[string]any{
 			"anthropic-version":      anthropicVersion,
 			"anthropic-beta":         anthropicBeta,
@@ -212,7 +212,7 @@ func RetrieveBetaSessionsResources(ctx context.Context, clientConfig ClientConfi
 		OperationID: "RetrieveBetaSessionsResources",
 		Errors:      ErrorDecoders{"400": decodeErrorData[BetaErrorResponse], "401": decodeErrorData[BetaErrorResponse], "403": decodeErrorData[BetaErrorResponse], "404": decodeErrorData[BetaErrorResponse], "408": decodeErrorData[BetaErrorResponse], "409": decodeErrorData[BetaErrorResponse], "412": decodeErrorData[BetaErrorResponse], "413": decodeErrorData[BetaErrorResponse], "429": decodeErrorData[BetaErrorResponse], "431": decodeErrorData[BetaErrorResponse], "499": decodeErrorData[BetaErrorResponse], "500": decodeErrorData[BetaErrorResponse], "501": decodeErrorData[BetaErrorResponse], "503": decodeErrorData[BetaErrorResponse], "504": decodeErrorData[BetaErrorResponse]},
 		Options:     opts,
-	}, UnmarshalBetaManagedAgentsGetSessionResource)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -295,7 +295,7 @@ func UpdateBetaSessionsResources(ctx context.Context, clientConfig ClientConfig,
 		return nil, err
 	}
 
-	resp, err := DoUnionCfg[BetaManagedAgentsUpdateSessionResource](ctx, &clientConfig, "POST", fmt.Sprintf("/v1/sessions/%s/resources/%s?beta=true", EncodePathSegment(sessionId), EncodePathSegment(resourceId)), &RequestOpts{
+	resp, err := DoCfg[BetaManagedAgentsUpdateSessionResource](ctx, &clientConfig, "POST", fmt.Sprintf("/v1/sessions/%s/resources/%s?beta=true", EncodePathSegment(sessionId), EncodePathSegment(resourceId)), &RequestOpts{
 		Body: map[string]any{
 			"authorization_token": authorizationToken,
 		},
@@ -307,7 +307,7 @@ func UpdateBetaSessionsResources(ctx context.Context, clientConfig ClientConfig,
 		OperationID: "UpdateBetaSessionsResources",
 		Errors:      ErrorDecoders{"400": decodeErrorData[BetaErrorResponse], "401": decodeErrorData[BetaErrorResponse], "403": decodeErrorData[BetaErrorResponse], "404": decodeErrorData[BetaErrorResponse], "408": decodeErrorData[BetaErrorResponse], "409": decodeErrorData[BetaErrorResponse], "412": decodeErrorData[BetaErrorResponse], "413": decodeErrorData[BetaErrorResponse], "429": decodeErrorData[BetaErrorResponse], "431": decodeErrorData[BetaErrorResponse], "499": decodeErrorData[BetaErrorResponse], "500": decodeErrorData[BetaErrorResponse], "501": decodeErrorData[BetaErrorResponse], "503": decodeErrorData[BetaErrorResponse], "504": decodeErrorData[BetaErrorResponse]},
 		Options:     opts,
-	}, UnmarshalBetaManagedAgentsUpdateSessionResource)
+	})
 	if err != nil {
 		return nil, err
 	}

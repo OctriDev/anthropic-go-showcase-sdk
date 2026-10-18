@@ -465,6 +465,24 @@ func (u *BetaRequestToolUseBlockCaller) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaDirectCaller
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaDirectCaller = &lossless0
+			return nil
+		}
+		var lossless1 BetaServerToolCaller
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaServerToolCaller = &lossless1
+			return nil
+		}
+		var lossless2 BetaServerToolCaller20260120
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaServerToolCaller20260120 = &lossless2
+			return nil
+		}
+	}
 	var betadirectcaller BetaDirectCaller
 	if err := json.Unmarshal(data, &betadirectcaller); err == nil && isNonEmptyBetaRequestToolUseBlockCallerBetaDirectCaller(betadirectcaller) {
 		u.BetaDirectCaller = &betadirectcaller
@@ -599,6 +617,39 @@ func (u *BetaRequestToolResultBlockContentItem) UnmarshalJSON(data []byte) error
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaRequestTextBlock
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaRequestTextBlock = &lossless0
+			return nil
+		}
+		var lossless1 BetaRequestImageBlock
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaRequestImageBlock = &lossless1
+			return nil
+		}
+		var lossless2 BetaRequestSearchResultBlock
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaRequestSearchResultBlock = &lossless2
+			return nil
+		}
+		var lossless3 BetaRequestDocumentBlock
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.BetaRequestDocumentBlock = &lossless3
+			return nil
+		}
+		var lossless4 BetaRequestToolReferenceBlock
+		if json.Unmarshal(data, &lossless4) == nil && keepsEveryKey(raw, lossless4) {
+			u.BetaRequestToolReferenceBlock = &lossless4
+			return nil
+		}
+		var lossless5 BetaRequestBrowserStateBlock
+		if json.Unmarshal(data, &lossless5) == nil && keepsEveryKey(raw, lossless5) {
+			u.BetaRequestBrowserStateBlock = &lossless5
+			return nil
+		}
+	}
 	var betarequesttextblock BetaRequestTextBlock
 	if err := json.Unmarshal(data, &betarequesttextblock); err == nil && isNonEmptyBetaRequestToolResultBlockContentItemBetaRequestTextBlock(betarequesttextblock) {
 		u.BetaRequestTextBlock = &betarequesttextblock
@@ -667,42 +718,4 @@ func (u BetaRequestToolResultBlockContentItem) MarshalJSON() ([]byte, error) {
 		return u.Unknown, nil
 	}
 	return []byte("null"), nil
-}
-
-func isNonEmptyBetaRequestToolResultBlockContentItemBetaRequestTextBlock(v BetaRequestTextBlock) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaRequestToolResultBlockContentItemBetaRequestImageBlock(v BetaRequestImageBlock) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaRequestToolResultBlockContentItemBetaRequestSearchResultBlock(v BetaRequestSearchResultBlock) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaRequestToolResultBlockContentItemBetaRequestDocumentBlock(v BetaRequestDocumentBlock) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaRequestToolResultBlockContentItemBetaRequestToolReferenceBlock(v BetaRequestToolReferenceBlock) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaRequestToolResultBlockContentItemBetaRequestBrowserStateBlock(v BetaRequestBrowserStateBlock) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-// UnmarshalBetaRequestToolResultBlockContentItem converts an untyped value to BetaRequestToolResultBlockContentItem.
-func UnmarshalBetaRequestToolResultBlockContentItem(v any) BetaRequestToolResultBlockContentItem {
-	b, _ := json.Marshal(v)
-	var result BetaRequestToolResultBlockContentItem
-	_ = json.Unmarshal(b, &result)
-	return result
 }

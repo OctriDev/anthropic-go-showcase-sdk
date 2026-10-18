@@ -449,6 +449,19 @@ func (u *BetaClaudeCodeUsageReportItemActor) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaClaudeCodeUserActor
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaClaudeCodeUserActor = &lossless0
+			return nil
+		}
+		var lossless1 BetaClaudeCodeApiActor
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaClaudeCodeApiActor = &lossless1
+			return nil
+		}
+	}
 	var betaclaudecodeuseractor BetaClaudeCodeUserActor
 	if err := json.Unmarshal(data, &betaclaudecodeuseractor); err == nil && isNonEmptyBetaClaudeCodeUsageReportItemActorBetaClaudeCodeUserActor(betaclaudecodeuseractor) {
 		u.BetaClaudeCodeUserActor = &betaclaudecodeuseractor

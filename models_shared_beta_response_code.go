@@ -203,6 +203,24 @@ func (u *BetaResponseCodeExecutionToolResultBlockContent) UnmarshalJSON(data []b
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaResponseCodeExecutionToolResultError
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaResponseCodeExecutionToolResultError = &lossless0
+			return nil
+		}
+		var lossless1 BetaResponseCodeExecutionResultBlock
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaResponseCodeExecutionResultBlock = &lossless1
+			return nil
+		}
+		var lossless2 BetaResponseEncryptedCodeExecutionResultBlock
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaResponseEncryptedCodeExecutionResultBlock = &lossless2
+			return nil
+		}
+	}
 	var betaresponsecodeexecutiontoolresulterror BetaResponseCodeExecutionToolResultError
 	if err := json.Unmarshal(data, &betaresponsecodeexecutiontoolresulterror); err == nil && isNonEmptyBetaResponseCodeExecutionToolResultBlockContentBetaResponseCodeExecutionToolResultError(betaresponsecodeexecutiontoolresulterror) {
 		u.BetaResponseCodeExecutionToolResultError = &betaresponsecodeexecutiontoolresulterror

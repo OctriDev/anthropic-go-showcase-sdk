@@ -9,6 +9,102 @@ import (
 	"fmt"
 )
 
+func (value *BetaManagedAgentsAgentToolResultEventTypeEnum) UnmarshalJSON(data []byte) error {
+	var raw string
+	if err := json.Unmarshal(data, &raw); err != nil {
+		return err
+	}
+	switch raw {
+	case "agent.tool_result":
+		*value = BetaManagedAgentsAgentToolResultEventTypeEnum(raw)
+		return nil
+	default:
+		return &SdkValidationError{Field: "BetaManagedAgentsAgentToolResultEventTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsAgentToolResultEventTypeEnum: %v", raw)}
+	}
+}
+
+// BetaManagedAgentsAgentToolUseEvent Event emitted when the agent invokes a built-in agent tool.
+type BetaManagedAgentsAgentToolUseEvent struct {
+	// Type Required enumerated value serialized in the `type` wire field.
+	Type BetaManagedAgentsAgentToolUseEventTypeEnum `json:"type"`
+	// Id Unique identifier for this event.
+	Id string `json:"id"`
+	// Name Name of the agent tool being used.
+	Name string `json:"name"`
+	// Input Input parameters for the tool call.
+	Input BetaManagedAgentsStruct `json:"input"`
+	// ProcessedAt Timestamp when this event was processed.
+	ProcessedAt string `json:"processed_at"`
+	// EvaluatedPermission The evaluated permission policy for this tool invocation.
+	EvaluatedPermission *BetaManagedAgentsAgentEvaluatedPermission `json:"evaluated_permission,omitempty"`
+	// SessionThreadId When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
+	SessionThreadId *NullableValue[string] `json:"session_thread_id,omitempty"`
+}
+
+func (value *BetaManagedAgentsAgentToolUseEvent) UnmarshalJSON(data []byte) error {
+	var rawFields map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawFields); err != nil {
+		return err
+	}
+	if err := ValidateRawEnum("type", rawFields["type"], []string{"agent.tool_use"}); err != nil {
+		return err
+	}
+	type BetaManagedAgentsAgentToolUseEventAlias BetaManagedAgentsAgentToolUseEvent
+	var decoded BetaManagedAgentsAgentToolUseEventAlias
+	if err := json.Unmarshal(data, &decoded); err != nil {
+		return err
+	}
+	*value = BetaManagedAgentsAgentToolUseEvent(decoded)
+	if err := ValidateRequired(rawFields, []string{"type", "id", "name", "input", "processed_at"}); err != nil {
+		return err
+	}
+	if err := ValidateNotNull(rawFields, []string{"type", "id", "name", "input", "processed_at"}); err != nil {
+		return err
+	}
+	if raw, ok := rawFields["session_thread_id"]; ok && bytes.Equal(bytes.TrimSpace(raw), []byte("null")) {
+		value.SessionThreadId = &NullableValue[string]{}
+	}
+	return nil
+}
+
+// NewBetaManagedAgentsAgentToolUseEvent returns a validated BetaManagedAgentsAgentToolUseEvent built from named fields.
+// Optional fields may be left unset; a value that violates the schema is
+// reported as *SdkValidationError.
+func NewBetaManagedAgentsAgentToolUseEvent(fields BetaManagedAgentsAgentToolUseEvent) (*BetaManagedAgentsAgentToolUseEvent, error) {
+	return ConstructModel(fields)
+}
+
+// BetaManagedAgentsAgentToolUseEventTypeEnum Required enumerated value serialized in the `type` wire field.
+type BetaManagedAgentsAgentToolUseEventTypeEnum string
+
+const (
+	BetaManagedAgentsAgentToolUseEventTypeEnumAgentToolUse BetaManagedAgentsAgentToolUseEventTypeEnum = "agent.tool_use"
+)
+
+func (value *BetaManagedAgentsAgentToolUseEventTypeEnum) UnmarshalJSON(data []byte) error {
+	var raw string
+	if err := json.Unmarshal(data, &raw); err != nil {
+		return err
+	}
+	switch raw {
+	case "agent.tool_use":
+		*value = BetaManagedAgentsAgentToolUseEventTypeEnum(raw)
+		return nil
+	default:
+		return &SdkValidationError{Field: "BetaManagedAgentsAgentToolUseEventTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsAgentToolUseEventTypeEnum: %v", raw)}
+	}
+}
+
+// BetaManagedAgentsAgentToolset20260401 Typed representation of the `BetaManagedAgentsAgentToolset20260401` API schema.
+type BetaManagedAgentsAgentToolset20260401 struct {
+	// Type Required enumerated value serialized in the `type` wire field.
+	Type BetaManagedAgentsAgentToolset20260401TypeEnum `json:"type"`
+	// DefaultConfig Resolved default configuration for agent tools.
+	DefaultConfig BetaManagedAgentsAgentToolsetDefaultConfig `json:"default_config"`
+	// Configs Required array value serialized in the `configs` wire field.
+	Configs []BetaManagedAgentsAgentToolConfigUnion `json:"configs"`
+}
+
 func (value *BetaManagedAgentsAgentToolset20260401) UnmarshalJSON(data []byte) error {
 	var rawFields map[string]json.RawMessage
 	if err := json.Unmarshal(data, &rawFields); err != nil {
@@ -603,100 +699,4 @@ type BetaManagedAgentsBase64ImageSource struct {
 	MediaType string `json:"media_type"`
 	// Data Base64-encoded image data.
 	Data string `json:"data"`
-}
-
-func (value *BetaManagedAgentsBase64ImageSource) UnmarshalJSON(data []byte) error {
-	var rawFields map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawFields); err != nil {
-		return err
-	}
-	if err := ValidateRawEnum("type", rawFields["type"], []string{"base64"}); err != nil {
-		return err
-	}
-	type BetaManagedAgentsBase64ImageSourceAlias BetaManagedAgentsBase64ImageSource
-	var decoded BetaManagedAgentsBase64ImageSourceAlias
-	if err := json.Unmarshal(data, &decoded); err != nil {
-		return err
-	}
-	*value = BetaManagedAgentsBase64ImageSource(decoded)
-	if err := ValidateRequired(rawFields, []string{"type", "media_type", "data"}); err != nil {
-		return err
-	}
-	if err := ValidateNotNull(rawFields, []string{"type", "media_type", "data"}); err != nil {
-		return err
-	}
-	if err := ValidateLength("media_type", value.MediaType, LengthOpts{Min: Ptr[int](1)}); err != nil {
-		return err
-	}
-	if err := ValidateLength("data", value.Data, LengthOpts{Min: Ptr[int](1)}); err != nil {
-		return err
-	}
-	return nil
-}
-
-// NewBetaManagedAgentsBase64ImageSource returns a validated BetaManagedAgentsBase64ImageSource built from named fields.
-// Optional fields may be left unset; a value that violates the schema is
-// reported as *SdkValidationError.
-func NewBetaManagedAgentsBase64ImageSource(fields BetaManagedAgentsBase64ImageSource) (*BetaManagedAgentsBase64ImageSource, error) {
-	return ConstructModel(fields)
-}
-
-// BetaManagedAgentsBase64ImageSourceTypeEnum Required enumerated value serialized in the `type` wire field.
-type BetaManagedAgentsBase64ImageSourceTypeEnum string
-
-const (
-	BetaManagedAgentsBase64ImageSourceTypeEnumBase64 BetaManagedAgentsBase64ImageSourceTypeEnum = "base64"
-)
-
-func (value *BetaManagedAgentsBase64ImageSourceTypeEnum) UnmarshalJSON(data []byte) error {
-	var raw string
-	if err := json.Unmarshal(data, &raw); err != nil {
-		return err
-	}
-	switch raw {
-	case "base64":
-		*value = BetaManagedAgentsBase64ImageSourceTypeEnum(raw)
-		return nil
-	default:
-		return &SdkValidationError{Field: "BetaManagedAgentsBase64ImageSourceTypeEnum", Code: "enum", Message: fmt.Sprintf("unknown BetaManagedAgentsBase64ImageSourceTypeEnum: %v", raw)}
-	}
-}
-
-// BetaManagedAgentsBashToolConfig Configuration for the bash tool.
-type BetaManagedAgentsBashToolConfig struct {
-	// Type Required `string` value serialized in the `type` wire field.
-	Type string `json:"type"`
-	// Name Required `string` value serialized in the `name` wire field.
-	Name string `json:"name"`
-	// Enabled Required `boolean` value serialized in the `enabled` wire field.
-	Enabled bool `json:"enabled"`
-	// PermissionPolicy Permission policy for tool execution.
-	PermissionPolicy BetaManagedAgentsPermissionPolicy `json:"permission_policy"`
-}
-
-func (value *BetaManagedAgentsBashToolConfig) UnmarshalJSON(data []byte) error {
-	type BetaManagedAgentsBashToolConfigAlias BetaManagedAgentsBashToolConfig
-	var decoded BetaManagedAgentsBashToolConfigAlias
-	if err := json.Unmarshal(data, &decoded); err != nil {
-		return err
-	}
-	*value = BetaManagedAgentsBashToolConfig(decoded)
-	var rawFields map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawFields); err != nil {
-		return err
-	}
-	if err := ValidateRequired(rawFields, []string{"type", "name", "enabled", "permission_policy"}); err != nil {
-		return err
-	}
-	if err := ValidateNotNull(rawFields, []string{"type", "name", "enabled", "permission_policy"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-// NewBetaManagedAgentsBashToolConfig returns a validated BetaManagedAgentsBashToolConfig built from named fields.
-// Optional fields may be left unset; a value that violates the schema is
-// reported as *SdkValidationError.
-func NewBetaManagedAgentsBashToolConfig(fields BetaManagedAgentsBashToolConfig) (*BetaManagedAgentsBashToolConfig, error) {
-	return ConstructModel(fields)
 }

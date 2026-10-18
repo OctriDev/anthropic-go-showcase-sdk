@@ -112,6 +112,24 @@ func (u *BetaFederationIssuerUpdateParamsJwks) UnmarshalJSON(data []byte) error 
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaJwksDiscovery
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaJwksDiscovery = &lossless0
+			return nil
+		}
+		var lossless1 BetaJwksExplicitUrl
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaJwksExplicitUrl = &lossless1
+			return nil
+		}
+		var lossless2 BetaJwksInline
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaJwksInline = &lossless2
+			return nil
+		}
+	}
 	var betajwksdiscovery BetaJwksDiscovery
 	if err := json.Unmarshal(data, &betajwksdiscovery); err == nil && isNonEmptyBetaFederationIssuerUpdateParamsJwksBetaJwksDiscovery(betajwksdiscovery) {
 		u.BetaJwksDiscovery = &betajwksdiscovery
