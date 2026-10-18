@@ -185,6 +185,39 @@ func (u *BetaContentBlockDeltaEventDelta) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaTextContentBlockDelta
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaTextContentBlockDelta = &lossless0
+			return nil
+		}
+		var lossless1 BetaInputJsonContentBlockDelta
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaInputJsonContentBlockDelta = &lossless1
+			return nil
+		}
+		var lossless2 BetaCitationsDelta
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaCitationsDelta = &lossless2
+			return nil
+		}
+		var lossless3 BetaThinkingContentBlockDelta
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.BetaThinkingContentBlockDelta = &lossless3
+			return nil
+		}
+		var lossless4 BetaSignatureContentBlockDelta
+		if json.Unmarshal(data, &lossless4) == nil && keepsEveryKey(raw, lossless4) {
+			u.BetaSignatureContentBlockDelta = &lossless4
+			return nil
+		}
+		var lossless5 BetaCompactionContentBlockDelta
+		if json.Unmarshal(data, &lossless5) == nil && keepsEveryKey(raw, lossless5) {
+			u.BetaCompactionContentBlockDelta = &lossless5
+			return nil
+		}
+	}
 	var betatextcontentblockdelta BetaTextContentBlockDelta
 	if err := json.Unmarshal(data, &betatextcontentblockdelta); err == nil && isNonEmptyBetaContentBlockDeltaEventDeltaBetaTextContentBlockDelta(betatextcontentblockdelta) {
 		u.BetaTextContentBlockDelta = &betatextcontentblockdelta
@@ -452,6 +485,94 @@ func (u *BetaContentBlockStartEventContentBlock) UnmarshalJSON(data []byte) erro
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaResponseTextBlock
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaResponseTextBlock = &lossless0
+			return nil
+		}
+		var lossless1 BetaResponseThinkingBlock
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaResponseThinkingBlock = &lossless1
+			return nil
+		}
+		var lossless2 BetaResponseRedactedThinkingBlock
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaResponseRedactedThinkingBlock = &lossless2
+			return nil
+		}
+		var lossless3 BetaResponseToolUseBlock
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.BetaResponseToolUseBlock = &lossless3
+			return nil
+		}
+		var lossless4 BetaResponseServerToolUseBlock
+		if json.Unmarshal(data, &lossless4) == nil && keepsEveryKey(raw, lossless4) {
+			u.BetaResponseServerToolUseBlock = &lossless4
+			return nil
+		}
+		var lossless5 BetaResponseWebSearchToolResultBlock
+		if json.Unmarshal(data, &lossless5) == nil && keepsEveryKey(raw, lossless5) {
+			u.BetaResponseWebSearchToolResultBlock = &lossless5
+			return nil
+		}
+		var lossless6 BetaResponseWebFetchToolResultBlock
+		if json.Unmarshal(data, &lossless6) == nil && keepsEveryKey(raw, lossless6) {
+			u.BetaResponseWebFetchToolResultBlock = &lossless6
+			return nil
+		}
+		var lossless7 BetaResponseAdvisorToolResultBlock
+		if json.Unmarshal(data, &lossless7) == nil && keepsEveryKey(raw, lossless7) {
+			u.BetaResponseAdvisorToolResultBlock = &lossless7
+			return nil
+		}
+		var lossless8 BetaResponseCodeExecutionToolResultBlock
+		if json.Unmarshal(data, &lossless8) == nil && keepsEveryKey(raw, lossless8) {
+			u.BetaResponseCodeExecutionToolResultBlock = &lossless8
+			return nil
+		}
+		var lossless9 BetaResponseBashCodeExecutionToolResultBlock
+		if json.Unmarshal(data, &lossless9) == nil && keepsEveryKey(raw, lossless9) {
+			u.BetaResponseBashCodeExecutionToolResultBlock = &lossless9
+			return nil
+		}
+		var lossless10 BetaResponseTextEditorCodeExecutionToolResultBlock
+		if json.Unmarshal(data, &lossless10) == nil && keepsEveryKey(raw, lossless10) {
+			u.BetaResponseTextEditorCodeExecutionToolResultBlock = &lossless10
+			return nil
+		}
+		var lossless11 BetaResponseToolSearchToolResultBlock
+		if json.Unmarshal(data, &lossless11) == nil && keepsEveryKey(raw, lossless11) {
+			u.BetaResponseToolSearchToolResultBlock = &lossless11
+			return nil
+		}
+		var lossless12 BetaResponseMCPToolUseBlock
+		if json.Unmarshal(data, &lossless12) == nil && keepsEveryKey(raw, lossless12) {
+			u.BetaResponseMCPToolUseBlock = &lossless12
+			return nil
+		}
+		var lossless13 BetaResponseMCPToolResultBlock
+		if json.Unmarshal(data, &lossless13) == nil && keepsEveryKey(raw, lossless13) {
+			u.BetaResponseMCPToolResultBlock = &lossless13
+			return nil
+		}
+		var lossless14 BetaResponseContainerUploadBlock
+		if json.Unmarshal(data, &lossless14) == nil && keepsEveryKey(raw, lossless14) {
+			u.BetaResponseContainerUploadBlock = &lossless14
+			return nil
+		}
+		var lossless15 BetaResponseCompactionBlock
+		if json.Unmarshal(data, &lossless15) == nil && keepsEveryKey(raw, lossless15) {
+			u.BetaResponseCompactionBlock = &lossless15
+			return nil
+		}
+		var lossless16 BetaResponseFallbackBlock
+		if json.Unmarshal(data, &lossless16) == nil && keepsEveryKey(raw, lossless16) {
+			u.BetaResponseFallbackBlock = &lossless16
+			return nil
+		}
+	}
 	var betaresponsetextblock BetaResponseTextBlock
 	if err := json.Unmarshal(data, &betaresponsetextblock); err == nil && isNonEmptyBetaContentBlockStartEventContentBlockBetaResponseTextBlock(betaresponsetextblock) {
 		u.BetaResponseTextBlock = &betaresponsetextblock
@@ -572,147 +693,4 @@ func (u *BetaContentBlockStartEventContentBlock) UnmarshalJSON(data []byte) erro
 		refusal = err
 	}
 	return refusal
-}
-
-func (u BetaContentBlockStartEventContentBlock) MarshalJSON() ([]byte, error) {
-	if u.BetaResponseTextBlock != nil {
-		return json.Marshal(u.BetaResponseTextBlock)
-	}
-	if u.BetaResponseThinkingBlock != nil {
-		return json.Marshal(u.BetaResponseThinkingBlock)
-	}
-	if u.BetaResponseRedactedThinkingBlock != nil {
-		return json.Marshal(u.BetaResponseRedactedThinkingBlock)
-	}
-	if u.BetaResponseToolUseBlock != nil {
-		return json.Marshal(u.BetaResponseToolUseBlock)
-	}
-	if u.BetaResponseServerToolUseBlock != nil {
-		return json.Marshal(u.BetaResponseServerToolUseBlock)
-	}
-	if u.BetaResponseWebSearchToolResultBlock != nil {
-		return json.Marshal(u.BetaResponseWebSearchToolResultBlock)
-	}
-	if u.BetaResponseWebFetchToolResultBlock != nil {
-		return json.Marshal(u.BetaResponseWebFetchToolResultBlock)
-	}
-	if u.BetaResponseAdvisorToolResultBlock != nil {
-		return json.Marshal(u.BetaResponseAdvisorToolResultBlock)
-	}
-	if u.BetaResponseCodeExecutionToolResultBlock != nil {
-		return json.Marshal(u.BetaResponseCodeExecutionToolResultBlock)
-	}
-	if u.BetaResponseBashCodeExecutionToolResultBlock != nil {
-		return json.Marshal(u.BetaResponseBashCodeExecutionToolResultBlock)
-	}
-	if u.BetaResponseTextEditorCodeExecutionToolResultBlock != nil {
-		return json.Marshal(u.BetaResponseTextEditorCodeExecutionToolResultBlock)
-	}
-	if u.BetaResponseToolSearchToolResultBlock != nil {
-		return json.Marshal(u.BetaResponseToolSearchToolResultBlock)
-	}
-	if u.BetaResponseMCPToolUseBlock != nil {
-		return json.Marshal(u.BetaResponseMCPToolUseBlock)
-	}
-	if u.BetaResponseMCPToolResultBlock != nil {
-		return json.Marshal(u.BetaResponseMCPToolResultBlock)
-	}
-	if u.BetaResponseContainerUploadBlock != nil {
-		return json.Marshal(u.BetaResponseContainerUploadBlock)
-	}
-	if u.BetaResponseCompactionBlock != nil {
-		return json.Marshal(u.BetaResponseCompactionBlock)
-	}
-	if u.BetaResponseFallbackBlock != nil {
-		return json.Marshal(u.BetaResponseFallbackBlock)
-	}
-	if u.Unknown != nil {
-		return u.Unknown, nil
-	}
-	return []byte("null"), nil
-}
-
-func isNonEmptyBetaContentBlockStartEventContentBlockBetaResponseTextBlock(v BetaResponseTextBlock) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaContentBlockStartEventContentBlockBetaResponseThinkingBlock(v BetaResponseThinkingBlock) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaContentBlockStartEventContentBlockBetaResponseRedactedThinkingBlock(v BetaResponseRedactedThinkingBlock) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaContentBlockStartEventContentBlockBetaResponseToolUseBlock(v BetaResponseToolUseBlock) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaContentBlockStartEventContentBlockBetaResponseServerToolUseBlock(v BetaResponseServerToolUseBlock) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaContentBlockStartEventContentBlockBetaResponseWebSearchToolResultBlock(v BetaResponseWebSearchToolResultBlock) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaContentBlockStartEventContentBlockBetaResponseWebFetchToolResultBlock(v BetaResponseWebFetchToolResultBlock) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaContentBlockStartEventContentBlockBetaResponseAdvisorToolResultBlock(v BetaResponseAdvisorToolResultBlock) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaContentBlockStartEventContentBlockBetaResponseCodeExecutionToolResultBlock(v BetaResponseCodeExecutionToolResultBlock) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaContentBlockStartEventContentBlockBetaResponseBashCodeExecutionToolResultBlock(v BetaResponseBashCodeExecutionToolResultBlock) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaContentBlockStartEventContentBlockBetaResponseTextEditorCodeExecutionToolResultBlock(v BetaResponseTextEditorCodeExecutionToolResultBlock) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaContentBlockStartEventContentBlockBetaResponseToolSearchToolResultBlock(v BetaResponseToolSearchToolResultBlock) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaContentBlockStartEventContentBlockBetaResponseMCPToolUseBlock(v BetaResponseMCPToolUseBlock) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaContentBlockStartEventContentBlockBetaResponseMCPToolResultBlock(v BetaResponseMCPToolResultBlock) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaContentBlockStartEventContentBlockBetaResponseContainerUploadBlock(v BetaResponseContainerUploadBlock) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaContentBlockStartEventContentBlockBetaResponseCompactionBlock(v BetaResponseCompactionBlock) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaContentBlockStartEventContentBlockBetaResponseFallbackBlock(v BetaResponseFallbackBlock) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
 }

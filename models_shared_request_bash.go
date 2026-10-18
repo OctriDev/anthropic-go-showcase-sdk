@@ -203,6 +203,19 @@ func (u *RequestBashCodeExecutionToolResultBlockContent) UnmarshalJSON(data []by
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 RequestBashCodeExecutionToolResultError
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.RequestBashCodeExecutionToolResultError = &lossless0
+			return nil
+		}
+		var lossless1 RequestBashCodeExecutionResultBlock
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.RequestBashCodeExecutionResultBlock = &lossless1
+			return nil
+		}
+	}
 	var requestbashcodeexecutiontoolresulterror RequestBashCodeExecutionToolResultError
 	if err := json.Unmarshal(data, &requestbashcodeexecutiontoolresulterror); err == nil && isNonEmptyRequestBashCodeExecutionToolResultBlockContentRequestBashCodeExecutionToolResultError(requestbashcodeexecutiontoolresulterror) {
 		u.RequestBashCodeExecutionToolResultError = &requestbashcodeexecutiontoolresulterror

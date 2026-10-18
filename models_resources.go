@@ -94,6 +94,24 @@ func (u *BetaManagedAgentsGetSessionResource) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaManagedAgentsGitHubRepositoryResource
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaManagedAgentsGitHubRepositoryResource = &lossless0
+			return nil
+		}
+		var lossless1 BetaManagedAgentsFileResource
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaManagedAgentsFileResource = &lossless1
+			return nil
+		}
+		var lossless2 BetaManagedAgentsMemoryStoreResource
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaManagedAgentsMemoryStoreResource = &lossless2
+			return nil
+		}
+	}
 	var betamanagedagentsgithubrepositoryresource BetaManagedAgentsGitHubRepositoryResource
 	if err := json.Unmarshal(data, &betamanagedagentsgithubrepositoryresource); err == nil && isNonEmptyBetaManagedAgentsGetSessionResourceBetaManagedAgentsGitHubRepositoryResource(betamanagedagentsgithubrepositoryresource) {
 		u.BetaManagedAgentsGitHubRepositoryResource = &betamanagedagentsgithubrepositoryresource
@@ -202,6 +220,24 @@ func (u *BetaManagedAgentsUpdateSessionResource) UnmarshalJSON(data []byte) erro
 					return nil
 				}
 			}
+		}
+	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaManagedAgentsGitHubRepositoryResource
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaManagedAgentsGitHubRepositoryResource = &lossless0
+			return nil
+		}
+		var lossless1 BetaManagedAgentsFileResource
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaManagedAgentsFileResource = &lossless1
+			return nil
+		}
+		var lossless2 BetaManagedAgentsMemoryStoreResource
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaManagedAgentsMemoryStoreResource = &lossless2
+			return nil
 		}
 	}
 	var betamanagedagentsgithubrepositoryresource BetaManagedAgentsGitHubRepositoryResource

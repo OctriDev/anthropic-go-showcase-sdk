@@ -203,6 +203,19 @@ func (u *BetaRequestBashCodeExecutionToolResultBlockContent) UnmarshalJSON(data 
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaRequestBashCodeExecutionToolResultError
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaRequestBashCodeExecutionToolResultError = &lossless0
+			return nil
+		}
+		var lossless1 BetaRequestBashCodeExecutionResultBlock
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaRequestBashCodeExecutionResultBlock = &lossless1
+			return nil
+		}
+	}
 	var betarequestbashcodeexecutiontoolresulterror BetaRequestBashCodeExecutionToolResultError
 	if err := json.Unmarshal(data, &betarequestbashcodeexecutiontoolresulterror); err == nil && isNonEmptyBetaRequestBashCodeExecutionToolResultBlockContentBetaRequestBashCodeExecutionToolResultError(betarequestbashcodeexecutiontoolresulterror) {
 		u.BetaRequestBashCodeExecutionToolResultError = &betarequestbashcodeexecutiontoolresulterror

@@ -3,7 +3,174 @@
 
 package sdk
 
-import "encoding/json"
+import (
+	"bytes"
+	"encoding/json"
+)
+
+// BetaManagedAgentsDeployment A deployment is a configured instance of an agent — it binds the agent to everything needed to run it autonomously: an environment, credentials, initial events, and an optional schedule.
+type BetaManagedAgentsDeployment struct {
+	// Type Required enumerated value serialized in the `type` wire field.
+	Type BetaManagedAgentsDeploymentTypeEnum `json:"type"`
+	// Id Unique identifier for this deployment.
+	Id string `json:"id"`
+	// Name Human-readable name.
+	Name string `json:"name"`
+	// Description Description of what the deployment does.
+	Description NullableValue[string] `json:"description"`
+	// Agent Reference to the agent this deployment runs, resolved to a concrete version.
+	Agent BetaManagedAgentsAgentReference `json:"agent"`
+	// EnvironmentId ID of the `environment` where sessions run.
+	EnvironmentId string `json:"environment_id"`
+	// VaultIds Vault IDs supplying stored credentials for sessions created from this deployment.
+	VaultIds []string `json:"vault_ids"`
+	// InitialEvents Events sent to each session immediately after creation.
+	InitialEvents []BetaManagedAgentsDeploymentInitialEvent `json:"initial_events"`
+	// Resources Resources attached to sessions created from this deployment. Echoes the input minus write-only credentials.
+	Resources []BetaManagedAgentsSessionResourceConfig `json:"resources"`
+	// Metadata Arbitrary key-value metadata. Maximum 16 pairs.
+	Metadata map[string]string `json:"metadata"`
+	// Schedule Recurring cron schedule. Presence enables scheduled execution; null means manual-only. Includes computed timestamps (next fire times, last run) on the cron variant.
+	Schedule NullableValue[BetaManagedAgentsSchedule] `json:"schedule"`
+	// Status Computed status of the deployment: `active` or `paused`. Archived deployments report `active` with `archived_at` set.
+	Status BetaManagedAgentsDeploymentStatus `json:"status"`
+	// PausedReason Why the deployment is `paused`. Non-null exactly when `status` is `paused`; null otherwise.
+	PausedReason NullableValue[BetaManagedAgentsDeploymentPausedReason] `json:"paused_reason"`
+	// Budget Spend ceiling stamped onto each session created from this deployment. Absent when no budget is set.
+	Budget *NullableValue[BetaManagedAgentsBudget] `json:"budget,omitempty"`
+	// CreatedAt Time the deployment was created.
+	CreatedAt string `json:"created_at"`
+	// UpdatedAt Time the deployment was last updated.
+	UpdatedAt string `json:"updated_at"`
+	// ArchivedAt Time the deployment was archived. Null if not archived.
+	ArchivedAt NullableValue[string] `json:"archived_at"`
+}
+
+func (value *BetaManagedAgentsDeployment) UnmarshalJSON(data []byte) error {
+	type BetaManagedAgentsDeploymentAlias BetaManagedAgentsDeployment
+	var decoded BetaManagedAgentsDeploymentAlias
+	if err := json.Unmarshal(data, &decoded); err != nil {
+		return err
+	}
+	*value = BetaManagedAgentsDeployment(decoded)
+	var rawFields map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawFields); err != nil {
+		return err
+	}
+	if err := ValidateRequired(rawFields, []string{"type", "id", "name", "description", "agent", "environment_id", "vault_ids", "initial_events", "resources", "metadata", "schedule", "status", "paused_reason", "created_at", "updated_at", "archived_at"}); err != nil {
+		return err
+	}
+	if err := ValidateNotNull(rawFields, []string{"type", "id", "name", "agent", "environment_id", "vault_ids", "initial_events", "resources", "metadata", "status", "created_at", "updated_at"}); err != nil {
+		return err
+	}
+	if raw, ok := rawFields["budget"]; ok && bytes.Equal(bytes.TrimSpace(raw), []byte("null")) {
+		value.Budget = &NullableValue[BetaManagedAgentsBudget]{}
+	}
+	return nil
+}
+
+// NewBetaManagedAgentsDeployment returns a validated BetaManagedAgentsDeployment built from named fields.
+// Optional fields may be left unset; a value that violates the schema is
+// reported as *SdkValidationError.
+func NewBetaManagedAgentsDeployment(fields BetaManagedAgentsDeployment) (*BetaManagedAgentsDeployment, error) {
+	return ConstructModel(fields)
+}
+
+// BetaManagedAgentsDeploymentTypeEnum Required enumerated value serialized in the `type` wire field.
+type BetaManagedAgentsDeploymentTypeEnum string
+
+const (
+	BetaManagedAgentsDeploymentTypeEnumDeployment BetaManagedAgentsDeploymentTypeEnum = "deployment"
+)
+
+// BetaManagedAgentsDeploymentInitialEvent represents a union type.
+type BetaManagedAgentsDeploymentInitialEvent struct {
+	BetaManagedAgentsDeploymentUserMessageEvent       *BetaManagedAgentsDeploymentUserMessageEvent
+	BetaManagedAgentsDeploymentUserDefineOutcomeEvent *BetaManagedAgentsDeploymentUserDefineOutcomeEvent
+	BetaManagedAgentsDeploymentSystemMessageEvent     *BetaManagedAgentsDeploymentSystemMessageEvent
+
+	// Unknown holds a member whose type names no branch this SDK knows, as received.
+	Unknown json.RawMessage
+}
+
+func (u *BetaManagedAgentsDeploymentInitialEvent) UnmarshalJSON(data []byte) error {
+	*u = BetaManagedAgentsDeploymentInitialEvent{}
+	var refusal error
+	var object map[string]json.RawMessage
+	if err := json.Unmarshal(data, &object); err == nil {
+		if rawDiscriminator, ok := object["type"]; ok {
+			var discriminatorValue string
+			if err := json.Unmarshal(rawDiscriminator, &discriminatorValue); err == nil {
+				switch discriminatorValue {
+				case "user.message":
+					var betamanagedagentsdeploymentusermessageevent BetaManagedAgentsDeploymentUserMessageEvent
+					if err := json.Unmarshal(data, &betamanagedagentsdeploymentusermessageevent); err != nil {
+						return err
+					}
+					u.BetaManagedAgentsDeploymentUserMessageEvent = &betamanagedagentsdeploymentusermessageevent
+					return nil
+				case "user.define_outcome":
+					var betamanagedagentsdeploymentuserdefineoutcomeevent BetaManagedAgentsDeploymentUserDefineOutcomeEvent
+					if err := json.Unmarshal(data, &betamanagedagentsdeploymentuserdefineoutcomeevent); err != nil {
+						return err
+					}
+					u.BetaManagedAgentsDeploymentUserDefineOutcomeEvent = &betamanagedagentsdeploymentuserdefineoutcomeevent
+					return nil
+				case "system.message":
+					var betamanagedagentsdeploymentsystemmessageevent BetaManagedAgentsDeploymentSystemMessageEvent
+					if err := json.Unmarshal(data, &betamanagedagentsdeploymentsystemmessageevent); err != nil {
+						return err
+					}
+					u.BetaManagedAgentsDeploymentSystemMessageEvent = &betamanagedagentsdeploymentsystemmessageevent
+					return nil
+				default:
+					u.Unknown = append(json.RawMessage(nil), data...)
+					return nil
+				}
+			}
+		}
+	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaManagedAgentsDeploymentUserMessageEvent
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaManagedAgentsDeploymentUserMessageEvent = &lossless0
+			return nil
+		}
+		var lossless1 BetaManagedAgentsDeploymentUserDefineOutcomeEvent
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaManagedAgentsDeploymentUserDefineOutcomeEvent = &lossless1
+			return nil
+		}
+		var lossless2 BetaManagedAgentsDeploymentSystemMessageEvent
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaManagedAgentsDeploymentSystemMessageEvent = &lossless2
+			return nil
+		}
+	}
+	var betamanagedagentsdeploymentusermessageevent BetaManagedAgentsDeploymentUserMessageEvent
+	if err := json.Unmarshal(data, &betamanagedagentsdeploymentusermessageevent); err == nil && isNonEmptyBetaManagedAgentsDeploymentInitialEventBetaManagedAgentsDeploymentUserMessageEvent(betamanagedagentsdeploymentusermessageevent) {
+		u.BetaManagedAgentsDeploymentUserMessageEvent = &betamanagedagentsdeploymentusermessageevent
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
+	}
+	var betamanagedagentsdeploymentuserdefineoutcomeevent BetaManagedAgentsDeploymentUserDefineOutcomeEvent
+	if err := json.Unmarshal(data, &betamanagedagentsdeploymentuserdefineoutcomeevent); err == nil && isNonEmptyBetaManagedAgentsDeploymentInitialEventBetaManagedAgentsDeploymentUserDefineOutcomeEvent(betamanagedagentsdeploymentuserdefineoutcomeevent) {
+		u.BetaManagedAgentsDeploymentUserDefineOutcomeEvent = &betamanagedagentsdeploymentuserdefineoutcomeevent
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
+	}
+	var betamanagedagentsdeploymentsystemmessageevent BetaManagedAgentsDeploymentSystemMessageEvent
+	if err := json.Unmarshal(data, &betamanagedagentsdeploymentsystemmessageevent); err == nil && isNonEmptyBetaManagedAgentsDeploymentInitialEventBetaManagedAgentsDeploymentSystemMessageEvent(betamanagedagentsdeploymentsystemmessageevent) {
+		u.BetaManagedAgentsDeploymentSystemMessageEvent = &betamanagedagentsdeploymentsystemmessageevent
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
+	}
+	return refusal
+}
 
 func (u BetaManagedAgentsDeploymentInitialEvent) MarshalJSON() ([]byte, error) {
 	if u.BetaManagedAgentsDeploymentUserMessageEvent != nil {
@@ -89,6 +256,24 @@ func (u *BetaManagedAgentsDeploymentInitialEventParams) UnmarshalJSON(data []byt
 					return nil
 				}
 			}
+		}
+	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaManagedAgentsUserMessageEventParams
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaManagedAgentsUserMessageEventParams = &lossless0
+			return nil
+		}
+		var lossless1 BetaManagedAgentsUserDefineOutcomeEventParams
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaManagedAgentsUserDefineOutcomeEventParams = &lossless1
+			return nil
+		}
+		var lossless2 BetaManagedAgentsSystemMessageEventParams
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaManagedAgentsSystemMessageEventParams = &lossless2
+			return nil
 		}
 	}
 	var betamanagedagentsusermessageeventparams BetaManagedAgentsUserMessageEventParams
@@ -193,6 +378,19 @@ func (u *BetaManagedAgentsDeploymentPausedReason) UnmarshalJSON(data []byte) err
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaManagedAgentsManualDeploymentPausedReason
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaManagedAgentsManualDeploymentPausedReason = &lossless0
+			return nil
+		}
+		var lossless1 BetaManagedAgentsErrorDeploymentPausedReason
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaManagedAgentsErrorDeploymentPausedReason = &lossless1
+			return nil
+		}
+	}
 	var betamanagedagentsmanualdeploymentpausedreason BetaManagedAgentsManualDeploymentPausedReason
 	if err := json.Unmarshal(data, &betamanagedagentsmanualdeploymentpausedreason); err == nil && isNonEmptyBetaManagedAgentsDeploymentPausedReasonBetaManagedAgentsManualDeploymentPausedReason(betamanagedagentsmanualdeploymentpausedreason) {
 		u.BetaManagedAgentsManualDeploymentPausedReason = &betamanagedagentsmanualdeploymentpausedreason
@@ -261,448 +459,3 @@ type BetaManagedAgentsDeploymentPausedReasonError struct {
 	// Unknown holds a member whose type names no branch this SDK knows, as received.
 	Unknown json.RawMessage
 }
-
-func (u *BetaManagedAgentsDeploymentPausedReasonError) UnmarshalJSON(data []byte) error {
-	*u = BetaManagedAgentsDeploymentPausedReasonError{}
-	var refusal error
-	var object map[string]json.RawMessage
-	if err := json.Unmarshal(data, &object); err == nil {
-		if rawDiscriminator, ok := object["type"]; ok {
-			var discriminatorValue string
-			if err := json.Unmarshal(rawDiscriminator, &discriminatorValue); err == nil {
-				switch discriminatorValue {
-				case "environment_archived_error":
-					var betamanagedagentsenvironmentarchiveddeploymentpausedreasonerror BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError
-					if err := json.Unmarshal(data, &betamanagedagentsenvironmentarchiveddeploymentpausedreasonerror); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError = &betamanagedagentsenvironmentarchiveddeploymentpausedreasonerror
-					return nil
-				case "agent_archived_error":
-					var betamanagedagentsagentarchiveddeploymentpausedreasonerror BetaManagedAgentsAgentArchivedDeploymentPausedReasonError
-					if err := json.Unmarshal(data, &betamanagedagentsagentarchiveddeploymentpausedreasonerror); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsAgentArchivedDeploymentPausedReasonError = &betamanagedagentsagentarchiveddeploymentpausedreasonerror
-					return nil
-				case "environment_not_found_error":
-					var betamanagedagentsenvironmentnotfounddeploymentpausedreasonerror BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError
-					if err := json.Unmarshal(data, &betamanagedagentsenvironmentnotfounddeploymentpausedreasonerror); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError = &betamanagedagentsenvironmentnotfounddeploymentpausedreasonerror
-					return nil
-				case "vault_not_found_error":
-					var betamanagedagentsvaultnotfounddeploymentpausedreasonerror BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError
-					if err := json.Unmarshal(data, &betamanagedagentsvaultnotfounddeploymentpausedreasonerror); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError = &betamanagedagentsvaultnotfounddeploymentpausedreasonerror
-					return nil
-				case "file_not_found_error":
-					var betamanagedagentsfilenotfounddeploymentpausedreasonerror BetaManagedAgentsFileNotFoundDeploymentPausedReasonError
-					if err := json.Unmarshal(data, &betamanagedagentsfilenotfounddeploymentpausedreasonerror); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsFileNotFoundDeploymentPausedReasonError = &betamanagedagentsfilenotfounddeploymentpausedreasonerror
-					return nil
-				case "session_resource_not_found_error":
-					var betamanagedagentssessionresourcenotfounddeploymentpausedreasonerror BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError
-					if err := json.Unmarshal(data, &betamanagedagentssessionresourcenotfounddeploymentpausedreasonerror); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError = &betamanagedagentssessionresourcenotfounddeploymentpausedreasonerror
-					return nil
-				case "workspace_archived_error":
-					var betamanagedagentsworkspacearchiveddeploymentpausedreasonerror BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError
-					if err := json.Unmarshal(data, &betamanagedagentsworkspacearchiveddeploymentpausedreasonerror); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError = &betamanagedagentsworkspacearchiveddeploymentpausedreasonerror
-					return nil
-				case "organization_disabled_error":
-					var betamanagedagentsorganizationdisableddeploymentpausedreasonerror BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError
-					if err := json.Unmarshal(data, &betamanagedagentsorganizationdisableddeploymentpausedreasonerror); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError = &betamanagedagentsorganizationdisableddeploymentpausedreasonerror
-					return nil
-				case "memory_store_archived_error":
-					var betamanagedagentsmemorystorearchiveddeploymentpausedreasonerror BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError
-					if err := json.Unmarshal(data, &betamanagedagentsmemorystorearchiveddeploymentpausedreasonerror); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError = &betamanagedagentsmemorystorearchiveddeploymentpausedreasonerror
-					return nil
-				case "skill_not_found_error":
-					var betamanagedagentsskillnotfounddeploymentpausedreasonerror BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError
-					if err := json.Unmarshal(data, &betamanagedagentsskillnotfounddeploymentpausedreasonerror); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError = &betamanagedagentsskillnotfounddeploymentpausedreasonerror
-					return nil
-				case "vault_archived_error":
-					var betamanagedagentsvaultarchiveddeploymentpausedreasonerror BetaManagedAgentsVaultArchivedDeploymentPausedReasonError
-					if err := json.Unmarshal(data, &betamanagedagentsvaultarchiveddeploymentpausedreasonerror); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsVaultArchivedDeploymentPausedReasonError = &betamanagedagentsvaultarchiveddeploymentpausedreasonerror
-					return nil
-				case "unknown_error":
-					var betamanagedagentsunknowndeploymentpausedreasonerror BetaManagedAgentsUnknownDeploymentPausedReasonError
-					if err := json.Unmarshal(data, &betamanagedagentsunknowndeploymentpausedreasonerror); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsUnknownDeploymentPausedReasonError = &betamanagedagentsunknowndeploymentpausedreasonerror
-					return nil
-				case "self_hosted_resources_unsupported_error":
-					var betamanagedagentsselfhostedresourcesunsupporteddeploymentpausedreasonerror BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError
-					if err := json.Unmarshal(data, &betamanagedagentsselfhostedresourcesunsupporteddeploymentpausedreasonerror); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError = &betamanagedagentsselfhostedresourcesunsupporteddeploymentpausedreasonerror
-					return nil
-				case "mcp_egress_blocked_error":
-					var betamanagedagentsmcpegressblockeddeploymentpausedreasonerror BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonError
-					if err := json.Unmarshal(data, &betamanagedagentsmcpegressblockeddeploymentpausedreasonerror); err != nil {
-						return err
-					}
-					u.BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonError = &betamanagedagentsmcpegressblockeddeploymentpausedreasonerror
-					return nil
-				default:
-					u.Unknown = append(json.RawMessage(nil), data...)
-					return nil
-				}
-			}
-		}
-	}
-	var betamanagedagentsenvironmentarchiveddeploymentpausedreasonerror BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError
-	if err := json.Unmarshal(data, &betamanagedagentsenvironmentarchiveddeploymentpausedreasonerror); err == nil && isNonEmptyBetaManagedAgentsDeploymentPausedReasonErrorBetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError(betamanagedagentsenvironmentarchiveddeploymentpausedreasonerror) {
-		u.BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError = &betamanagedagentsenvironmentarchiveddeploymentpausedreasonerror
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsagentarchiveddeploymentpausedreasonerror BetaManagedAgentsAgentArchivedDeploymentPausedReasonError
-	if err := json.Unmarshal(data, &betamanagedagentsagentarchiveddeploymentpausedreasonerror); err == nil && isNonEmptyBetaManagedAgentsDeploymentPausedReasonErrorBetaManagedAgentsAgentArchivedDeploymentPausedReasonError(betamanagedagentsagentarchiveddeploymentpausedreasonerror) {
-		u.BetaManagedAgentsAgentArchivedDeploymentPausedReasonError = &betamanagedagentsagentarchiveddeploymentpausedreasonerror
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsenvironmentnotfounddeploymentpausedreasonerror BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError
-	if err := json.Unmarshal(data, &betamanagedagentsenvironmentnotfounddeploymentpausedreasonerror); err == nil && isNonEmptyBetaManagedAgentsDeploymentPausedReasonErrorBetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError(betamanagedagentsenvironmentnotfounddeploymentpausedreasonerror) {
-		u.BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError = &betamanagedagentsenvironmentnotfounddeploymentpausedreasonerror
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsvaultnotfounddeploymentpausedreasonerror BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError
-	if err := json.Unmarshal(data, &betamanagedagentsvaultnotfounddeploymentpausedreasonerror); err == nil && isNonEmptyBetaManagedAgentsDeploymentPausedReasonErrorBetaManagedAgentsVaultNotFoundDeploymentPausedReasonError(betamanagedagentsvaultnotfounddeploymentpausedreasonerror) {
-		u.BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError = &betamanagedagentsvaultnotfounddeploymentpausedreasonerror
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsfilenotfounddeploymentpausedreasonerror BetaManagedAgentsFileNotFoundDeploymentPausedReasonError
-	if err := json.Unmarshal(data, &betamanagedagentsfilenotfounddeploymentpausedreasonerror); err == nil && isNonEmptyBetaManagedAgentsDeploymentPausedReasonErrorBetaManagedAgentsFileNotFoundDeploymentPausedReasonError(betamanagedagentsfilenotfounddeploymentpausedreasonerror) {
-		u.BetaManagedAgentsFileNotFoundDeploymentPausedReasonError = &betamanagedagentsfilenotfounddeploymentpausedreasonerror
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentssessionresourcenotfounddeploymentpausedreasonerror BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError
-	if err := json.Unmarshal(data, &betamanagedagentssessionresourcenotfounddeploymentpausedreasonerror); err == nil && isNonEmptyBetaManagedAgentsDeploymentPausedReasonErrorBetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError(betamanagedagentssessionresourcenotfounddeploymentpausedreasonerror) {
-		u.BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError = &betamanagedagentssessionresourcenotfounddeploymentpausedreasonerror
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsworkspacearchiveddeploymentpausedreasonerror BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError
-	if err := json.Unmarshal(data, &betamanagedagentsworkspacearchiveddeploymentpausedreasonerror); err == nil && isNonEmptyBetaManagedAgentsDeploymentPausedReasonErrorBetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError(betamanagedagentsworkspacearchiveddeploymentpausedreasonerror) {
-		u.BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError = &betamanagedagentsworkspacearchiveddeploymentpausedreasonerror
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsorganizationdisableddeploymentpausedreasonerror BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError
-	if err := json.Unmarshal(data, &betamanagedagentsorganizationdisableddeploymentpausedreasonerror); err == nil && isNonEmptyBetaManagedAgentsDeploymentPausedReasonErrorBetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError(betamanagedagentsorganizationdisableddeploymentpausedreasonerror) {
-		u.BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError = &betamanagedagentsorganizationdisableddeploymentpausedreasonerror
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsmemorystorearchiveddeploymentpausedreasonerror BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError
-	if err := json.Unmarshal(data, &betamanagedagentsmemorystorearchiveddeploymentpausedreasonerror); err == nil && isNonEmptyBetaManagedAgentsDeploymentPausedReasonErrorBetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError(betamanagedagentsmemorystorearchiveddeploymentpausedreasonerror) {
-		u.BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError = &betamanagedagentsmemorystorearchiveddeploymentpausedreasonerror
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsskillnotfounddeploymentpausedreasonerror BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError
-	if err := json.Unmarshal(data, &betamanagedagentsskillnotfounddeploymentpausedreasonerror); err == nil && isNonEmptyBetaManagedAgentsDeploymentPausedReasonErrorBetaManagedAgentsSkillNotFoundDeploymentPausedReasonError(betamanagedagentsskillnotfounddeploymentpausedreasonerror) {
-		u.BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError = &betamanagedagentsskillnotfounddeploymentpausedreasonerror
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsvaultarchiveddeploymentpausedreasonerror BetaManagedAgentsVaultArchivedDeploymentPausedReasonError
-	if err := json.Unmarshal(data, &betamanagedagentsvaultarchiveddeploymentpausedreasonerror); err == nil && isNonEmptyBetaManagedAgentsDeploymentPausedReasonErrorBetaManagedAgentsVaultArchivedDeploymentPausedReasonError(betamanagedagentsvaultarchiveddeploymentpausedreasonerror) {
-		u.BetaManagedAgentsVaultArchivedDeploymentPausedReasonError = &betamanagedagentsvaultarchiveddeploymentpausedreasonerror
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsunknowndeploymentpausedreasonerror BetaManagedAgentsUnknownDeploymentPausedReasonError
-	if err := json.Unmarshal(data, &betamanagedagentsunknowndeploymentpausedreasonerror); err == nil && isNonEmptyBetaManagedAgentsDeploymentPausedReasonErrorBetaManagedAgentsUnknownDeploymentPausedReasonError(betamanagedagentsunknowndeploymentpausedreasonerror) {
-		u.BetaManagedAgentsUnknownDeploymentPausedReasonError = &betamanagedagentsunknowndeploymentpausedreasonerror
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsselfhostedresourcesunsupporteddeploymentpausedreasonerror BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError
-	if err := json.Unmarshal(data, &betamanagedagentsselfhostedresourcesunsupporteddeploymentpausedreasonerror); err == nil && isNonEmptyBetaManagedAgentsDeploymentPausedReasonErrorBetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError(betamanagedagentsselfhostedresourcesunsupporteddeploymentpausedreasonerror) {
-		u.BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError = &betamanagedagentsselfhostedresourcesunsupporteddeploymentpausedreasonerror
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var betamanagedagentsmcpegressblockeddeploymentpausedreasonerror BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonError
-	if err := json.Unmarshal(data, &betamanagedagentsmcpegressblockeddeploymentpausedreasonerror); err == nil && isNonEmptyBetaManagedAgentsDeploymentPausedReasonErrorBetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonError(betamanagedagentsmcpegressblockeddeploymentpausedreasonerror) {
-		u.BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonError = &betamanagedagentsmcpegressblockeddeploymentpausedreasonerror
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	return refusal
-}
-
-func (u BetaManagedAgentsDeploymentPausedReasonError) MarshalJSON() ([]byte, error) {
-	if u.BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError != nil {
-		return json.Marshal(u.BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError)
-	}
-	if u.BetaManagedAgentsAgentArchivedDeploymentPausedReasonError != nil {
-		return json.Marshal(u.BetaManagedAgentsAgentArchivedDeploymentPausedReasonError)
-	}
-	if u.BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError != nil {
-		return json.Marshal(u.BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError)
-	}
-	if u.BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError != nil {
-		return json.Marshal(u.BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError)
-	}
-	if u.BetaManagedAgentsFileNotFoundDeploymentPausedReasonError != nil {
-		return json.Marshal(u.BetaManagedAgentsFileNotFoundDeploymentPausedReasonError)
-	}
-	if u.BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError != nil {
-		return json.Marshal(u.BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError)
-	}
-	if u.BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError != nil {
-		return json.Marshal(u.BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError)
-	}
-	if u.BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError != nil {
-		return json.Marshal(u.BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError)
-	}
-	if u.BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError != nil {
-		return json.Marshal(u.BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError)
-	}
-	if u.BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError != nil {
-		return json.Marshal(u.BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError)
-	}
-	if u.BetaManagedAgentsVaultArchivedDeploymentPausedReasonError != nil {
-		return json.Marshal(u.BetaManagedAgentsVaultArchivedDeploymentPausedReasonError)
-	}
-	if u.BetaManagedAgentsUnknownDeploymentPausedReasonError != nil {
-		return json.Marshal(u.BetaManagedAgentsUnknownDeploymentPausedReasonError)
-	}
-	if u.BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError != nil {
-		return json.Marshal(u.BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError)
-	}
-	if u.BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonError != nil {
-		return json.Marshal(u.BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonError)
-	}
-	if u.Unknown != nil {
-		return u.Unknown, nil
-	}
-	return []byte("null"), nil
-}
-
-func isNonEmptyBetaManagedAgentsDeploymentPausedReasonErrorBetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError(v BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaManagedAgentsDeploymentPausedReasonErrorBetaManagedAgentsAgentArchivedDeploymentPausedReasonError(v BetaManagedAgentsAgentArchivedDeploymentPausedReasonError) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaManagedAgentsDeploymentPausedReasonErrorBetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError(v BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaManagedAgentsDeploymentPausedReasonErrorBetaManagedAgentsVaultNotFoundDeploymentPausedReasonError(v BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaManagedAgentsDeploymentPausedReasonErrorBetaManagedAgentsFileNotFoundDeploymentPausedReasonError(v BetaManagedAgentsFileNotFoundDeploymentPausedReasonError) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaManagedAgentsDeploymentPausedReasonErrorBetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError(v BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaManagedAgentsDeploymentPausedReasonErrorBetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError(v BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaManagedAgentsDeploymentPausedReasonErrorBetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError(v BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaManagedAgentsDeploymentPausedReasonErrorBetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError(v BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaManagedAgentsDeploymentPausedReasonErrorBetaManagedAgentsSkillNotFoundDeploymentPausedReasonError(v BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaManagedAgentsDeploymentPausedReasonErrorBetaManagedAgentsVaultArchivedDeploymentPausedReasonError(v BetaManagedAgentsVaultArchivedDeploymentPausedReasonError) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaManagedAgentsDeploymentPausedReasonErrorBetaManagedAgentsUnknownDeploymentPausedReasonError(v BetaManagedAgentsUnknownDeploymentPausedReasonError) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaManagedAgentsDeploymentPausedReasonErrorBetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError(v BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaManagedAgentsDeploymentPausedReasonErrorBetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonError(v BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonError) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-// UnmarshalBetaManagedAgentsDeploymentPausedReasonError converts an untyped value to BetaManagedAgentsDeploymentPausedReasonError.
-func UnmarshalBetaManagedAgentsDeploymentPausedReasonError(v any) BetaManagedAgentsDeploymentPausedReasonError {
-	b, _ := json.Marshal(v)
-	var result BetaManagedAgentsDeploymentPausedReasonError
-	_ = json.Unmarshal(b, &result)
-	return result
-}
-
-// BetaManagedAgentsDeploymentRun A persistent, append-only record of a single deployment execution. Records session creation success or failure — no session lifecycle tracking.
-type BetaManagedAgentsDeploymentRun struct {
-	// Type Required enumerated value serialized in the `type` wire field.
-	Type BetaManagedAgentsDeploymentRunTypeEnum `json:"type"`
-	// Id Unique identifier for this run (`drun_...`).
-	Id string `json:"id"`
-	// DeploymentId ID of the deployment that produced this run.
-	DeploymentId string `json:"deployment_id"`
-	// TriggerContext What triggered this run and trigger-specific metadata.
-	TriggerContext BetaManagedAgentsTriggerContext `json:"trigger_context"`
-	// SessionId Populated on success. Null on creation failure. Exactly one of `session_id` or `error` is non-null.
-	SessionId NullableValue[string] `json:"session_id"`
-	// Error Populated on creation failure. Null on success. Exactly one of `session_id` or `error` is non-null.
-	Error NullableValue[BetaManagedAgentsRunError] `json:"error"`
-	// Agent Snapshot of the agent at fire time. Always fully resolved — deployments pin agent + version.
-	Agent BetaManagedAgentsAgentReference `json:"agent"`
-	// CreatedAt Time this run record was persisted.
-	CreatedAt string `json:"created_at"`
-}
-
-func (value *BetaManagedAgentsDeploymentRun) UnmarshalJSON(data []byte) error {
-	type BetaManagedAgentsDeploymentRunAlias BetaManagedAgentsDeploymentRun
-	var decoded BetaManagedAgentsDeploymentRunAlias
-	if err := json.Unmarshal(data, &decoded); err != nil {
-		return err
-	}
-	*value = BetaManagedAgentsDeploymentRun(decoded)
-	var rawFields map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawFields); err != nil {
-		return err
-	}
-	if err := ValidateRequired(rawFields, []string{"type", "id", "deployment_id", "trigger_context", "session_id", "error", "agent", "created_at"}); err != nil {
-		return err
-	}
-	if err := ValidateNotNull(rawFields, []string{"type", "id", "deployment_id", "trigger_context", "agent", "created_at"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-// NewBetaManagedAgentsDeploymentRun returns a validated BetaManagedAgentsDeploymentRun built from named fields.
-// Optional fields may be left unset; a value that violates the schema is
-// reported as *SdkValidationError.
-func NewBetaManagedAgentsDeploymentRun(fields BetaManagedAgentsDeploymentRun) (*BetaManagedAgentsDeploymentRun, error) {
-	return ConstructModel(fields)
-}
-
-// BetaManagedAgentsDeploymentRunTypeEnum Required enumerated value serialized in the `type` wire field.
-type BetaManagedAgentsDeploymentRunTypeEnum string
-
-const (
-	BetaManagedAgentsDeploymentRunTypeEnumDeploymentRun BetaManagedAgentsDeploymentRunTypeEnum = "deployment_run"
-)
-
-// BetaManagedAgentsDeploymentStatus Lifecycle status of a deployment.
-type BetaManagedAgentsDeploymentStatus string
-
-const (
-	BetaManagedAgentsDeploymentStatusActive BetaManagedAgentsDeploymentStatus = "active"
-	BetaManagedAgentsDeploymentStatusPaused BetaManagedAgentsDeploymentStatus = "paused"
-)
-
-// BetaManagedAgentsDeploymentSystemMessageEvent Privileged context for the accompanying turn and all subsequent turns, appended to the session's system context as a `role: "system"` turn rather than replacing the top-level system prompt.
-type BetaManagedAgentsDeploymentSystemMessageEvent struct {
-	// Type Required enumerated value serialized in the `type` wire field.
-	Type BetaManagedAgentsDeploymentSystemMessageEventTypeEnum `json:"type"`
-	// Content System content blocks to append. Text-only.
-	Content []BetaManagedAgentsSystemContentBlock `json:"content"`
-}
-
-func (value *BetaManagedAgentsDeploymentSystemMessageEvent) UnmarshalJSON(data []byte) error {
-	var rawFields map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawFields); err != nil {
-		return err
-	}
-	if err := ValidateRawEnum("type", rawFields["type"], []string{"system.message"}); err != nil {
-		return err
-	}
-	type BetaManagedAgentsDeploymentSystemMessageEventAlias BetaManagedAgentsDeploymentSystemMessageEvent
-	var decoded BetaManagedAgentsDeploymentSystemMessageEventAlias
-	if err := json.Unmarshal(data, &decoded); err != nil {
-		return err
-	}
-	*value = BetaManagedAgentsDeploymentSystemMessageEvent(decoded)
-	if err := ValidateRequired(rawFields, []string{"type", "content"}); err != nil {
-		return err
-	}
-	if err := ValidateNotNull(rawFields, []string{"type", "content"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-// NewBetaManagedAgentsDeploymentSystemMessageEvent returns a validated BetaManagedAgentsDeploymentSystemMessageEvent built from named fields.
-// Optional fields may be left unset; a value that violates the schema is
-// reported as *SdkValidationError.
-func NewBetaManagedAgentsDeploymentSystemMessageEvent(fields BetaManagedAgentsDeploymentSystemMessageEvent) (*BetaManagedAgentsDeploymentSystemMessageEvent, error) {
-	return ConstructModel(fields)
-}
-
-// BetaManagedAgentsDeploymentSystemMessageEventTypeEnum Required enumerated value serialized in the `type` wire field.
-type BetaManagedAgentsDeploymentSystemMessageEventTypeEnum string

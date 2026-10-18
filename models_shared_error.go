@@ -137,6 +137,54 @@ func (u *ErrorResponseError) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 InvalidRequestError
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.InvalidRequestError = &lossless0
+			return nil
+		}
+		var lossless1 AuthenticationError
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.AuthenticationError = &lossless1
+			return nil
+		}
+		var lossless2 BillingError
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BillingError = &lossless2
+			return nil
+		}
+		var lossless3 PermissionError
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.PermissionError = &lossless3
+			return nil
+		}
+		var lossless4 NotFoundError
+		if json.Unmarshal(data, &lossless4) == nil && keepsEveryKey(raw, lossless4) {
+			u.NotFoundError = &lossless4
+			return nil
+		}
+		var lossless5 RateLimitError
+		if json.Unmarshal(data, &lossless5) == nil && keepsEveryKey(raw, lossless5) {
+			u.RateLimitError = &lossless5
+			return nil
+		}
+		var lossless6 GatewayTimeoutError
+		if json.Unmarshal(data, &lossless6) == nil && keepsEveryKey(raw, lossless6) {
+			u.GatewayTimeoutError = &lossless6
+			return nil
+		}
+		var lossless7 APIError
+		if json.Unmarshal(data, &lossless7) == nil && keepsEveryKey(raw, lossless7) {
+			u.APIError = &lossless7
+			return nil
+		}
+		var lossless8 OverloadedError
+		if json.Unmarshal(data, &lossless8) == nil && keepsEveryKey(raw, lossless8) {
+			u.OverloadedError = &lossless8
+			return nil
+		}
+	}
 	var invalidrequesterror InvalidRequestError
 	if err := json.Unmarshal(data, &invalidrequesterror); err == nil && isNonEmptyErrorResponseErrorInvalidRequestError(invalidrequesterror) {
 		u.InvalidRequestError = &invalidrequesterror

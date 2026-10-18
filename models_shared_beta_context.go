@@ -123,6 +123,24 @@ func (u *BetaContextManagementConfigEditsItem) UnmarshalJSON(data []byte) error 
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaClearToolUses20250919
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaClearToolUses20250919 = &lossless0
+			return nil
+		}
+		var lossless1 BetaClearThinking20251015
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaClearThinking20251015 = &lossless1
+			return nil
+		}
+		var lossless2 BetaCompact20260112
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaCompact20260112 = &lossless2
+			return nil
+		}
+	}
 	var betacleartooluses20250919 BetaClearToolUses20250919
 	if err := json.Unmarshal(data, &betacleartooluses20250919); err == nil && isNonEmptyBetaContextManagementConfigEditsItemBetaClearToolUses20250919(betacleartooluses20250919) {
 		u.BetaClearToolUses20250919 = &betacleartooluses20250919

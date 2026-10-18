@@ -377,6 +377,24 @@ func (u *RequestToolUseBlockCaller) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 DirectCaller
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.DirectCaller = &lossless0
+			return nil
+		}
+		var lossless1 ServerToolCaller
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.ServerToolCaller = &lossless1
+			return nil
+		}
+		var lossless2 ServerToolCaller20260120
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.ServerToolCaller20260120 = &lossless2
+			return nil
+		}
+	}
 	var directcaller DirectCaller
 	if err := json.Unmarshal(data, &directcaller); err == nil && isNonEmptyRequestToolUseBlockCallerDirectCaller(directcaller) {
 		u.DirectCaller = &directcaller
@@ -511,6 +529,39 @@ func (u *RequestToolResultBlockContentItem) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 RequestTextBlock
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.RequestTextBlock = &lossless0
+			return nil
+		}
+		var lossless1 RequestImageBlock
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.RequestImageBlock = &lossless1
+			return nil
+		}
+		var lossless2 RequestSearchResultBlock
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.RequestSearchResultBlock = &lossless2
+			return nil
+		}
+		var lossless3 RequestDocumentBlock
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.RequestDocumentBlock = &lossless3
+			return nil
+		}
+		var lossless4 RequestToolReferenceBlock
+		if json.Unmarshal(data, &lossless4) == nil && keepsEveryKey(raw, lossless4) {
+			u.RequestToolReferenceBlock = &lossless4
+			return nil
+		}
+		var lossless5 RequestBrowserStateBlock
+		if json.Unmarshal(data, &lossless5) == nil && keepsEveryKey(raw, lossless5) {
+			u.RequestBrowserStateBlock = &lossless5
+			return nil
+		}
+	}
 	var requesttextblock RequestTextBlock
 	if err := json.Unmarshal(data, &requesttextblock); err == nil && isNonEmptyRequestToolResultBlockContentItemRequestTextBlock(requesttextblock) {
 		u.RequestTextBlock = &requesttextblock
@@ -626,82 +677,4 @@ type RequestToolSearchToolResultBlockContent struct {
 
 	// Unknown holds a member whose type names no branch this SDK knows, as received.
 	Unknown json.RawMessage
-}
-
-func (u *RequestToolSearchToolResultBlockContent) UnmarshalJSON(data []byte) error {
-	*u = RequestToolSearchToolResultBlockContent{}
-	var refusal error
-	var object map[string]json.RawMessage
-	if err := json.Unmarshal(data, &object); err == nil {
-		if rawDiscriminator, ok := object["type"]; ok {
-			var discriminatorValue string
-			if err := json.Unmarshal(rawDiscriminator, &discriminatorValue); err == nil {
-				switch discriminatorValue {
-				case "tool_search_tool_result_error":
-					var requesttoolsearchtoolresulterror RequestToolSearchToolResultError
-					if err := json.Unmarshal(data, &requesttoolsearchtoolresulterror); err != nil {
-						return err
-					}
-					u.RequestToolSearchToolResultError = &requesttoolsearchtoolresulterror
-					return nil
-				case "tool_search_tool_search_result":
-					var requesttoolsearchtoolsearchresultblock RequestToolSearchToolSearchResultBlock
-					if err := json.Unmarshal(data, &requesttoolsearchtoolsearchresultblock); err != nil {
-						return err
-					}
-					u.RequestToolSearchToolSearchResultBlock = &requesttoolsearchtoolsearchresultblock
-					return nil
-				default:
-					u.Unknown = append(json.RawMessage(nil), data...)
-					return nil
-				}
-			}
-		}
-	}
-	var requesttoolsearchtoolresulterror RequestToolSearchToolResultError
-	if err := json.Unmarshal(data, &requesttoolsearchtoolresulterror); err == nil && isNonEmptyRequestToolSearchToolResultBlockContentRequestToolSearchToolResultError(requesttoolsearchtoolresulterror) {
-		u.RequestToolSearchToolResultError = &requesttoolsearchtoolresulterror
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	var requesttoolsearchtoolsearchresultblock RequestToolSearchToolSearchResultBlock
-	if err := json.Unmarshal(data, &requesttoolsearchtoolsearchresultblock); err == nil && isNonEmptyRequestToolSearchToolResultBlockContentRequestToolSearchToolSearchResultBlock(requesttoolsearchtoolsearchresultblock) {
-		u.RequestToolSearchToolSearchResultBlock = &requesttoolsearchtoolsearchresultblock
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	return refusal
-}
-
-func (u RequestToolSearchToolResultBlockContent) MarshalJSON() ([]byte, error) {
-	if u.RequestToolSearchToolResultError != nil {
-		return json.Marshal(u.RequestToolSearchToolResultError)
-	}
-	if u.RequestToolSearchToolSearchResultBlock != nil {
-		return json.Marshal(u.RequestToolSearchToolSearchResultBlock)
-	}
-	if u.Unknown != nil {
-		return u.Unknown, nil
-	}
-	return []byte("null"), nil
-}
-
-func isNonEmptyRequestToolSearchToolResultBlockContentRequestToolSearchToolResultError(v RequestToolSearchToolResultError) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyRequestToolSearchToolResultBlockContentRequestToolSearchToolSearchResultBlock(v RequestToolSearchToolSearchResultBlock) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-// UnmarshalRequestToolSearchToolResultBlockContent converts an untyped value to RequestToolSearchToolResultBlockContent.
-func UnmarshalRequestToolSearchToolResultBlockContent(v any) RequestToolSearchToolResultBlockContent {
-	b, _ := json.Marshal(v)
-	var result RequestToolSearchToolResultBlockContent
-	_ = json.Unmarshal(b, &result)
-	return result
 }

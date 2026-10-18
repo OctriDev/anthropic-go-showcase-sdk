@@ -146,6 +146,19 @@ func (u *BetaPublicEnvironmentCreateRequestConfig) UnmarshalJSON(data []byte) er
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaCloudConfigParams
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaCloudConfigParams = &lossless0
+			return nil
+		}
+		var lossless1 BetaSelfHostedConfigParams
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaSelfHostedConfigParams = &lossless1
+			return nil
+		}
+	}
 	var betacloudconfigparams BetaCloudConfigParams
 	if err := json.Unmarshal(data, &betacloudconfigparams); err == nil && isNonEmptyBetaPublicEnvironmentCreateRequestConfigBetaCloudConfigParams(betacloudconfigparams) {
 		u.BetaCloudConfigParams = &betacloudconfigparams

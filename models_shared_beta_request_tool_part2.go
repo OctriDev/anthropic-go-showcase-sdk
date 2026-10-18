@@ -5,6 +5,44 @@ package sdk
 
 import "encoding/json"
 
+func isNonEmptyBetaRequestToolResultBlockContentItemBetaRequestTextBlock(v BetaRequestTextBlock) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaRequestToolResultBlockContentItemBetaRequestImageBlock(v BetaRequestImageBlock) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaRequestToolResultBlockContentItemBetaRequestSearchResultBlock(v BetaRequestSearchResultBlock) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaRequestToolResultBlockContentItemBetaRequestDocumentBlock(v BetaRequestDocumentBlock) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaRequestToolResultBlockContentItemBetaRequestToolReferenceBlock(v BetaRequestToolReferenceBlock) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaRequestToolResultBlockContentItemBetaRequestBrowserStateBlock(v BetaRequestBrowserStateBlock) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+// UnmarshalBetaRequestToolResultBlockContentItem converts an untyped value to BetaRequestToolResultBlockContentItem.
+func UnmarshalBetaRequestToolResultBlockContentItem(v any) BetaRequestToolResultBlockContentItem {
+	b, _ := json.Marshal(v)
+	var result BetaRequestToolResultBlockContentItem
+	_ = json.Unmarshal(b, &result)
+	return result
+}
+
 // BetaRequestToolSearchToolResultBlockContent represents a union type.
 type BetaRequestToolSearchToolResultBlockContent struct {
 	BetaRequestToolSearchToolResultError       *BetaRequestToolSearchToolResultError
@@ -42,6 +80,19 @@ func (u *BetaRequestToolSearchToolResultBlockContent) UnmarshalJSON(data []byte)
 					return nil
 				}
 			}
+		}
+	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaRequestToolSearchToolResultError
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaRequestToolSearchToolResultError = &lossless0
+			return nil
+		}
+		var lossless1 BetaRequestToolSearchToolSearchResultBlock
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaRequestToolSearchToolSearchResultBlock = &lossless1
+			return nil
 		}
 	}
 	var betarequesttoolsearchtoolresulterror BetaRequestToolSearchToolResultError
@@ -137,6 +188,24 @@ func (u *BetaRequestToolAdditionBlockTool) UnmarshalJSON(data []byte) error {
 					return nil
 				}
 			}
+		}
+	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaToolChangeToolReference
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaToolChangeToolReference = &lossless0
+			return nil
+		}
+		var lossless1 BetaToolChangeMCPToolReference
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaToolChangeMCPToolReference = &lossless1
+			return nil
+		}
+		var lossless2 BetaToolChangeMCPToolsetReference
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaToolChangeMCPToolsetReference = &lossless2
+			return nil
 		}
 	}
 	var betatoolchangetoolreference BetaToolChangeToolReference
@@ -247,6 +316,24 @@ func (u *BetaRequestToolRemovalBlockTool) UnmarshalJSON(data []byte) error {
 					return nil
 				}
 			}
+		}
+	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaToolChangeToolReference
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaToolChangeToolReference = &lossless0
+			return nil
+		}
+		var lossless1 BetaToolChangeMCPToolReference
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaToolChangeMCPToolReference = &lossless1
+			return nil
+		}
+		var lossless2 BetaToolChangeMCPToolsetReference
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaToolChangeMCPToolsetReference = &lossless2
+			return nil
 		}
 	}
 	var betatoolchangetoolreference BetaToolChangeToolReference

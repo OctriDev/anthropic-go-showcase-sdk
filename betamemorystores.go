@@ -54,7 +54,7 @@ func CreateBetaMemoryStores(ctx context.Context, clientConfig ClientConfig, para
 		}
 	}
 
-	resp, err := DoUnionCfg[BetaManagedAgentsCreateMemoryStoreResponse](ctx, &clientConfig, "POST", "/v1/memory_stores?beta=true", &RequestOpts{
+	resp, err := DoCfg[BetaManagedAgentsCreateMemoryStoreResponse](ctx, &clientConfig, "POST", "/v1/memory_stores?beta=true", &RequestOpts{
 		Body: map[string]any{
 			"name":        name,
 			"description": description,
@@ -68,7 +68,7 @@ func CreateBetaMemoryStores(ctx context.Context, clientConfig ClientConfig, para
 		OperationID: "CreateBetaMemoryStores",
 		Errors:      ErrorDecoders{"400": decodeErrorData[BetaErrorResponse], "401": decodeErrorData[BetaErrorResponse], "403": decodeErrorData[BetaErrorResponse], "404": decodeErrorData[BetaErrorResponse], "408": decodeErrorData[BetaErrorResponse], "409": decodeErrorData[BetaErrorResponse], "412": decodeErrorData[BetaErrorResponse], "413": decodeErrorData[BetaErrorResponse], "429": decodeErrorData[BetaErrorResponse], "431": decodeErrorData[BetaErrorResponse], "499": decodeErrorData[BetaErrorResponse], "500": decodeErrorData[BetaErrorResponse], "501": decodeErrorData[BetaErrorResponse], "503": decodeErrorData[BetaErrorResponse], "504": decodeErrorData[BetaErrorResponse]},
 		Options:     opts,
-	}, UnmarshalBetaManagedAgentsCreateMemoryStoreResponse)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -258,7 +258,7 @@ func RetrieveBetaMemoryStores(ctx context.Context, clientConfig ClientConfig, pa
 	anthropicBeta := params.AnthropicBeta
 	anthropicWorkspaceId := params.AnthropicWorkspaceId
 
-	resp, err := DoUnionCfg[BetaManagedAgentsGetMemoryStoreResponse](ctx, &clientConfig, "GET", fmt.Sprintf("/v1/memory_stores/%s?beta=true", EncodePathSegment(memoryStoreId)), &RequestOpts{
+	resp, err := DoCfg[BetaManagedAgentsGetMemoryStoreResponse](ctx, &clientConfig, "GET", fmt.Sprintf("/v1/memory_stores/%s?beta=true", EncodePathSegment(memoryStoreId)), &RequestOpts{
 		Headers: OperationHeaders(map[string]any{
 			"anthropic-version":      anthropicVersion,
 			"anthropic-beta":         anthropicBeta,
@@ -267,7 +267,7 @@ func RetrieveBetaMemoryStores(ctx context.Context, clientConfig ClientConfig, pa
 		OperationID: "RetrieveBetaMemoryStores",
 		Errors:      ErrorDecoders{"400": decodeErrorData[BetaErrorResponse], "401": decodeErrorData[BetaErrorResponse], "403": decodeErrorData[BetaErrorResponse], "404": decodeErrorData[BetaErrorResponse], "408": decodeErrorData[BetaErrorResponse], "409": decodeErrorData[BetaErrorResponse], "412": decodeErrorData[BetaErrorResponse], "413": decodeErrorData[BetaErrorResponse], "429": decodeErrorData[BetaErrorResponse], "431": decodeErrorData[BetaErrorResponse], "499": decodeErrorData[BetaErrorResponse], "500": decodeErrorData[BetaErrorResponse], "501": decodeErrorData[BetaErrorResponse], "503": decodeErrorData[BetaErrorResponse], "504": decodeErrorData[BetaErrorResponse]},
 		Options:     opts,
-	}, UnmarshalBetaManagedAgentsGetMemoryStoreResponse)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -311,7 +311,7 @@ func UpdateBetaMemoryStores(ctx context.Context, clientConfig ClientConfig, para
 	description := params.Description
 	metadata := params.Metadata
 
-	resp, err := DoUnionCfg[BetaManagedAgentsUpdateMemoryStoreResponse](ctx, &clientConfig, "POST", fmt.Sprintf("/v1/memory_stores/%s?beta=true", EncodePathSegment(memoryStoreId)), &RequestOpts{
+	resp, err := DoCfg[BetaManagedAgentsUpdateMemoryStoreResponse](ctx, &clientConfig, "POST", fmt.Sprintf("/v1/memory_stores/%s?beta=true", EncodePathSegment(memoryStoreId)), &RequestOpts{
 		Body: map[string]any{
 			"name":        name,
 			"description": description,
@@ -325,7 +325,7 @@ func UpdateBetaMemoryStores(ctx context.Context, clientConfig ClientConfig, para
 		OperationID: "UpdateBetaMemoryStores",
 		Errors:      ErrorDecoders{"400": decodeErrorData[BetaErrorResponse], "401": decodeErrorData[BetaErrorResponse], "403": decodeErrorData[BetaErrorResponse], "404": decodeErrorData[BetaErrorResponse], "408": decodeErrorData[BetaErrorResponse], "409": decodeErrorData[BetaErrorResponse], "412": decodeErrorData[BetaErrorResponse], "413": decodeErrorData[BetaErrorResponse], "429": decodeErrorData[BetaErrorResponse], "431": decodeErrorData[BetaErrorResponse], "499": decodeErrorData[BetaErrorResponse], "500": decodeErrorData[BetaErrorResponse], "501": decodeErrorData[BetaErrorResponse], "503": decodeErrorData[BetaErrorResponse], "504": decodeErrorData[BetaErrorResponse]},
 		Options:     opts,
-	}, UnmarshalBetaManagedAgentsUpdateMemoryStoreResponse)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -355,7 +355,7 @@ func DeleteBetaMemoryStores(ctx context.Context, clientConfig ClientConfig, para
 	anthropicBeta := params.AnthropicBeta
 	anthropicWorkspaceId := params.AnthropicWorkspaceId
 
-	resp, err := DoUnionCfg[BetaManagedAgentsDeleteMemoryStoreResponse](ctx, &clientConfig, "DELETE", fmt.Sprintf("/v1/memory_stores/%s?beta=true", EncodePathSegment(memoryStoreId)), &RequestOpts{
+	resp, err := DoCfg[BetaManagedAgentsDeleteMemoryStoreResponse](ctx, &clientConfig, "DELETE", fmt.Sprintf("/v1/memory_stores/%s?beta=true", EncodePathSegment(memoryStoreId)), &RequestOpts{
 		Headers: OperationHeaders(map[string]any{
 			"anthropic-version":      anthropicVersion,
 			"anthropic-beta":         anthropicBeta,
@@ -364,7 +364,7 @@ func DeleteBetaMemoryStores(ctx context.Context, clientConfig ClientConfig, para
 		OperationID: "DeleteBetaMemoryStores",
 		Errors:      ErrorDecoders{"400": decodeErrorData[BetaErrorResponse], "401": decodeErrorData[BetaErrorResponse], "403": decodeErrorData[BetaErrorResponse], "404": decodeErrorData[BetaErrorResponse], "408": decodeErrorData[BetaErrorResponse], "409": decodeErrorData[BetaErrorResponse], "412": decodeErrorData[BetaErrorResponse], "413": decodeErrorData[BetaErrorResponse], "429": decodeErrorData[BetaErrorResponse], "431": decodeErrorData[BetaErrorResponse], "499": decodeErrorData[BetaErrorResponse], "500": decodeErrorData[BetaErrorResponse], "501": decodeErrorData[BetaErrorResponse], "503": decodeErrorData[BetaErrorResponse], "504": decodeErrorData[BetaErrorResponse]},
 		Options:     opts,
-	}, UnmarshalBetaManagedAgentsDeleteMemoryStoreResponse)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -394,7 +394,7 @@ func ArchiveBetaMemoryStores(ctx context.Context, clientConfig ClientConfig, par
 	anthropicBeta := params.AnthropicBeta
 	anthropicWorkspaceId := params.AnthropicWorkspaceId
 
-	resp, err := DoUnionCfg[BetaManagedAgentsArchiveMemoryStoreResponse](ctx, &clientConfig, "POST", fmt.Sprintf("/v1/memory_stores/%s/archive?beta=true", EncodePathSegment(memoryStoreId)), &RequestOpts{
+	resp, err := DoCfg[BetaManagedAgentsArchiveMemoryStoreResponse](ctx, &clientConfig, "POST", fmt.Sprintf("/v1/memory_stores/%s/archive?beta=true", EncodePathSegment(memoryStoreId)), &RequestOpts{
 		Headers: OperationHeaders(map[string]any{
 			"anthropic-version":      anthropicVersion,
 			"anthropic-beta":         anthropicBeta,
@@ -403,7 +403,7 @@ func ArchiveBetaMemoryStores(ctx context.Context, clientConfig ClientConfig, par
 		OperationID: "ArchiveBetaMemoryStores",
 		Errors:      ErrorDecoders{"400": decodeErrorData[BetaErrorResponse], "401": decodeErrorData[BetaErrorResponse], "403": decodeErrorData[BetaErrorResponse], "404": decodeErrorData[BetaErrorResponse], "408": decodeErrorData[BetaErrorResponse], "409": decodeErrorData[BetaErrorResponse], "412": decodeErrorData[BetaErrorResponse], "413": decodeErrorData[BetaErrorResponse], "429": decodeErrorData[BetaErrorResponse], "431": decodeErrorData[BetaErrorResponse], "499": decodeErrorData[BetaErrorResponse], "500": decodeErrorData[BetaErrorResponse], "501": decodeErrorData[BetaErrorResponse], "503": decodeErrorData[BetaErrorResponse], "504": decodeErrorData[BetaErrorResponse]},
 		Options:     opts,
-	}, UnmarshalBetaManagedAgentsArchiveMemoryStoreResponse)
+	})
 	if err != nil {
 		return nil, err
 	}

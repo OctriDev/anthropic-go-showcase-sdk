@@ -151,6 +151,19 @@ func (u *BetaDreamInput) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaDreamMemoryStoreInput
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaDreamMemoryStoreInput = &lossless0
+			return nil
+		}
+		var lossless1 BetaDreamSessionsInput
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaDreamSessionsInput = &lossless1
+			return nil
+		}
+	}
 	var betadreammemorystoreinput BetaDreamMemoryStoreInput
 	if err := json.Unmarshal(data, &betadreammemorystoreinput); err == nil && isNonEmptyBetaDreamInputBetaDreamMemoryStoreInput(betadreammemorystoreinput) {
 		u.BetaDreamMemoryStoreInput = &betadreammemorystoreinput

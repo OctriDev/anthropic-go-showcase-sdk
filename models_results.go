@@ -235,6 +235,29 @@ func (u *MessageBatchIndividualResponseResult) UnmarshalJSON(data []byte) error 
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 SucceededResult
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.SucceededResult = &lossless0
+			return nil
+		}
+		var lossless1 ErroredResult
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.ErroredResult = &lossless1
+			return nil
+		}
+		var lossless2 CanceledResult
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.CanceledResult = &lossless2
+			return nil
+		}
+		var lossless3 ExpiredResult
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.ExpiredResult = &lossless3
+			return nil
+		}
+	}
 	var succeededresult SucceededResult
 	if err := json.Unmarshal(data, &succeededresult); err == nil && isNonEmptyMessageBatchIndividualResponseResultSucceededResult(succeededresult) {
 		u.SucceededResult = &succeededresult

@@ -141,6 +141,39 @@ func (u *BetaDiagnosticsCacheMissReason) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaCacheMissModelChanged
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaCacheMissModelChanged = &lossless0
+			return nil
+		}
+		var lossless1 BetaCacheMissSystemChanged
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaCacheMissSystemChanged = &lossless1
+			return nil
+		}
+		var lossless2 BetaCacheMissToolsChanged
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaCacheMissToolsChanged = &lossless2
+			return nil
+		}
+		var lossless3 BetaCacheMissMessagesChanged
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.BetaCacheMissMessagesChanged = &lossless3
+			return nil
+		}
+		var lossless4 BetaCacheMissPreviousMessageNotFound
+		if json.Unmarshal(data, &lossless4) == nil && keepsEveryKey(raw, lossless4) {
+			u.BetaCacheMissPreviousMessageNotFound = &lossless4
+			return nil
+		}
+		var lossless5 BetaCacheMissUnavailable
+		if json.Unmarshal(data, &lossless5) == nil && keepsEveryKey(raw, lossless5) {
+			u.BetaCacheMissUnavailable = &lossless5
+			return nil
+		}
+	}
 	var betacachemissmodelchanged BetaCacheMissModelChanged
 	if err := json.Unmarshal(data, &betacachemissmodelchanged); err == nil && isNonEmptyBetaDiagnosticsCacheMissReasonBetaCacheMissModelChanged(betacachemissmodelchanged) {
 		u.BetaCacheMissModelChanged = &betacachemissmodelchanged

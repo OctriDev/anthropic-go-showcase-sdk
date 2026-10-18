@@ -42,6 +42,24 @@ func (u *BetaManagedAgentsMcpOauthRefreshParamsTokenEndpointAuth) UnmarshalJSON(
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaManagedAgentsTokenEndpointAuthNoneParam
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaManagedAgentsTokenEndpointAuthNoneParam = &lossless0
+			return nil
+		}
+		var lossless1 BetaManagedAgentsTokenEndpointAuthBasicParam
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaManagedAgentsTokenEndpointAuthBasicParam = &lossless1
+			return nil
+		}
+		var lossless2 BetaManagedAgentsTokenEndpointAuthPostParam
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaManagedAgentsTokenEndpointAuthPostParam = &lossless2
+			return nil
+		}
+	}
 	var betamanagedagentstokenendpointauthnoneparam BetaManagedAgentsTokenEndpointAuthNoneParam
 	if err := json.Unmarshal(data, &betamanagedagentstokenendpointauthnoneparam); err == nil && isNonEmptyBetaManagedAgentsMcpOauthRefreshParamsTokenEndpointAuthBetaManagedAgentsTokenEndpointAuthNoneParam(betamanagedagentstokenendpointauthnoneparam) {
 		u.BetaManagedAgentsTokenEndpointAuthNoneParam = &betamanagedagentstokenendpointauthnoneparam

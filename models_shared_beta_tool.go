@@ -593,6 +593,29 @@ func (u *BetaToolChoice) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaToolChoiceAuto
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaToolChoiceAuto = &lossless0
+			return nil
+		}
+		var lossless1 BetaToolChoiceAny
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaToolChoiceAny = &lossless1
+			return nil
+		}
+		var lossless2 BetaToolChoiceTool
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaToolChoiceTool = &lossless2
+			return nil
+		}
+		var lossless3 BetaToolChoiceNone
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.BetaToolChoiceNone = &lossless3
+			return nil
+		}
+	}
 	var betatoolchoiceauto BetaToolChoiceAuto
 	if err := json.Unmarshal(data, &betatoolchoiceauto); err == nil && isNonEmptyBetaToolChoiceBetaToolChoiceAuto(betatoolchoiceauto) {
 		u.BetaToolChoiceAuto = &betatoolchoiceauto

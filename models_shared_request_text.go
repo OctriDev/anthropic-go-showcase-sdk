@@ -358,6 +358,34 @@ func (u *RequestTextBlockCitationsItem) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 RequestCharLocationCitation
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.RequestCharLocationCitation = &lossless0
+			return nil
+		}
+		var lossless1 RequestPageLocationCitation
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.RequestPageLocationCitation = &lossless1
+			return nil
+		}
+		var lossless2 RequestContentBlockLocationCitation
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.RequestContentBlockLocationCitation = &lossless2
+			return nil
+		}
+		var lossless3 RequestWebSearchResultLocationCitation
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.RequestWebSearchResultLocationCitation = &lossless3
+			return nil
+		}
+		var lossless4 RequestSearchResultLocationCitation
+		if json.Unmarshal(data, &lossless4) == nil && keepsEveryKey(raw, lossless4) {
+			u.RequestSearchResultLocationCitation = &lossless4
+			return nil
+		}
+	}
 	var requestcharlocationcitation RequestCharLocationCitation
 	if err := json.Unmarshal(data, &requestcharlocationcitation); err == nil && isNonEmptyRequestTextBlockCitationsItemRequestCharLocationCitation(requestcharlocationcitation) {
 		u.RequestCharLocationCitation = &requestcharlocationcitation
@@ -504,6 +532,29 @@ func (u *RequestTextEditorCodeExecutionToolResultBlockContent) UnmarshalJSON(dat
 					return nil
 				}
 			}
+		}
+	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 RequestTextEditorCodeExecutionToolResultError
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.RequestTextEditorCodeExecutionToolResultError = &lossless0
+			return nil
+		}
+		var lossless1 RequestTextEditorCodeExecutionViewResultBlock
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.RequestTextEditorCodeExecutionViewResultBlock = &lossless1
+			return nil
+		}
+		var lossless2 RequestTextEditorCodeExecutionCreateResultBlock
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.RequestTextEditorCodeExecutionCreateResultBlock = &lossless2
+			return nil
+		}
+		var lossless3 RequestTextEditorCodeExecutionStrReplaceResultBlock
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.RequestTextEditorCodeExecutionStrReplaceResultBlock = &lossless3
+			return nil
 		}
 	}
 	var requesttexteditorcodeexecutiontoolresulterror RequestTextEditorCodeExecutionToolResultError

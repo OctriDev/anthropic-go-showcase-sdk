@@ -103,6 +103,34 @@ func (u *CitationsDeltaCitation) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 ResponseCharLocationCitation
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.ResponseCharLocationCitation = &lossless0
+			return nil
+		}
+		var lossless1 ResponsePageLocationCitation
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.ResponsePageLocationCitation = &lossless1
+			return nil
+		}
+		var lossless2 ResponseContentBlockLocationCitation
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.ResponseContentBlockLocationCitation = &lossless2
+			return nil
+		}
+		var lossless3 ResponseWebSearchResultLocationCitation
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.ResponseWebSearchResultLocationCitation = &lossless3
+			return nil
+		}
+		var lossless4 ResponseSearchResultLocationCitation
+		if json.Unmarshal(data, &lossless4) == nil && keepsEveryKey(raw, lossless4) {
+			u.ResponseSearchResultLocationCitation = &lossless4
+			return nil
+		}
+	}
 	var responsecharlocationcitation ResponseCharLocationCitation
 	if err := json.Unmarshal(data, &responsecharlocationcitation); err == nil && isNonEmptyCitationsDeltaCitationResponseCharLocationCitation(responsecharlocationcitation) {
 		u.ResponseCharLocationCitation = &responsecharlocationcitation

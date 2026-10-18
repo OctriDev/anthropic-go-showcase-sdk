@@ -117,6 +117,24 @@ func (u *RequestServerToolUseBlockCaller) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 DirectCaller
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.DirectCaller = &lossless0
+			return nil
+		}
+		var lossless1 ServerToolCaller
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.ServerToolCaller = &lossless1
+			return nil
+		}
+		var lossless2 ServerToolCaller20260120
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.ServerToolCaller20260120 = &lossless2
+			return nil
+		}
+	}
 	var directcaller DirectCaller
 	if err := json.Unmarshal(data, &directcaller); err == nil && isNonEmptyRequestServerToolUseBlockCallerDirectCaller(directcaller) {
 		u.DirectCaller = &directcaller

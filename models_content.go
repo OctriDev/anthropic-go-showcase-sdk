@@ -177,6 +177,34 @@ func (u *ContentBlockDeltaEventDelta) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 TextContentBlockDelta
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.TextContentBlockDelta = &lossless0
+			return nil
+		}
+		var lossless1 InputJsonContentBlockDelta
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.InputJsonContentBlockDelta = &lossless1
+			return nil
+		}
+		var lossless2 CitationsDelta
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.CitationsDelta = &lossless2
+			return nil
+		}
+		var lossless3 ThinkingContentBlockDelta
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.ThinkingContentBlockDelta = &lossless3
+			return nil
+		}
+		var lossless4 SignatureContentBlockDelta
+		if json.Unmarshal(data, &lossless4) == nil && keepsEveryKey(raw, lossless4) {
+			u.SignatureContentBlockDelta = &lossless4
+			return nil
+		}
+	}
 	var textcontentblockdelta TextContentBlockDelta
 	if err := json.Unmarshal(data, &textcontentblockdelta); err == nil && isNonEmptyContentBlockDeltaEventDeltaTextContentBlockDelta(textcontentblockdelta) {
 		u.TextContentBlockDelta = &textcontentblockdelta
@@ -387,6 +415,69 @@ func (u *ContentBlockStartEventContentBlock) UnmarshalJSON(data []byte) error {
 					return nil
 				}
 			}
+		}
+	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 ResponseTextBlock
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.ResponseTextBlock = &lossless0
+			return nil
+		}
+		var lossless1 ResponseThinkingBlock
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.ResponseThinkingBlock = &lossless1
+			return nil
+		}
+		var lossless2 ResponseRedactedThinkingBlock
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.ResponseRedactedThinkingBlock = &lossless2
+			return nil
+		}
+		var lossless3 ResponseToolUseBlock
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.ResponseToolUseBlock = &lossless3
+			return nil
+		}
+		var lossless4 ResponseServerToolUseBlock
+		if json.Unmarshal(data, &lossless4) == nil && keepsEveryKey(raw, lossless4) {
+			u.ResponseServerToolUseBlock = &lossless4
+			return nil
+		}
+		var lossless5 ResponseWebSearchToolResultBlock
+		if json.Unmarshal(data, &lossless5) == nil && keepsEveryKey(raw, lossless5) {
+			u.ResponseWebSearchToolResultBlock = &lossless5
+			return nil
+		}
+		var lossless6 ResponseWebFetchToolResultBlock
+		if json.Unmarshal(data, &lossless6) == nil && keepsEveryKey(raw, lossless6) {
+			u.ResponseWebFetchToolResultBlock = &lossless6
+			return nil
+		}
+		var lossless7 ResponseCodeExecutionToolResultBlock
+		if json.Unmarshal(data, &lossless7) == nil && keepsEveryKey(raw, lossless7) {
+			u.ResponseCodeExecutionToolResultBlock = &lossless7
+			return nil
+		}
+		var lossless8 ResponseBashCodeExecutionToolResultBlock
+		if json.Unmarshal(data, &lossless8) == nil && keepsEveryKey(raw, lossless8) {
+			u.ResponseBashCodeExecutionToolResultBlock = &lossless8
+			return nil
+		}
+		var lossless9 ResponseTextEditorCodeExecutionToolResultBlock
+		if json.Unmarshal(data, &lossless9) == nil && keepsEveryKey(raw, lossless9) {
+			u.ResponseTextEditorCodeExecutionToolResultBlock = &lossless9
+			return nil
+		}
+		var lossless10 ResponseToolSearchToolResultBlock
+		if json.Unmarshal(data, &lossless10) == nil && keepsEveryKey(raw, lossless10) {
+			u.ResponseToolSearchToolResultBlock = &lossless10
+			return nil
+		}
+		var lossless11 ResponseContainerUploadBlock
+		if json.Unmarshal(data, &lossless11) == nil && keepsEveryKey(raw, lossless11) {
+			u.ResponseContainerUploadBlock = &lossless11
+			return nil
 		}
 	}
 	var responsetextblock ResponseTextBlock

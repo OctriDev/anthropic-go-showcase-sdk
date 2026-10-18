@@ -9,6 +9,223 @@ import (
 	"fmt"
 )
 
+func (u BetaManagedAgentsSessionEvent) MarshalJSON() ([]byte, error) {
+	if u.BetaManagedAgentsUserMessageEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsUserMessageEvent)
+	}
+	if u.BetaManagedAgentsUserInterruptEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsUserInterruptEvent)
+	}
+	if u.BetaManagedAgentsUserToolConfirmationEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsUserToolConfirmationEvent)
+	}
+	if u.BetaManagedAgentsUserCustomToolResultEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsUserCustomToolResultEvent)
+	}
+	if u.BetaManagedAgentsAgentCustomToolUseEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsAgentCustomToolUseEvent)
+	}
+	if u.BetaManagedAgentsAgentMessageEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsAgentMessageEvent)
+	}
+	if u.BetaManagedAgentsAgentThinkingEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsAgentThinkingEvent)
+	}
+	if u.BetaManagedAgentsAgentMcpToolUseEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsAgentMcpToolUseEvent)
+	}
+	if u.BetaManagedAgentsAgentMcpToolResultEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsAgentMcpToolResultEvent)
+	}
+	if u.BetaManagedAgentsAgentToolUseEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsAgentToolUseEvent)
+	}
+	if u.BetaManagedAgentsAgentToolResultEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsAgentToolResultEvent)
+	}
+	if u.BetaManagedAgentsAgentThreadMessageReceivedEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsAgentThreadMessageReceivedEvent)
+	}
+	if u.BetaManagedAgentsAgentThreadMessageSentEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsAgentThreadMessageSentEvent)
+	}
+	if u.BetaManagedAgentsAgentThreadContextCompactedEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsAgentThreadContextCompactedEvent)
+	}
+	if u.BetaManagedAgentsSessionErrorEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSessionErrorEvent)
+	}
+	if u.BetaManagedAgentsSessionStatusRescheduledEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSessionStatusRescheduledEvent)
+	}
+	if u.BetaManagedAgentsSessionStatusRunningEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSessionStatusRunningEvent)
+	}
+	if u.BetaManagedAgentsSessionStatusIdleEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSessionStatusIdleEvent)
+	}
+	if u.BetaManagedAgentsSessionStatusTerminatedEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSessionStatusTerminatedEvent)
+	}
+	if u.BetaManagedAgentsSessionThreadCreatedEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSessionThreadCreatedEvent)
+	}
+	if u.BetaManagedAgentsSpanOutcomeEvaluationStartEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSpanOutcomeEvaluationStartEvent)
+	}
+	if u.BetaManagedAgentsSpanOutcomeEvaluationEndEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSpanOutcomeEvaluationEndEvent)
+	}
+	if u.BetaManagedAgentsSpanModelRequestStartEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSpanModelRequestStartEvent)
+	}
+	if u.BetaManagedAgentsSpanModelRequestEndEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSpanModelRequestEndEvent)
+	}
+	if u.BetaManagedAgentsSpanOutcomeEvaluationOngoingEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSpanOutcomeEvaluationOngoingEvent)
+	}
+	if u.BetaManagedAgentsUserDefineOutcomeEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsUserDefineOutcomeEvent)
+	}
+	if u.BetaManagedAgentsSessionDeletedEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSessionDeletedEvent)
+	}
+	if u.BetaManagedAgentsSessionThreadStatusRunningEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSessionThreadStatusRunningEvent)
+	}
+	if u.BetaManagedAgentsSessionThreadStatusIdleEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSessionThreadStatusIdleEvent)
+	}
+	if u.BetaManagedAgentsSessionThreadStatusTerminatedEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSessionThreadStatusTerminatedEvent)
+	}
+	if u.BetaManagedAgentsUserToolResultEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsUserToolResultEvent)
+	}
+	if u.BetaManagedAgentsSessionThreadStatusRescheduledEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSessionThreadStatusRescheduledEvent)
+	}
+	if u.BetaManagedAgentsSessionUpdatedEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSessionUpdatedEvent)
+	}
+	if u.BetaManagedAgentsSystemMessageEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSystemMessageEvent)
+	}
+	if u.BetaManagedAgentsSessionUsageEvent != nil {
+		return json.Marshal(u.BetaManagedAgentsSessionUsageEvent)
+	}
+	if u.Unknown != nil {
+		return u.Unknown, nil
+	}
+	return []byte("null"), nil
+}
+
+func isNonEmptyBetaManagedAgentsSessionEventBetaManagedAgentsUserMessageEvent(v BetaManagedAgentsUserMessageEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsSessionEventBetaManagedAgentsUserInterruptEvent(v BetaManagedAgentsUserInterruptEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsSessionEventBetaManagedAgentsUserToolConfirmationEvent(v BetaManagedAgentsUserToolConfirmationEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsSessionEventBetaManagedAgentsUserCustomToolResultEvent(v BetaManagedAgentsUserCustomToolResultEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsSessionEventBetaManagedAgentsAgentCustomToolUseEvent(v BetaManagedAgentsAgentCustomToolUseEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsSessionEventBetaManagedAgentsAgentMessageEvent(v BetaManagedAgentsAgentMessageEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsSessionEventBetaManagedAgentsAgentThinkingEvent(v BetaManagedAgentsAgentThinkingEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsSessionEventBetaManagedAgentsAgentMcpToolUseEvent(v BetaManagedAgentsAgentMcpToolUseEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsSessionEventBetaManagedAgentsAgentMcpToolResultEvent(v BetaManagedAgentsAgentMcpToolResultEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsSessionEventBetaManagedAgentsAgentToolUseEvent(v BetaManagedAgentsAgentToolUseEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsSessionEventBetaManagedAgentsAgentToolResultEvent(v BetaManagedAgentsAgentToolResultEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsSessionEventBetaManagedAgentsAgentThreadMessageReceivedEvent(v BetaManagedAgentsAgentThreadMessageReceivedEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsSessionEventBetaManagedAgentsAgentThreadMessageSentEvent(v BetaManagedAgentsAgentThreadMessageSentEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsSessionEventBetaManagedAgentsAgentThreadContextCompactedEvent(v BetaManagedAgentsAgentThreadContextCompactedEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsSessionEventBetaManagedAgentsSessionErrorEvent(v BetaManagedAgentsSessionErrorEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsSessionEventBetaManagedAgentsSessionStatusRescheduledEvent(v BetaManagedAgentsSessionStatusRescheduledEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsSessionEventBetaManagedAgentsSessionStatusRunningEvent(v BetaManagedAgentsSessionStatusRunningEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsSessionEventBetaManagedAgentsSessionStatusIdleEvent(v BetaManagedAgentsSessionStatusIdleEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsSessionEventBetaManagedAgentsSessionStatusTerminatedEvent(v BetaManagedAgentsSessionStatusTerminatedEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsSessionEventBetaManagedAgentsSessionThreadCreatedEvent(v BetaManagedAgentsSessionThreadCreatedEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+func isNonEmptyBetaManagedAgentsSessionEventBetaManagedAgentsSpanOutcomeEvaluationStartEvent(v BetaManagedAgentsSpanOutcomeEvaluationStartEvent) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
 func isNonEmptyBetaManagedAgentsSessionEventBetaManagedAgentsSpanOutcomeEvaluationEndEvent(v BetaManagedAgentsSpanOutcomeEvaluationEndEvent) bool {
 	b, _ := json.Marshal(v)
 	return string(b) != "{}" && string(b) != "null"

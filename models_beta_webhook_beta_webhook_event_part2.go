@@ -5,369 +5,860 @@ package sdk
 
 import "encoding/json"
 
-func (u BetaWebhookEventData) MarshalJSON() ([]byte, error) {
-	if u.BetaWebhookSessionCreatedEventData != nil {
-		return json.Marshal(u.BetaWebhookSessionCreatedEventData)
+func (u *BetaWebhookEventData) UnmarshalJSON(data []byte) error {
+	*u = BetaWebhookEventData{}
+	var refusal error
+	var object map[string]json.RawMessage
+	if err := json.Unmarshal(data, &object); err == nil {
+		if rawDiscriminator, ok := object["type"]; ok {
+			var discriminatorValue string
+			if err := json.Unmarshal(rawDiscriminator, &discriminatorValue); err == nil {
+				switch discriminatorValue {
+				case "session.created":
+					var betawebhooksessioncreatedeventdata BetaWebhookSessionCreatedEventData
+					if err := json.Unmarshal(data, &betawebhooksessioncreatedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookSessionCreatedEventData = &betawebhooksessioncreatedeventdata
+					return nil
+				case "session.pending":
+					var betawebhooksessionpendingeventdata BetaWebhookSessionPendingEventData
+					if err := json.Unmarshal(data, &betawebhooksessionpendingeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookSessionPendingEventData = &betawebhooksessionpendingeventdata
+					return nil
+				case "session.running":
+					var betawebhooksessionrunningeventdata BetaWebhookSessionRunningEventData
+					if err := json.Unmarshal(data, &betawebhooksessionrunningeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookSessionRunningEventData = &betawebhooksessionrunningeventdata
+					return nil
+				case "session.idled":
+					var betawebhooksessionidledeventdata BetaWebhookSessionIdledEventData
+					if err := json.Unmarshal(data, &betawebhooksessionidledeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookSessionIdledEventData = &betawebhooksessionidledeventdata
+					return nil
+				case "session.requires_action":
+					var betawebhooksessionrequiresactioneventdata BetaWebhookSessionRequiresActionEventData
+					if err := json.Unmarshal(data, &betawebhooksessionrequiresactioneventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookSessionRequiresActionEventData = &betawebhooksessionrequiresactioneventdata
+					return nil
+				case "session.archived":
+					var betawebhooksessionarchivedeventdata BetaWebhookSessionArchivedEventData
+					if err := json.Unmarshal(data, &betawebhooksessionarchivedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookSessionArchivedEventData = &betawebhooksessionarchivedeventdata
+					return nil
+				case "session.deleted":
+					var betawebhooksessiondeletedeventdata BetaWebhookSessionDeletedEventData
+					if err := json.Unmarshal(data, &betawebhooksessiondeletedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookSessionDeletedEventData = &betawebhooksessiondeletedeventdata
+					return nil
+				case "session.status_rescheduled":
+					var betawebhooksessionstatusrescheduledeventdata BetaWebhookSessionStatusRescheduledEventData
+					if err := json.Unmarshal(data, &betawebhooksessionstatusrescheduledeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookSessionStatusRescheduledEventData = &betawebhooksessionstatusrescheduledeventdata
+					return nil
+				case "session.status_run_started":
+					var betawebhooksessionstatusrunstartedeventdata BetaWebhookSessionStatusRunStartedEventData
+					if err := json.Unmarshal(data, &betawebhooksessionstatusrunstartedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookSessionStatusRunStartedEventData = &betawebhooksessionstatusrunstartedeventdata
+					return nil
+				case "session.status_idled":
+					var betawebhooksessionstatusidledeventdata BetaWebhookSessionStatusIdledEventData
+					if err := json.Unmarshal(data, &betawebhooksessionstatusidledeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookSessionStatusIdledEventData = &betawebhooksessionstatusidledeventdata
+					return nil
+				case "session.status_terminated":
+					var betawebhooksessionstatusterminatedeventdata BetaWebhookSessionStatusTerminatedEventData
+					if err := json.Unmarshal(data, &betawebhooksessionstatusterminatedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookSessionStatusTerminatedEventData = &betawebhooksessionstatusterminatedeventdata
+					return nil
+				case "session.thread_created":
+					var betawebhooksessionthreadcreatedeventdata BetaWebhookSessionThreadCreatedEventData
+					if err := json.Unmarshal(data, &betawebhooksessionthreadcreatedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookSessionThreadCreatedEventData = &betawebhooksessionthreadcreatedeventdata
+					return nil
+				case "session.thread_idled":
+					var betawebhooksessionthreadidledeventdata BetaWebhookSessionThreadIdledEventData
+					if err := json.Unmarshal(data, &betawebhooksessionthreadidledeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookSessionThreadIdledEventData = &betawebhooksessionthreadidledeventdata
+					return nil
+				case "session.thread_terminated":
+					var betawebhooksessionthreadterminatedeventdata BetaWebhookSessionThreadTerminatedEventData
+					if err := json.Unmarshal(data, &betawebhooksessionthreadterminatedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookSessionThreadTerminatedEventData = &betawebhooksessionthreadterminatedeventdata
+					return nil
+				case "session.outcome_evaluation_ended":
+					var betawebhooksessionoutcomeevaluationendedeventdata BetaWebhookSessionOutcomeEvaluationEndedEventData
+					if err := json.Unmarshal(data, &betawebhooksessionoutcomeevaluationendedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookSessionOutcomeEvaluationEndedEventData = &betawebhooksessionoutcomeevaluationendedeventdata
+					return nil
+				case "vault.created":
+					var betawebhookvaultcreatedeventdata BetaWebhookVaultCreatedEventData
+					if err := json.Unmarshal(data, &betawebhookvaultcreatedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookVaultCreatedEventData = &betawebhookvaultcreatedeventdata
+					return nil
+				case "vault.archived":
+					var betawebhookvaultarchivedeventdata BetaWebhookVaultArchivedEventData
+					if err := json.Unmarshal(data, &betawebhookvaultarchivedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookVaultArchivedEventData = &betawebhookvaultarchivedeventdata
+					return nil
+				case "vault.deleted":
+					var betawebhookvaultdeletedeventdata BetaWebhookVaultDeletedEventData
+					if err := json.Unmarshal(data, &betawebhookvaultdeletedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookVaultDeletedEventData = &betawebhookvaultdeletedeventdata
+					return nil
+				case "vault_credential.created":
+					var betawebhookvaultcredentialcreatedeventdata BetaWebhookVaultCredentialCreatedEventData
+					if err := json.Unmarshal(data, &betawebhookvaultcredentialcreatedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookVaultCredentialCreatedEventData = &betawebhookvaultcredentialcreatedeventdata
+					return nil
+				case "vault_credential.archived":
+					var betawebhookvaultcredentialarchivedeventdata BetaWebhookVaultCredentialArchivedEventData
+					if err := json.Unmarshal(data, &betawebhookvaultcredentialarchivedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookVaultCredentialArchivedEventData = &betawebhookvaultcredentialarchivedeventdata
+					return nil
+				case "vault_credential.deleted":
+					var betawebhookvaultcredentialdeletedeventdata BetaWebhookVaultCredentialDeletedEventData
+					if err := json.Unmarshal(data, &betawebhookvaultcredentialdeletedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookVaultCredentialDeletedEventData = &betawebhookvaultcredentialdeletedeventdata
+					return nil
+				case "vault_credential.refresh_failed":
+					var betawebhookvaultcredentialrefreshfailedeventdata BetaWebhookVaultCredentialRefreshFailedEventData
+					if err := json.Unmarshal(data, &betawebhookvaultcredentialrefreshfailedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookVaultCredentialRefreshFailedEventData = &betawebhookvaultcredentialrefreshfailedeventdata
+					return nil
+				case "session.updated":
+					var betawebhooksessionupdatedeventdata BetaWebhookSessionUpdatedEventData
+					if err := json.Unmarshal(data, &betawebhooksessionupdatedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookSessionUpdatedEventData = &betawebhooksessionupdatedeventdata
+					return nil
+				case "agent.created":
+					var betawebhookagentcreatedeventdata BetaWebhookAgentCreatedEventData
+					if err := json.Unmarshal(data, &betawebhookagentcreatedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookAgentCreatedEventData = &betawebhookagentcreatedeventdata
+					return nil
+				case "agent.archived":
+					var betawebhookagentarchivedeventdata BetaWebhookAgentArchivedEventData
+					if err := json.Unmarshal(data, &betawebhookagentarchivedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookAgentArchivedEventData = &betawebhookagentarchivedeventdata
+					return nil
+				case "agent.deleted":
+					var betawebhookagentdeletedeventdata BetaWebhookAgentDeletedEventData
+					if err := json.Unmarshal(data, &betawebhookagentdeletedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookAgentDeletedEventData = &betawebhookagentdeletedeventdata
+					return nil
+				case "deployment.paused":
+					var betawebhookdeploymentpausedeventdata BetaWebhookDeploymentPausedEventData
+					if err := json.Unmarshal(data, &betawebhookdeploymentpausedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookDeploymentPausedEventData = &betawebhookdeploymentpausedeventdata
+					return nil
+				case "deployment_run.failed":
+					var betawebhookdeploymentrunfailedeventdata BetaWebhookDeploymentRunFailedEventData
+					if err := json.Unmarshal(data, &betawebhookdeploymentrunfailedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookDeploymentRunFailedEventData = &betawebhookdeploymentrunfailedeventdata
+					return nil
+				case "deployment.created":
+					var betawebhookdeploymentcreatedeventdata BetaWebhookDeploymentCreatedEventData
+					if err := json.Unmarshal(data, &betawebhookdeploymentcreatedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookDeploymentCreatedEventData = &betawebhookdeploymentcreatedeventdata
+					return nil
+				case "deployment.updated":
+					var betawebhookdeploymentupdatedeventdata BetaWebhookDeploymentUpdatedEventData
+					if err := json.Unmarshal(data, &betawebhookdeploymentupdatedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookDeploymentUpdatedEventData = &betawebhookdeploymentupdatedeventdata
+					return nil
+				case "deployment.unpaused":
+					var betawebhookdeploymentunpausedeventdata BetaWebhookDeploymentUnpausedEventData
+					if err := json.Unmarshal(data, &betawebhookdeploymentunpausedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookDeploymentUnpausedEventData = &betawebhookdeploymentunpausedeventdata
+					return nil
+				case "agent.updated":
+					var betawebhookagentupdatedeventdata BetaWebhookAgentUpdatedEventData
+					if err := json.Unmarshal(data, &betawebhookagentupdatedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookAgentUpdatedEventData = &betawebhookagentupdatedeventdata
+					return nil
+				case "deployment.archived":
+					var betawebhookdeploymentarchivedeventdata BetaWebhookDeploymentArchivedEventData
+					if err := json.Unmarshal(data, &betawebhookdeploymentarchivedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookDeploymentArchivedEventData = &betawebhookdeploymentarchivedeventdata
+					return nil
+				case "deployment_run.started":
+					var betawebhookdeploymentrunstartedeventdata BetaWebhookDeploymentRunStartedEventData
+					if err := json.Unmarshal(data, &betawebhookdeploymentrunstartedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookDeploymentRunStartedEventData = &betawebhookdeploymentrunstartedeventdata
+					return nil
+				case "deployment.deleted":
+					var betawebhookdeploymentdeletedeventdata BetaWebhookDeploymentDeletedEventData
+					if err := json.Unmarshal(data, &betawebhookdeploymentdeletedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookDeploymentDeletedEventData = &betawebhookdeploymentdeletedeventdata
+					return nil
+				case "deployment_run.succeeded":
+					var betawebhookdeploymentrunsucceededeventdata BetaWebhookDeploymentRunSucceededEventData
+					if err := json.Unmarshal(data, &betawebhookdeploymentrunsucceededeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookDeploymentRunSucceededEventData = &betawebhookdeploymentrunsucceededeventdata
+					return nil
+				case "environment.created":
+					var betawebhookenvironmentcreatedeventdata BetaWebhookEnvironmentCreatedEventData
+					if err := json.Unmarshal(data, &betawebhookenvironmentcreatedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookEnvironmentCreatedEventData = &betawebhookenvironmentcreatedeventdata
+					return nil
+				case "environment.updated":
+					var betawebhookenvironmentupdatedeventdata BetaWebhookEnvironmentUpdatedEventData
+					if err := json.Unmarshal(data, &betawebhookenvironmentupdatedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookEnvironmentUpdatedEventData = &betawebhookenvironmentupdatedeventdata
+					return nil
+				case "environment.archived":
+					var betawebhookenvironmentarchivedeventdata BetaWebhookEnvironmentArchivedEventData
+					if err := json.Unmarshal(data, &betawebhookenvironmentarchivedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookEnvironmentArchivedEventData = &betawebhookenvironmentarchivedeventdata
+					return nil
+				case "environment.deleted":
+					var betawebhookenvironmentdeletedeventdata BetaWebhookEnvironmentDeletedEventData
+					if err := json.Unmarshal(data, &betawebhookenvironmentdeletedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookEnvironmentDeletedEventData = &betawebhookenvironmentdeletedeventdata
+					return nil
+				case "memory_store.created":
+					var betawebhookmemorystorecreatedeventdata BetaWebhookMemoryStoreCreatedEventData
+					if err := json.Unmarshal(data, &betawebhookmemorystorecreatedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookMemoryStoreCreatedEventData = &betawebhookmemorystorecreatedeventdata
+					return nil
+				case "memory_store.archived":
+					var betawebhookmemorystorearchivedeventdata BetaWebhookMemoryStoreArchivedEventData
+					if err := json.Unmarshal(data, &betawebhookmemorystorearchivedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookMemoryStoreArchivedEventData = &betawebhookmemorystorearchivedeventdata
+					return nil
+				case "memory_store.deleted":
+					var betawebhookmemorystoredeletedeventdata BetaWebhookMemoryStoreDeletedEventData
+					if err := json.Unmarshal(data, &betawebhookmemorystoredeletedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookMemoryStoreDeletedEventData = &betawebhookmemorystoredeletedeventdata
+					return nil
+				case "session.budget_reached":
+					var betawebhooksessionbudgetreachedeventdata BetaWebhookSessionBudgetReachedEventData
+					if err := json.Unmarshal(data, &betawebhooksessionbudgetreachedeventdata); err != nil {
+						return err
+					}
+					u.BetaWebhookSessionBudgetReachedEventData = &betawebhooksessionbudgetreachedeventdata
+					return nil
+				default:
+					u.Unknown = append(json.RawMessage(nil), data...)
+					return nil
+				}
+			}
+		}
 	}
-	if u.BetaWebhookSessionPendingEventData != nil {
-		return json.Marshal(u.BetaWebhookSessionPendingEventData)
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaWebhookSessionCreatedEventData
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaWebhookSessionCreatedEventData = &lossless0
+			return nil
+		}
+		var lossless1 BetaWebhookSessionPendingEventData
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaWebhookSessionPendingEventData = &lossless1
+			return nil
+		}
+		var lossless2 BetaWebhookSessionRunningEventData
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaWebhookSessionRunningEventData = &lossless2
+			return nil
+		}
+		var lossless3 BetaWebhookSessionIdledEventData
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.BetaWebhookSessionIdledEventData = &lossless3
+			return nil
+		}
+		var lossless4 BetaWebhookSessionRequiresActionEventData
+		if json.Unmarshal(data, &lossless4) == nil && keepsEveryKey(raw, lossless4) {
+			u.BetaWebhookSessionRequiresActionEventData = &lossless4
+			return nil
+		}
+		var lossless5 BetaWebhookSessionArchivedEventData
+		if json.Unmarshal(data, &lossless5) == nil && keepsEveryKey(raw, lossless5) {
+			u.BetaWebhookSessionArchivedEventData = &lossless5
+			return nil
+		}
+		var lossless6 BetaWebhookSessionDeletedEventData
+		if json.Unmarshal(data, &lossless6) == nil && keepsEveryKey(raw, lossless6) {
+			u.BetaWebhookSessionDeletedEventData = &lossless6
+			return nil
+		}
+		var lossless7 BetaWebhookSessionStatusRescheduledEventData
+		if json.Unmarshal(data, &lossless7) == nil && keepsEveryKey(raw, lossless7) {
+			u.BetaWebhookSessionStatusRescheduledEventData = &lossless7
+			return nil
+		}
+		var lossless8 BetaWebhookSessionStatusRunStartedEventData
+		if json.Unmarshal(data, &lossless8) == nil && keepsEveryKey(raw, lossless8) {
+			u.BetaWebhookSessionStatusRunStartedEventData = &lossless8
+			return nil
+		}
+		var lossless9 BetaWebhookSessionStatusIdledEventData
+		if json.Unmarshal(data, &lossless9) == nil && keepsEveryKey(raw, lossless9) {
+			u.BetaWebhookSessionStatusIdledEventData = &lossless9
+			return nil
+		}
+		var lossless10 BetaWebhookSessionStatusTerminatedEventData
+		if json.Unmarshal(data, &lossless10) == nil && keepsEveryKey(raw, lossless10) {
+			u.BetaWebhookSessionStatusTerminatedEventData = &lossless10
+			return nil
+		}
+		var lossless11 BetaWebhookSessionThreadCreatedEventData
+		if json.Unmarshal(data, &lossless11) == nil && keepsEveryKey(raw, lossless11) {
+			u.BetaWebhookSessionThreadCreatedEventData = &lossless11
+			return nil
+		}
+		var lossless12 BetaWebhookSessionThreadIdledEventData
+		if json.Unmarshal(data, &lossless12) == nil && keepsEveryKey(raw, lossless12) {
+			u.BetaWebhookSessionThreadIdledEventData = &lossless12
+			return nil
+		}
+		var lossless13 BetaWebhookSessionThreadTerminatedEventData
+		if json.Unmarshal(data, &lossless13) == nil && keepsEveryKey(raw, lossless13) {
+			u.BetaWebhookSessionThreadTerminatedEventData = &lossless13
+			return nil
+		}
+		var lossless14 BetaWebhookSessionOutcomeEvaluationEndedEventData
+		if json.Unmarshal(data, &lossless14) == nil && keepsEveryKey(raw, lossless14) {
+			u.BetaWebhookSessionOutcomeEvaluationEndedEventData = &lossless14
+			return nil
+		}
+		var lossless15 BetaWebhookVaultCreatedEventData
+		if json.Unmarshal(data, &lossless15) == nil && keepsEveryKey(raw, lossless15) {
+			u.BetaWebhookVaultCreatedEventData = &lossless15
+			return nil
+		}
+		var lossless16 BetaWebhookVaultArchivedEventData
+		if json.Unmarshal(data, &lossless16) == nil && keepsEveryKey(raw, lossless16) {
+			u.BetaWebhookVaultArchivedEventData = &lossless16
+			return nil
+		}
+		var lossless17 BetaWebhookVaultDeletedEventData
+		if json.Unmarshal(data, &lossless17) == nil && keepsEveryKey(raw, lossless17) {
+			u.BetaWebhookVaultDeletedEventData = &lossless17
+			return nil
+		}
+		var lossless18 BetaWebhookVaultCredentialCreatedEventData
+		if json.Unmarshal(data, &lossless18) == nil && keepsEveryKey(raw, lossless18) {
+			u.BetaWebhookVaultCredentialCreatedEventData = &lossless18
+			return nil
+		}
+		var lossless19 BetaWebhookVaultCredentialArchivedEventData
+		if json.Unmarshal(data, &lossless19) == nil && keepsEveryKey(raw, lossless19) {
+			u.BetaWebhookVaultCredentialArchivedEventData = &lossless19
+			return nil
+		}
+		var lossless20 BetaWebhookVaultCredentialDeletedEventData
+		if json.Unmarshal(data, &lossless20) == nil && keepsEveryKey(raw, lossless20) {
+			u.BetaWebhookVaultCredentialDeletedEventData = &lossless20
+			return nil
+		}
+		var lossless21 BetaWebhookVaultCredentialRefreshFailedEventData
+		if json.Unmarshal(data, &lossless21) == nil && keepsEveryKey(raw, lossless21) {
+			u.BetaWebhookVaultCredentialRefreshFailedEventData = &lossless21
+			return nil
+		}
+		var lossless22 BetaWebhookSessionUpdatedEventData
+		if json.Unmarshal(data, &lossless22) == nil && keepsEveryKey(raw, lossless22) {
+			u.BetaWebhookSessionUpdatedEventData = &lossless22
+			return nil
+		}
+		var lossless23 BetaWebhookAgentCreatedEventData
+		if json.Unmarshal(data, &lossless23) == nil && keepsEveryKey(raw, lossless23) {
+			u.BetaWebhookAgentCreatedEventData = &lossless23
+			return nil
+		}
+		var lossless24 BetaWebhookAgentArchivedEventData
+		if json.Unmarshal(data, &lossless24) == nil && keepsEveryKey(raw, lossless24) {
+			u.BetaWebhookAgentArchivedEventData = &lossless24
+			return nil
+		}
+		var lossless25 BetaWebhookAgentDeletedEventData
+		if json.Unmarshal(data, &lossless25) == nil && keepsEveryKey(raw, lossless25) {
+			u.BetaWebhookAgentDeletedEventData = &lossless25
+			return nil
+		}
+		var lossless26 BetaWebhookDeploymentPausedEventData
+		if json.Unmarshal(data, &lossless26) == nil && keepsEveryKey(raw, lossless26) {
+			u.BetaWebhookDeploymentPausedEventData = &lossless26
+			return nil
+		}
+		var lossless27 BetaWebhookDeploymentRunFailedEventData
+		if json.Unmarshal(data, &lossless27) == nil && keepsEveryKey(raw, lossless27) {
+			u.BetaWebhookDeploymentRunFailedEventData = &lossless27
+			return nil
+		}
+		var lossless28 BetaWebhookDeploymentCreatedEventData
+		if json.Unmarshal(data, &lossless28) == nil && keepsEveryKey(raw, lossless28) {
+			u.BetaWebhookDeploymentCreatedEventData = &lossless28
+			return nil
+		}
+		var lossless29 BetaWebhookDeploymentUpdatedEventData
+		if json.Unmarshal(data, &lossless29) == nil && keepsEveryKey(raw, lossless29) {
+			u.BetaWebhookDeploymentUpdatedEventData = &lossless29
+			return nil
+		}
+		var lossless30 BetaWebhookDeploymentUnpausedEventData
+		if json.Unmarshal(data, &lossless30) == nil && keepsEveryKey(raw, lossless30) {
+			u.BetaWebhookDeploymentUnpausedEventData = &lossless30
+			return nil
+		}
+		var lossless31 BetaWebhookAgentUpdatedEventData
+		if json.Unmarshal(data, &lossless31) == nil && keepsEveryKey(raw, lossless31) {
+			u.BetaWebhookAgentUpdatedEventData = &lossless31
+			return nil
+		}
+		var lossless32 BetaWebhookDeploymentArchivedEventData
+		if json.Unmarshal(data, &lossless32) == nil && keepsEveryKey(raw, lossless32) {
+			u.BetaWebhookDeploymentArchivedEventData = &lossless32
+			return nil
+		}
+		var lossless33 BetaWebhookDeploymentRunStartedEventData
+		if json.Unmarshal(data, &lossless33) == nil && keepsEveryKey(raw, lossless33) {
+			u.BetaWebhookDeploymentRunStartedEventData = &lossless33
+			return nil
+		}
+		var lossless34 BetaWebhookDeploymentDeletedEventData
+		if json.Unmarshal(data, &lossless34) == nil && keepsEveryKey(raw, lossless34) {
+			u.BetaWebhookDeploymentDeletedEventData = &lossless34
+			return nil
+		}
+		var lossless35 BetaWebhookDeploymentRunSucceededEventData
+		if json.Unmarshal(data, &lossless35) == nil && keepsEveryKey(raw, lossless35) {
+			u.BetaWebhookDeploymentRunSucceededEventData = &lossless35
+			return nil
+		}
+		var lossless36 BetaWebhookEnvironmentCreatedEventData
+		if json.Unmarshal(data, &lossless36) == nil && keepsEveryKey(raw, lossless36) {
+			u.BetaWebhookEnvironmentCreatedEventData = &lossless36
+			return nil
+		}
+		var lossless37 BetaWebhookEnvironmentUpdatedEventData
+		if json.Unmarshal(data, &lossless37) == nil && keepsEveryKey(raw, lossless37) {
+			u.BetaWebhookEnvironmentUpdatedEventData = &lossless37
+			return nil
+		}
+		var lossless38 BetaWebhookEnvironmentArchivedEventData
+		if json.Unmarshal(data, &lossless38) == nil && keepsEveryKey(raw, lossless38) {
+			u.BetaWebhookEnvironmentArchivedEventData = &lossless38
+			return nil
+		}
+		var lossless39 BetaWebhookEnvironmentDeletedEventData
+		if json.Unmarshal(data, &lossless39) == nil && keepsEveryKey(raw, lossless39) {
+			u.BetaWebhookEnvironmentDeletedEventData = &lossless39
+			return nil
+		}
+		var lossless40 BetaWebhookMemoryStoreCreatedEventData
+		if json.Unmarshal(data, &lossless40) == nil && keepsEveryKey(raw, lossless40) {
+			u.BetaWebhookMemoryStoreCreatedEventData = &lossless40
+			return nil
+		}
+		var lossless41 BetaWebhookMemoryStoreArchivedEventData
+		if json.Unmarshal(data, &lossless41) == nil && keepsEveryKey(raw, lossless41) {
+			u.BetaWebhookMemoryStoreArchivedEventData = &lossless41
+			return nil
+		}
+		var lossless42 BetaWebhookMemoryStoreDeletedEventData
+		if json.Unmarshal(data, &lossless42) == nil && keepsEveryKey(raw, lossless42) {
+			u.BetaWebhookMemoryStoreDeletedEventData = &lossless42
+			return nil
+		}
+		var lossless43 BetaWebhookSessionBudgetReachedEventData
+		if json.Unmarshal(data, &lossless43) == nil && keepsEveryKey(raw, lossless43) {
+			u.BetaWebhookSessionBudgetReachedEventData = &lossless43
+			return nil
+		}
 	}
-	if u.BetaWebhookSessionRunningEventData != nil {
-		return json.Marshal(u.BetaWebhookSessionRunningEventData)
+	var betawebhooksessioncreatedeventdata BetaWebhookSessionCreatedEventData
+	if err := json.Unmarshal(data, &betawebhooksessioncreatedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookSessionCreatedEventData(betawebhooksessioncreatedeventdata) {
+		u.BetaWebhookSessionCreatedEventData = &betawebhooksessioncreatedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookSessionIdledEventData != nil {
-		return json.Marshal(u.BetaWebhookSessionIdledEventData)
+	var betawebhooksessionpendingeventdata BetaWebhookSessionPendingEventData
+	if err := json.Unmarshal(data, &betawebhooksessionpendingeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookSessionPendingEventData(betawebhooksessionpendingeventdata) {
+		u.BetaWebhookSessionPendingEventData = &betawebhooksessionpendingeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookSessionRequiresActionEventData != nil {
-		return json.Marshal(u.BetaWebhookSessionRequiresActionEventData)
+	var betawebhooksessionrunningeventdata BetaWebhookSessionRunningEventData
+	if err := json.Unmarshal(data, &betawebhooksessionrunningeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookSessionRunningEventData(betawebhooksessionrunningeventdata) {
+		u.BetaWebhookSessionRunningEventData = &betawebhooksessionrunningeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookSessionArchivedEventData != nil {
-		return json.Marshal(u.BetaWebhookSessionArchivedEventData)
+	var betawebhooksessionidledeventdata BetaWebhookSessionIdledEventData
+	if err := json.Unmarshal(data, &betawebhooksessionidledeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookSessionIdledEventData(betawebhooksessionidledeventdata) {
+		u.BetaWebhookSessionIdledEventData = &betawebhooksessionidledeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookSessionDeletedEventData != nil {
-		return json.Marshal(u.BetaWebhookSessionDeletedEventData)
+	var betawebhooksessionrequiresactioneventdata BetaWebhookSessionRequiresActionEventData
+	if err := json.Unmarshal(data, &betawebhooksessionrequiresactioneventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookSessionRequiresActionEventData(betawebhooksessionrequiresactioneventdata) {
+		u.BetaWebhookSessionRequiresActionEventData = &betawebhooksessionrequiresactioneventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookSessionStatusRescheduledEventData != nil {
-		return json.Marshal(u.BetaWebhookSessionStatusRescheduledEventData)
+	var betawebhooksessionarchivedeventdata BetaWebhookSessionArchivedEventData
+	if err := json.Unmarshal(data, &betawebhooksessionarchivedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookSessionArchivedEventData(betawebhooksessionarchivedeventdata) {
+		u.BetaWebhookSessionArchivedEventData = &betawebhooksessionarchivedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookSessionStatusRunStartedEventData != nil {
-		return json.Marshal(u.BetaWebhookSessionStatusRunStartedEventData)
+	var betawebhooksessiondeletedeventdata BetaWebhookSessionDeletedEventData
+	if err := json.Unmarshal(data, &betawebhooksessiondeletedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookSessionDeletedEventData(betawebhooksessiondeletedeventdata) {
+		u.BetaWebhookSessionDeletedEventData = &betawebhooksessiondeletedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookSessionStatusIdledEventData != nil {
-		return json.Marshal(u.BetaWebhookSessionStatusIdledEventData)
+	var betawebhooksessionstatusrescheduledeventdata BetaWebhookSessionStatusRescheduledEventData
+	if err := json.Unmarshal(data, &betawebhooksessionstatusrescheduledeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookSessionStatusRescheduledEventData(betawebhooksessionstatusrescheduledeventdata) {
+		u.BetaWebhookSessionStatusRescheduledEventData = &betawebhooksessionstatusrescheduledeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookSessionStatusTerminatedEventData != nil {
-		return json.Marshal(u.BetaWebhookSessionStatusTerminatedEventData)
+	var betawebhooksessionstatusrunstartedeventdata BetaWebhookSessionStatusRunStartedEventData
+	if err := json.Unmarshal(data, &betawebhooksessionstatusrunstartedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookSessionStatusRunStartedEventData(betawebhooksessionstatusrunstartedeventdata) {
+		u.BetaWebhookSessionStatusRunStartedEventData = &betawebhooksessionstatusrunstartedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookSessionThreadCreatedEventData != nil {
-		return json.Marshal(u.BetaWebhookSessionThreadCreatedEventData)
+	var betawebhooksessionstatusidledeventdata BetaWebhookSessionStatusIdledEventData
+	if err := json.Unmarshal(data, &betawebhooksessionstatusidledeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookSessionStatusIdledEventData(betawebhooksessionstatusidledeventdata) {
+		u.BetaWebhookSessionStatusIdledEventData = &betawebhooksessionstatusidledeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookSessionThreadIdledEventData != nil {
-		return json.Marshal(u.BetaWebhookSessionThreadIdledEventData)
+	var betawebhooksessionstatusterminatedeventdata BetaWebhookSessionStatusTerminatedEventData
+	if err := json.Unmarshal(data, &betawebhooksessionstatusterminatedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookSessionStatusTerminatedEventData(betawebhooksessionstatusterminatedeventdata) {
+		u.BetaWebhookSessionStatusTerminatedEventData = &betawebhooksessionstatusterminatedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookSessionThreadTerminatedEventData != nil {
-		return json.Marshal(u.BetaWebhookSessionThreadTerminatedEventData)
+	var betawebhooksessionthreadcreatedeventdata BetaWebhookSessionThreadCreatedEventData
+	if err := json.Unmarshal(data, &betawebhooksessionthreadcreatedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookSessionThreadCreatedEventData(betawebhooksessionthreadcreatedeventdata) {
+		u.BetaWebhookSessionThreadCreatedEventData = &betawebhooksessionthreadcreatedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookSessionOutcomeEvaluationEndedEventData != nil {
-		return json.Marshal(u.BetaWebhookSessionOutcomeEvaluationEndedEventData)
+	var betawebhooksessionthreadidledeventdata BetaWebhookSessionThreadIdledEventData
+	if err := json.Unmarshal(data, &betawebhooksessionthreadidledeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookSessionThreadIdledEventData(betawebhooksessionthreadidledeventdata) {
+		u.BetaWebhookSessionThreadIdledEventData = &betawebhooksessionthreadidledeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookVaultCreatedEventData != nil {
-		return json.Marshal(u.BetaWebhookVaultCreatedEventData)
+	var betawebhooksessionthreadterminatedeventdata BetaWebhookSessionThreadTerminatedEventData
+	if err := json.Unmarshal(data, &betawebhooksessionthreadterminatedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookSessionThreadTerminatedEventData(betawebhooksessionthreadterminatedeventdata) {
+		u.BetaWebhookSessionThreadTerminatedEventData = &betawebhooksessionthreadterminatedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookVaultArchivedEventData != nil {
-		return json.Marshal(u.BetaWebhookVaultArchivedEventData)
+	var betawebhooksessionoutcomeevaluationendedeventdata BetaWebhookSessionOutcomeEvaluationEndedEventData
+	if err := json.Unmarshal(data, &betawebhooksessionoutcomeevaluationendedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookSessionOutcomeEvaluationEndedEventData(betawebhooksessionoutcomeevaluationendedeventdata) {
+		u.BetaWebhookSessionOutcomeEvaluationEndedEventData = &betawebhooksessionoutcomeevaluationendedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookVaultDeletedEventData != nil {
-		return json.Marshal(u.BetaWebhookVaultDeletedEventData)
+	var betawebhookvaultcreatedeventdata BetaWebhookVaultCreatedEventData
+	if err := json.Unmarshal(data, &betawebhookvaultcreatedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookVaultCreatedEventData(betawebhookvaultcreatedeventdata) {
+		u.BetaWebhookVaultCreatedEventData = &betawebhookvaultcreatedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookVaultCredentialCreatedEventData != nil {
-		return json.Marshal(u.BetaWebhookVaultCredentialCreatedEventData)
+	var betawebhookvaultarchivedeventdata BetaWebhookVaultArchivedEventData
+	if err := json.Unmarshal(data, &betawebhookvaultarchivedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookVaultArchivedEventData(betawebhookvaultarchivedeventdata) {
+		u.BetaWebhookVaultArchivedEventData = &betawebhookvaultarchivedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookVaultCredentialArchivedEventData != nil {
-		return json.Marshal(u.BetaWebhookVaultCredentialArchivedEventData)
+	var betawebhookvaultdeletedeventdata BetaWebhookVaultDeletedEventData
+	if err := json.Unmarshal(data, &betawebhookvaultdeletedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookVaultDeletedEventData(betawebhookvaultdeletedeventdata) {
+		u.BetaWebhookVaultDeletedEventData = &betawebhookvaultdeletedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookVaultCredentialDeletedEventData != nil {
-		return json.Marshal(u.BetaWebhookVaultCredentialDeletedEventData)
+	var betawebhookvaultcredentialcreatedeventdata BetaWebhookVaultCredentialCreatedEventData
+	if err := json.Unmarshal(data, &betawebhookvaultcredentialcreatedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookVaultCredentialCreatedEventData(betawebhookvaultcredentialcreatedeventdata) {
+		u.BetaWebhookVaultCredentialCreatedEventData = &betawebhookvaultcredentialcreatedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookVaultCredentialRefreshFailedEventData != nil {
-		return json.Marshal(u.BetaWebhookVaultCredentialRefreshFailedEventData)
+	var betawebhookvaultcredentialarchivedeventdata BetaWebhookVaultCredentialArchivedEventData
+	if err := json.Unmarshal(data, &betawebhookvaultcredentialarchivedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookVaultCredentialArchivedEventData(betawebhookvaultcredentialarchivedeventdata) {
+		u.BetaWebhookVaultCredentialArchivedEventData = &betawebhookvaultcredentialarchivedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookSessionUpdatedEventData != nil {
-		return json.Marshal(u.BetaWebhookSessionUpdatedEventData)
+	var betawebhookvaultcredentialdeletedeventdata BetaWebhookVaultCredentialDeletedEventData
+	if err := json.Unmarshal(data, &betawebhookvaultcredentialdeletedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookVaultCredentialDeletedEventData(betawebhookvaultcredentialdeletedeventdata) {
+		u.BetaWebhookVaultCredentialDeletedEventData = &betawebhookvaultcredentialdeletedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookAgentCreatedEventData != nil {
-		return json.Marshal(u.BetaWebhookAgentCreatedEventData)
+	var betawebhookvaultcredentialrefreshfailedeventdata BetaWebhookVaultCredentialRefreshFailedEventData
+	if err := json.Unmarshal(data, &betawebhookvaultcredentialrefreshfailedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookVaultCredentialRefreshFailedEventData(betawebhookvaultcredentialrefreshfailedeventdata) {
+		u.BetaWebhookVaultCredentialRefreshFailedEventData = &betawebhookvaultcredentialrefreshfailedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookAgentArchivedEventData != nil {
-		return json.Marshal(u.BetaWebhookAgentArchivedEventData)
+	var betawebhooksessionupdatedeventdata BetaWebhookSessionUpdatedEventData
+	if err := json.Unmarshal(data, &betawebhooksessionupdatedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookSessionUpdatedEventData(betawebhooksessionupdatedeventdata) {
+		u.BetaWebhookSessionUpdatedEventData = &betawebhooksessionupdatedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookAgentDeletedEventData != nil {
-		return json.Marshal(u.BetaWebhookAgentDeletedEventData)
+	var betawebhookagentcreatedeventdata BetaWebhookAgentCreatedEventData
+	if err := json.Unmarshal(data, &betawebhookagentcreatedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookAgentCreatedEventData(betawebhookagentcreatedeventdata) {
+		u.BetaWebhookAgentCreatedEventData = &betawebhookagentcreatedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookDeploymentPausedEventData != nil {
-		return json.Marshal(u.BetaWebhookDeploymentPausedEventData)
+	var betawebhookagentarchivedeventdata BetaWebhookAgentArchivedEventData
+	if err := json.Unmarshal(data, &betawebhookagentarchivedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookAgentArchivedEventData(betawebhookagentarchivedeventdata) {
+		u.BetaWebhookAgentArchivedEventData = &betawebhookagentarchivedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookDeploymentRunFailedEventData != nil {
-		return json.Marshal(u.BetaWebhookDeploymentRunFailedEventData)
+	var betawebhookagentdeletedeventdata BetaWebhookAgentDeletedEventData
+	if err := json.Unmarshal(data, &betawebhookagentdeletedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookAgentDeletedEventData(betawebhookagentdeletedeventdata) {
+		u.BetaWebhookAgentDeletedEventData = &betawebhookagentdeletedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookDeploymentCreatedEventData != nil {
-		return json.Marshal(u.BetaWebhookDeploymentCreatedEventData)
+	var betawebhookdeploymentpausedeventdata BetaWebhookDeploymentPausedEventData
+	if err := json.Unmarshal(data, &betawebhookdeploymentpausedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookDeploymentPausedEventData(betawebhookdeploymentpausedeventdata) {
+		u.BetaWebhookDeploymentPausedEventData = &betawebhookdeploymentpausedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookDeploymentUpdatedEventData != nil {
-		return json.Marshal(u.BetaWebhookDeploymentUpdatedEventData)
+	var betawebhookdeploymentrunfailedeventdata BetaWebhookDeploymentRunFailedEventData
+	if err := json.Unmarshal(data, &betawebhookdeploymentrunfailedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookDeploymentRunFailedEventData(betawebhookdeploymentrunfailedeventdata) {
+		u.BetaWebhookDeploymentRunFailedEventData = &betawebhookdeploymentrunfailedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookDeploymentUnpausedEventData != nil {
-		return json.Marshal(u.BetaWebhookDeploymentUnpausedEventData)
+	var betawebhookdeploymentcreatedeventdata BetaWebhookDeploymentCreatedEventData
+	if err := json.Unmarshal(data, &betawebhookdeploymentcreatedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookDeploymentCreatedEventData(betawebhookdeploymentcreatedeventdata) {
+		u.BetaWebhookDeploymentCreatedEventData = &betawebhookdeploymentcreatedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookAgentUpdatedEventData != nil {
-		return json.Marshal(u.BetaWebhookAgentUpdatedEventData)
+	var betawebhookdeploymentupdatedeventdata BetaWebhookDeploymentUpdatedEventData
+	if err := json.Unmarshal(data, &betawebhookdeploymentupdatedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookDeploymentUpdatedEventData(betawebhookdeploymentupdatedeventdata) {
+		u.BetaWebhookDeploymentUpdatedEventData = &betawebhookdeploymentupdatedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookDeploymentArchivedEventData != nil {
-		return json.Marshal(u.BetaWebhookDeploymentArchivedEventData)
+	var betawebhookdeploymentunpausedeventdata BetaWebhookDeploymentUnpausedEventData
+	if err := json.Unmarshal(data, &betawebhookdeploymentunpausedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookDeploymentUnpausedEventData(betawebhookdeploymentunpausedeventdata) {
+		u.BetaWebhookDeploymentUnpausedEventData = &betawebhookdeploymentunpausedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookDeploymentRunStartedEventData != nil {
-		return json.Marshal(u.BetaWebhookDeploymentRunStartedEventData)
+	var betawebhookagentupdatedeventdata BetaWebhookAgentUpdatedEventData
+	if err := json.Unmarshal(data, &betawebhookagentupdatedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookAgentUpdatedEventData(betawebhookagentupdatedeventdata) {
+		u.BetaWebhookAgentUpdatedEventData = &betawebhookagentupdatedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookDeploymentDeletedEventData != nil {
-		return json.Marshal(u.BetaWebhookDeploymentDeletedEventData)
+	var betawebhookdeploymentarchivedeventdata BetaWebhookDeploymentArchivedEventData
+	if err := json.Unmarshal(data, &betawebhookdeploymentarchivedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookDeploymentArchivedEventData(betawebhookdeploymentarchivedeventdata) {
+		u.BetaWebhookDeploymentArchivedEventData = &betawebhookdeploymentarchivedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookDeploymentRunSucceededEventData != nil {
-		return json.Marshal(u.BetaWebhookDeploymentRunSucceededEventData)
+	var betawebhookdeploymentrunstartedeventdata BetaWebhookDeploymentRunStartedEventData
+	if err := json.Unmarshal(data, &betawebhookdeploymentrunstartedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookDeploymentRunStartedEventData(betawebhookdeploymentrunstartedeventdata) {
+		u.BetaWebhookDeploymentRunStartedEventData = &betawebhookdeploymentrunstartedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookEnvironmentCreatedEventData != nil {
-		return json.Marshal(u.BetaWebhookEnvironmentCreatedEventData)
+	var betawebhookdeploymentdeletedeventdata BetaWebhookDeploymentDeletedEventData
+	if err := json.Unmarshal(data, &betawebhookdeploymentdeletedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookDeploymentDeletedEventData(betawebhookdeploymentdeletedeventdata) {
+		u.BetaWebhookDeploymentDeletedEventData = &betawebhookdeploymentdeletedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookEnvironmentUpdatedEventData != nil {
-		return json.Marshal(u.BetaWebhookEnvironmentUpdatedEventData)
+	var betawebhookdeploymentrunsucceededeventdata BetaWebhookDeploymentRunSucceededEventData
+	if err := json.Unmarshal(data, &betawebhookdeploymentrunsucceededeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookDeploymentRunSucceededEventData(betawebhookdeploymentrunsucceededeventdata) {
+		u.BetaWebhookDeploymentRunSucceededEventData = &betawebhookdeploymentrunsucceededeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookEnvironmentArchivedEventData != nil {
-		return json.Marshal(u.BetaWebhookEnvironmentArchivedEventData)
+	var betawebhookenvironmentcreatedeventdata BetaWebhookEnvironmentCreatedEventData
+	if err := json.Unmarshal(data, &betawebhookenvironmentcreatedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookEnvironmentCreatedEventData(betawebhookenvironmentcreatedeventdata) {
+		u.BetaWebhookEnvironmentCreatedEventData = &betawebhookenvironmentcreatedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookEnvironmentDeletedEventData != nil {
-		return json.Marshal(u.BetaWebhookEnvironmentDeletedEventData)
+	var betawebhookenvironmentupdatedeventdata BetaWebhookEnvironmentUpdatedEventData
+	if err := json.Unmarshal(data, &betawebhookenvironmentupdatedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookEnvironmentUpdatedEventData(betawebhookenvironmentupdatedeventdata) {
+		u.BetaWebhookEnvironmentUpdatedEventData = &betawebhookenvironmentupdatedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookMemoryStoreCreatedEventData != nil {
-		return json.Marshal(u.BetaWebhookMemoryStoreCreatedEventData)
+	var betawebhookenvironmentarchivedeventdata BetaWebhookEnvironmentArchivedEventData
+	if err := json.Unmarshal(data, &betawebhookenvironmentarchivedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookEnvironmentArchivedEventData(betawebhookenvironmentarchivedeventdata) {
+		u.BetaWebhookEnvironmentArchivedEventData = &betawebhookenvironmentarchivedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookMemoryStoreArchivedEventData != nil {
-		return json.Marshal(u.BetaWebhookMemoryStoreArchivedEventData)
+	var betawebhookenvironmentdeletedeventdata BetaWebhookEnvironmentDeletedEventData
+	if err := json.Unmarshal(data, &betawebhookenvironmentdeletedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookEnvironmentDeletedEventData(betawebhookenvironmentdeletedeventdata) {
+		u.BetaWebhookEnvironmentDeletedEventData = &betawebhookenvironmentdeletedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookMemoryStoreDeletedEventData != nil {
-		return json.Marshal(u.BetaWebhookMemoryStoreDeletedEventData)
+	var betawebhookmemorystorecreatedeventdata BetaWebhookMemoryStoreCreatedEventData
+	if err := json.Unmarshal(data, &betawebhookmemorystorecreatedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookMemoryStoreCreatedEventData(betawebhookmemorystorecreatedeventdata) {
+		u.BetaWebhookMemoryStoreCreatedEventData = &betawebhookmemorystorecreatedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.BetaWebhookSessionBudgetReachedEventData != nil {
-		return json.Marshal(u.BetaWebhookSessionBudgetReachedEventData)
+	var betawebhookmemorystorearchivedeventdata BetaWebhookMemoryStoreArchivedEventData
+	if err := json.Unmarshal(data, &betawebhookmemorystorearchivedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookMemoryStoreArchivedEventData(betawebhookmemorystorearchivedeventdata) {
+		u.BetaWebhookMemoryStoreArchivedEventData = &betawebhookmemorystorearchivedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	if u.Unknown != nil {
-		return u.Unknown, nil
+	var betawebhookmemorystoredeletedeventdata BetaWebhookMemoryStoreDeletedEventData
+	if err := json.Unmarshal(data, &betawebhookmemorystoredeletedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookMemoryStoreDeletedEventData(betawebhookmemorystoredeletedeventdata) {
+		u.BetaWebhookMemoryStoreDeletedEventData = &betawebhookmemorystoredeletedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
 	}
-	return []byte("null"), nil
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookSessionCreatedEventData(v BetaWebhookSessionCreatedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookSessionPendingEventData(v BetaWebhookSessionPendingEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookSessionRunningEventData(v BetaWebhookSessionRunningEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookSessionIdledEventData(v BetaWebhookSessionIdledEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookSessionRequiresActionEventData(v BetaWebhookSessionRequiresActionEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookSessionArchivedEventData(v BetaWebhookSessionArchivedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookSessionDeletedEventData(v BetaWebhookSessionDeletedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookSessionStatusRescheduledEventData(v BetaWebhookSessionStatusRescheduledEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookSessionStatusRunStartedEventData(v BetaWebhookSessionStatusRunStartedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookSessionStatusIdledEventData(v BetaWebhookSessionStatusIdledEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookSessionStatusTerminatedEventData(v BetaWebhookSessionStatusTerminatedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookSessionThreadCreatedEventData(v BetaWebhookSessionThreadCreatedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookSessionThreadIdledEventData(v BetaWebhookSessionThreadIdledEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookSessionThreadTerminatedEventData(v BetaWebhookSessionThreadTerminatedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookSessionOutcomeEvaluationEndedEventData(v BetaWebhookSessionOutcomeEvaluationEndedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookVaultCreatedEventData(v BetaWebhookVaultCreatedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookVaultArchivedEventData(v BetaWebhookVaultArchivedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookVaultDeletedEventData(v BetaWebhookVaultDeletedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookVaultCredentialCreatedEventData(v BetaWebhookVaultCredentialCreatedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookVaultCredentialArchivedEventData(v BetaWebhookVaultCredentialArchivedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookVaultCredentialDeletedEventData(v BetaWebhookVaultCredentialDeletedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookVaultCredentialRefreshFailedEventData(v BetaWebhookVaultCredentialRefreshFailedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookSessionUpdatedEventData(v BetaWebhookSessionUpdatedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookAgentCreatedEventData(v BetaWebhookAgentCreatedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookAgentArchivedEventData(v BetaWebhookAgentArchivedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookAgentDeletedEventData(v BetaWebhookAgentDeletedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookDeploymentPausedEventData(v BetaWebhookDeploymentPausedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookDeploymentRunFailedEventData(v BetaWebhookDeploymentRunFailedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookDeploymentCreatedEventData(v BetaWebhookDeploymentCreatedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookDeploymentUpdatedEventData(v BetaWebhookDeploymentUpdatedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookDeploymentUnpausedEventData(v BetaWebhookDeploymentUnpausedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookAgentUpdatedEventData(v BetaWebhookAgentUpdatedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookDeploymentArchivedEventData(v BetaWebhookDeploymentArchivedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookDeploymentRunStartedEventData(v BetaWebhookDeploymentRunStartedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookDeploymentDeletedEventData(v BetaWebhookDeploymentDeletedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookDeploymentRunSucceededEventData(v BetaWebhookDeploymentRunSucceededEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookEnvironmentCreatedEventData(v BetaWebhookEnvironmentCreatedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookEnvironmentUpdatedEventData(v BetaWebhookEnvironmentUpdatedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookEnvironmentArchivedEventData(v BetaWebhookEnvironmentArchivedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookEnvironmentDeletedEventData(v BetaWebhookEnvironmentDeletedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookMemoryStoreCreatedEventData(v BetaWebhookMemoryStoreCreatedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookMemoryStoreArchivedEventData(v BetaWebhookMemoryStoreArchivedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookMemoryStoreDeletedEventData(v BetaWebhookMemoryStoreDeletedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaWebhookEventDataBetaWebhookSessionBudgetReachedEventData(v BetaWebhookSessionBudgetReachedEventData) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-// UnmarshalBetaWebhookEventData converts an untyped value to BetaWebhookEventData.
-func UnmarshalBetaWebhookEventData(v any) BetaWebhookEventData {
-	b, _ := json.Marshal(v)
-	var result BetaWebhookEventData
-	_ = json.Unmarshal(b, &result)
-	return result
+	var betawebhooksessionbudgetreachedeventdata BetaWebhookSessionBudgetReachedEventData
+	if err := json.Unmarshal(data, &betawebhooksessionbudgetreachedeventdata); err == nil && isNonEmptyBetaWebhookEventDataBetaWebhookSessionBudgetReachedEventData(betawebhooksessionbudgetreachedeventdata) {
+		u.BetaWebhookSessionBudgetReachedEventData = &betawebhooksessionbudgetreachedeventdata
+		return nil
+	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
+		refusal = err
+	}
+	return refusal
 }

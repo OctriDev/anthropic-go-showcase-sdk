@@ -117,6 +117,29 @@ func (u *BetaRequestBrowserStateBlockStateChangesItem) UnmarshalJSON(data []byte
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaBrowserStateChangeTabOpened
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaBrowserStateChangeTabOpened = &lossless0
+			return nil
+		}
+		var lossless1 BetaBrowserStateChangeDownloadStarted
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaBrowserStateChangeDownloadStarted = &lossless1
+			return nil
+		}
+		var lossless2 BetaBrowserStateChangeDownloadCompleted
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaBrowserStateChangeDownloadCompleted = &lossless2
+			return nil
+		}
+		var lossless3 BetaBrowserStateChangeDownloadFailed
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.BetaBrowserStateChangeDownloadFailed = &lossless3
+			return nil
+		}
+	}
 	var betabrowserstatechangetabopened BetaBrowserStateChangeTabOpened
 	if err := json.Unmarshal(data, &betabrowserstatechangetabopened); err == nil && isNonEmptyBetaRequestBrowserStateBlockStateChangesItemBetaBrowserStateChangeTabOpened(betabrowserstatechangetabopened) {
 		u.BetaBrowserStateChangeTabOpened = &betabrowserstatechangetabopened

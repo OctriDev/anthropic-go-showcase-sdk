@@ -170,6 +170,19 @@ func (u *BetaApproveSpendLimitIncreaseRequestResponseResolvedBy) UnmarshalJSON(d
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaUserActorSchema
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaUserActorSchema = &lossless0
+			return nil
+		}
+		var lossless1 BetaScopedApiKeyActorSchema
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaScopedApiKeyActorSchema = &lossless1
+			return nil
+		}
+	}
 	var betauseractorschema BetaUserActorSchema
 	if err := json.Unmarshal(data, &betauseractorschema); err == nil && isNonEmptyBetaApproveSpendLimitIncreaseRequestResponseResolvedByBetaUserActorSchema(betauseractorschema) {
 		u.BetaUserActorSchema = &betauseractorschema

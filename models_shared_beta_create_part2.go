@@ -193,6 +193,149 @@ func (u *BetaCreateMessageParamsToolsItem) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaTool
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaTool = &lossless0
+			return nil
+		}
+		var lossless1 BetaBashTool20241022
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaBashTool20241022 = &lossless1
+			return nil
+		}
+		var lossless2 BetaBashTool20250124
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaBashTool20250124 = &lossless2
+			return nil
+		}
+		var lossless3 BetaCodeExecutionTool20250522
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.BetaCodeExecutionTool20250522 = &lossless3
+			return nil
+		}
+		var lossless4 BetaCodeExecutionTool20250825
+		if json.Unmarshal(data, &lossless4) == nil && keepsEveryKey(raw, lossless4) {
+			u.BetaCodeExecutionTool20250825 = &lossless4
+			return nil
+		}
+		var lossless5 BetaCodeExecutionTool20260120
+		if json.Unmarshal(data, &lossless5) == nil && keepsEveryKey(raw, lossless5) {
+			u.BetaCodeExecutionTool20260120 = &lossless5
+			return nil
+		}
+		var lossless6 BetaCodeExecutionTool20260521
+		if json.Unmarshal(data, &lossless6) == nil && keepsEveryKey(raw, lossless6) {
+			u.BetaCodeExecutionTool20260521 = &lossless6
+			return nil
+		}
+		var lossless7 BetaBrowserToolset20260801
+		if json.Unmarshal(data, &lossless7) == nil && keepsEveryKey(raw, lossless7) {
+			u.BetaBrowserToolset20260801 = &lossless7
+			return nil
+		}
+		var lossless8 BetaComputerUseTool20241022
+		if json.Unmarshal(data, &lossless8) == nil && keepsEveryKey(raw, lossless8) {
+			u.BetaComputerUseTool20241022 = &lossless8
+			return nil
+		}
+		var lossless9 BetaMemoryTool20250818
+		if json.Unmarshal(data, &lossless9) == nil && keepsEveryKey(raw, lossless9) {
+			u.BetaMemoryTool20250818 = &lossless9
+			return nil
+		}
+		var lossless10 BetaComputerUseTool20250124
+		if json.Unmarshal(data, &lossless10) == nil && keepsEveryKey(raw, lossless10) {
+			u.BetaComputerUseTool20250124 = &lossless10
+			return nil
+		}
+		var lossless11 BetaTextEditor20241022
+		if json.Unmarshal(data, &lossless11) == nil && keepsEveryKey(raw, lossless11) {
+			u.BetaTextEditor20241022 = &lossless11
+			return nil
+		}
+		var lossless12 BetaComputerUseTool20251124
+		if json.Unmarshal(data, &lossless12) == nil && keepsEveryKey(raw, lossless12) {
+			u.BetaComputerUseTool20251124 = &lossless12
+			return nil
+		}
+		var lossless13 BetaComputerToolset20260801
+		if json.Unmarshal(data, &lossless13) == nil && keepsEveryKey(raw, lossless13) {
+			u.BetaComputerToolset20260801 = &lossless13
+			return nil
+		}
+		var lossless14 BetaTextEditor20250124
+		if json.Unmarshal(data, &lossless14) == nil && keepsEveryKey(raw, lossless14) {
+			u.BetaTextEditor20250124 = &lossless14
+			return nil
+		}
+		var lossless15 BetaTextEditor20250429
+		if json.Unmarshal(data, &lossless15) == nil && keepsEveryKey(raw, lossless15) {
+			u.BetaTextEditor20250429 = &lossless15
+			return nil
+		}
+		var lossless16 BetaTextEditor20250728
+		if json.Unmarshal(data, &lossless16) == nil && keepsEveryKey(raw, lossless16) {
+			u.BetaTextEditor20250728 = &lossless16
+			return nil
+		}
+		var lossless17 BetaWebSearchTool20250305
+		if json.Unmarshal(data, &lossless17) == nil && keepsEveryKey(raw, lossless17) {
+			u.BetaWebSearchTool20250305 = &lossless17
+			return nil
+		}
+		var lossless18 BetaWebFetchTool20250910
+		if json.Unmarshal(data, &lossless18) == nil && keepsEveryKey(raw, lossless18) {
+			u.BetaWebFetchTool20250910 = &lossless18
+			return nil
+		}
+		var lossless19 BetaWebSearchTool20260209
+		if json.Unmarshal(data, &lossless19) == nil && keepsEveryKey(raw, lossless19) {
+			u.BetaWebSearchTool20260209 = &lossless19
+			return nil
+		}
+		var lossless20 BetaWebFetchTool20260209
+		if json.Unmarshal(data, &lossless20) == nil && keepsEveryKey(raw, lossless20) {
+			u.BetaWebFetchTool20260209 = &lossless20
+			return nil
+		}
+		var lossless21 BetaWebFetchTool20260309
+		if json.Unmarshal(data, &lossless21) == nil && keepsEveryKey(raw, lossless21) {
+			u.BetaWebFetchTool20260309 = &lossless21
+			return nil
+		}
+		var lossless22 BetaWebSearchTool20260318
+		if json.Unmarshal(data, &lossless22) == nil && keepsEveryKey(raw, lossless22) {
+			u.BetaWebSearchTool20260318 = &lossless22
+			return nil
+		}
+		var lossless23 BetaWebFetchTool20260318
+		if json.Unmarshal(data, &lossless23) == nil && keepsEveryKey(raw, lossless23) {
+			u.BetaWebFetchTool20260318 = &lossless23
+			return nil
+		}
+		var lossless24 BetaAdvisorTool20260301
+		if json.Unmarshal(data, &lossless24) == nil && keepsEveryKey(raw, lossless24) {
+			u.BetaAdvisorTool20260301 = &lossless24
+			return nil
+		}
+		var lossless25 BetaToolSearchToolBM2520251119
+		if json.Unmarshal(data, &lossless25) == nil && keepsEveryKey(raw, lossless25) {
+			u.BetaToolSearchToolBM2520251119 = &lossless25
+			return nil
+		}
+		var lossless26 BetaToolSearchToolRegex20251119
+		if json.Unmarshal(data, &lossless26) == nil && keepsEveryKey(raw, lossless26) {
+			u.BetaToolSearchToolRegex20251119 = &lossless26
+			return nil
+		}
+		var lossless27 BetaMCPToolset
+		if json.Unmarshal(data, &lossless27) == nil && keepsEveryKey(raw, lossless27) {
+			u.BetaMCPToolset = &lossless27
+			return nil
+		}
+	}
 	var betatool BetaTool
 	if err := json.Unmarshal(data, &betatool); err == nil && isNonEmptyBetaCreateMessageParamsToolsItemBetaTool(betatool) {
 		u.BetaTool = &betatool
@@ -588,42 +731,4 @@ func isNonEmptyBetaCreateMessageParamsToolsItemBetaWebFetchTool20260209(v BetaWe
 func isNonEmptyBetaCreateMessageParamsToolsItemBetaWebFetchTool20260309(v BetaWebFetchTool20260309) bool {
 	b, _ := json.Marshal(v)
 	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaCreateMessageParamsToolsItemBetaWebSearchTool20260318(v BetaWebSearchTool20260318) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaCreateMessageParamsToolsItemBetaWebFetchTool20260318(v BetaWebFetchTool20260318) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaCreateMessageParamsToolsItemBetaAdvisorTool20260301(v BetaAdvisorTool20260301) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaCreateMessageParamsToolsItemBetaToolSearchToolBM2520251119(v BetaToolSearchToolBM2520251119) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaCreateMessageParamsToolsItemBetaToolSearchToolRegex20251119(v BetaToolSearchToolRegex20251119) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-func isNonEmptyBetaCreateMessageParamsToolsItemBetaMCPToolset(v BetaMCPToolset) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-// UnmarshalBetaCreateMessageParamsToolsItem converts an untyped value to BetaCreateMessageParamsToolsItem.
-func UnmarshalBetaCreateMessageParamsToolsItem(v any) BetaCreateMessageParamsToolsItem {
-	b, _ := json.Marshal(v)
-	var result BetaCreateMessageParamsToolsItem
-	_ = json.Unmarshal(b, &result)
-	return result
 }

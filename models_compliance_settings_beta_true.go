@@ -244,6 +244,19 @@ func (u *BetaComplianceSettingsState) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaComplianceSettingsStateEnabled
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaComplianceSettingsStateEnabled = &lossless0
+			return nil
+		}
+		var lossless1 BetaComplianceSettingsStateDisabled
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaComplianceSettingsStateDisabled = &lossless1
+			return nil
+		}
+	}
 	var betacompliancesettingsstateenabled BetaComplianceSettingsStateEnabled
 	if err := json.Unmarshal(data, &betacompliancesettingsstateenabled); err == nil && isNonEmptyBetaComplianceSettingsStateBetaComplianceSettingsStateEnabled(betacompliancesettingsstateenabled) {
 		u.BetaComplianceSettingsStateEnabled = &betacompliancesettingsstateenabled
@@ -329,6 +342,19 @@ func (u *BetaComplianceSettingsUpdateParamsState) UnmarshalJSON(data []byte) err
 					return nil
 				}
 			}
+		}
+	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaComplianceSettingsStateEnabledParams
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaComplianceSettingsStateEnabledParams = &lossless0
+			return nil
+		}
+		var lossless1 BetaComplianceSettingsStateDisabledParams
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaComplianceSettingsStateDisabledParams = &lossless1
+			return nil
 		}
 	}
 	var betacompliancesettingsstateenabledparams BetaComplianceSettingsStateEnabledParams

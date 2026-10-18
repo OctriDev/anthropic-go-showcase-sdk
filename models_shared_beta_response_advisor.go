@@ -201,6 +201,24 @@ func (u *BetaResponseAdvisorToolResultBlockContent) UnmarshalJSON(data []byte) e
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaResponseAdvisorToolResultError
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaResponseAdvisorToolResultError = &lossless0
+			return nil
+		}
+		var lossless1 BetaResponseAdvisorResultBlock
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaResponseAdvisorResultBlock = &lossless1
+			return nil
+		}
+		var lossless2 BetaResponseAdvisorRedactedResultBlock
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaResponseAdvisorRedactedResultBlock = &lossless2
+			return nil
+		}
+	}
 	var betaresponseadvisortoolresulterror BetaResponseAdvisorToolResultError
 	if err := json.Unmarshal(data, &betaresponseadvisortoolresulterror); err == nil && isNonEmptyBetaResponseAdvisorToolResultBlockContentBetaResponseAdvisorToolResultError(betaresponseadvisortoolresulterror) {
 		u.BetaResponseAdvisorToolResultError = &betaresponseadvisortoolresulterror

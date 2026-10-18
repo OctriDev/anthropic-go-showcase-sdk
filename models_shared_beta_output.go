@@ -48,6 +48,19 @@ func (u *BetaOutputBehavior) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaOutputBehaviorCreateNew
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaOutputBehaviorCreateNew = &lossless0
+			return nil
+		}
+		var lossless1 BetaOutputBehaviorUpdateExisting
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaOutputBehaviorUpdateExisting = &lossless1
+			return nil
+		}
+	}
 	var betaoutputbehaviorcreatenew BetaOutputBehaviorCreateNew
 	if err := json.Unmarshal(data, &betaoutputbehaviorcreatenew); err == nil && isNonEmptyBetaOutputBehaviorBetaOutputBehaviorCreateNew(betaoutputbehaviorcreatenew) {
 		u.BetaOutputBehaviorCreateNew = &betaoutputbehaviorcreatenew

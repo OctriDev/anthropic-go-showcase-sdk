@@ -318,6 +318,89 @@ func (u *InputContentBlock) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 RequestTextBlock
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.RequestTextBlock = &lossless0
+			return nil
+		}
+		var lossless1 RequestImageBlock
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.RequestImageBlock = &lossless1
+			return nil
+		}
+		var lossless2 RequestDocumentBlock
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.RequestDocumentBlock = &lossless2
+			return nil
+		}
+		var lossless3 RequestSearchResultBlock
+		if json.Unmarshal(data, &lossless3) == nil && keepsEveryKey(raw, lossless3) {
+			u.RequestSearchResultBlock = &lossless3
+			return nil
+		}
+		var lossless4 RequestThinkingBlock
+		if json.Unmarshal(data, &lossless4) == nil && keepsEveryKey(raw, lossless4) {
+			u.RequestThinkingBlock = &lossless4
+			return nil
+		}
+		var lossless5 RequestRedactedThinkingBlock
+		if json.Unmarshal(data, &lossless5) == nil && keepsEveryKey(raw, lossless5) {
+			u.RequestRedactedThinkingBlock = &lossless5
+			return nil
+		}
+		var lossless6 RequestToolUseBlock
+		if json.Unmarshal(data, &lossless6) == nil && keepsEveryKey(raw, lossless6) {
+			u.RequestToolUseBlock = &lossless6
+			return nil
+		}
+		var lossless7 RequestToolResultBlock
+		if json.Unmarshal(data, &lossless7) == nil && keepsEveryKey(raw, lossless7) {
+			u.RequestToolResultBlock = &lossless7
+			return nil
+		}
+		var lossless8 RequestServerToolUseBlock
+		if json.Unmarshal(data, &lossless8) == nil && keepsEveryKey(raw, lossless8) {
+			u.RequestServerToolUseBlock = &lossless8
+			return nil
+		}
+		var lossless9 RequestWebSearchToolResultBlock
+		if json.Unmarshal(data, &lossless9) == nil && keepsEveryKey(raw, lossless9) {
+			u.RequestWebSearchToolResultBlock = &lossless9
+			return nil
+		}
+		var lossless10 RequestWebFetchToolResultBlock
+		if json.Unmarshal(data, &lossless10) == nil && keepsEveryKey(raw, lossless10) {
+			u.RequestWebFetchToolResultBlock = &lossless10
+			return nil
+		}
+		var lossless11 RequestCodeExecutionToolResultBlock
+		if json.Unmarshal(data, &lossless11) == nil && keepsEveryKey(raw, lossless11) {
+			u.RequestCodeExecutionToolResultBlock = &lossless11
+			return nil
+		}
+		var lossless12 RequestBashCodeExecutionToolResultBlock
+		if json.Unmarshal(data, &lossless12) == nil && keepsEveryKey(raw, lossless12) {
+			u.RequestBashCodeExecutionToolResultBlock = &lossless12
+			return nil
+		}
+		var lossless13 RequestTextEditorCodeExecutionToolResultBlock
+		if json.Unmarshal(data, &lossless13) == nil && keepsEveryKey(raw, lossless13) {
+			u.RequestTextEditorCodeExecutionToolResultBlock = &lossless13
+			return nil
+		}
+		var lossless14 RequestToolSearchToolResultBlock
+		if json.Unmarshal(data, &lossless14) == nil && keepsEveryKey(raw, lossless14) {
+			u.RequestToolSearchToolResultBlock = &lossless14
+			return nil
+		}
+		var lossless15 RequestContainerUploadBlock
+		if json.Unmarshal(data, &lossless15) == nil && keepsEveryKey(raw, lossless15) {
+			u.RequestContainerUploadBlock = &lossless15
+			return nil
+		}
+	}
 	var requesttextblock RequestTextBlock
 	if err := json.Unmarshal(data, &requesttextblock); err == nil && isNonEmptyInputContentBlockRequestTextBlock(requesttextblock) {
 		u.RequestTextBlock = &requesttextblock

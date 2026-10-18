@@ -121,6 +121,24 @@ func (u *RequestImageBlockSource) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 Base64ImageSource
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.Base64ImageSource = &lossless0
+			return nil
+		}
+		var lossless1 URLImageSource
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.URLImageSource = &lossless1
+			return nil
+		}
+		var lossless2 FileImageSource
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.FileImageSource = &lossless2
+			return nil
+		}
+	}
 	var base64imagesource Base64ImageSource
 	if err := json.Unmarshal(data, &base64imagesource); err == nil && isNonEmptyRequestImageBlockSourceBase64ImageSource(base64imagesource) {
 		u.Base64ImageSource = &base64imagesource

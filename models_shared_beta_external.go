@@ -101,6 +101,19 @@ func (u *BetaExternalKeyAttachment) UnmarshalJSON(data []byte) error {
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaAttachedAttachment
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaAttachedAttachment = &lossless0
+			return nil
+		}
+		var lossless1 BetaUnattachedAttachment
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaUnattachedAttachment = &lossless1
+			return nil
+		}
+	}
 	var betaattachedattachment BetaAttachedAttachment
 	if err := json.Unmarshal(data, &betaattachedattachment); err == nil && isNonEmptyBetaExternalKeyAttachmentBetaAttachedAttachment(betaattachedattachment) {
 		u.BetaAttachedAttachment = &betaattachedattachment
@@ -194,6 +207,24 @@ func (u *BetaExternalKeyProviderConfig) UnmarshalJSON(data []byte) error {
 					return nil
 				}
 			}
+		}
+	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaAwsExternalKeyConfig
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaAwsExternalKeyConfig = &lossless0
+			return nil
+		}
+		var lossless1 BetaGcpExternalKeyConfig
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaGcpExternalKeyConfig = &lossless1
+			return nil
+		}
+		var lossless2 BetaAzureExternalKeyConfig
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaAzureExternalKeyConfig = &lossless2
+			return nil
 		}
 	}
 	var betaawsexternalkeyconfig BetaAwsExternalKeyConfig

@@ -254,6 +254,19 @@ type ResponseWebSearchToolResultBlockContent struct {
 func (u *ResponseWebSearchToolResultBlockContent) UnmarshalJSON(data []byte) error {
 	*u = ResponseWebSearchToolResultBlockContent{}
 	var refusal error
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 ResponseWebSearchToolResultError
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.ResponseWebSearchToolResultError = &lossless0
+			return nil
+		}
+		var lossless1 []ResponseWebSearchResultBlock
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.ListOfResponseWebSearchResultBlock = &lossless1
+			return nil
+		}
+	}
 	var responsewebsearchtoolresulterror ResponseWebSearchToolResultError
 	if err := json.Unmarshal(data, &responsewebsearchtoolresulterror); err == nil && isNonEmptyResponseWebSearchToolResultBlockContentResponseWebSearchToolResultError(responsewebsearchtoolresulterror) {
 		u.ResponseWebSearchToolResultError = &responsewebsearchtoolresulterror
@@ -381,6 +394,24 @@ func (u *ResponseWebSearchToolResultBlockCaller) UnmarshalJSON(data []byte) erro
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 DirectCaller
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.DirectCaller = &lossless0
+			return nil
+		}
+		var lossless1 ServerToolCaller
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.ServerToolCaller = &lossless1
+			return nil
+		}
+		var lossless2 ServerToolCaller20260120
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.ServerToolCaller20260120 = &lossless2
+			return nil
+		}
+	}
 	var directcaller DirectCaller
 	if err := json.Unmarshal(data, &directcaller); err == nil && isNonEmptyResponseWebSearchToolResultBlockCallerDirectCaller(directcaller) {
 		u.DirectCaller = &directcaller
@@ -491,6 +522,24 @@ func (u *ResponseWebFetchToolResultBlockCaller) UnmarshalJSON(data []byte) error
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 DirectCaller
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.DirectCaller = &lossless0
+			return nil
+		}
+		var lossless1 ServerToolCaller
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.ServerToolCaller = &lossless1
+			return nil
+		}
+		var lossless2 ServerToolCaller20260120
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.ServerToolCaller20260120 = &lossless2
+			return nil
+		}
+	}
 	var directcaller DirectCaller
 	if err := json.Unmarshal(data, &directcaller); err == nil && isNonEmptyResponseWebFetchToolResultBlockCallerDirectCaller(directcaller) {
 		u.DirectCaller = &directcaller
@@ -591,6 +640,19 @@ func (u *ResponseWebFetchToolResultBlockContent) UnmarshalJSON(data []byte) erro
 					return nil
 				}
 			}
+		}
+	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 ResponseWebFetchToolResultError
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.ResponseWebFetchToolResultError = &lossless0
+			return nil
+		}
+		var lossless1 ResponseWebFetchResultBlock
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.ResponseWebFetchResultBlock = &lossless1
+			return nil
 		}
 	}
 	var responsewebfetchtoolresulterror ResponseWebFetchToolResultError

@@ -39,6 +39,19 @@ func (u *BetaManagedAgentsAgentMessageContentBlock) UnmarshalJSON(data []byte) e
 			}
 		}
 	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaManagedAgentsTextBlock
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaManagedAgentsTextBlock = &lossless0
+			return nil
+		}
+		var lossless1 BetaManagedAgentsRedactedBlock
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaManagedAgentsRedactedBlock = &lossless1
+			return nil
+		}
+	}
 	var betamanagedagentstextblock BetaManagedAgentsTextBlock
 	if err := json.Unmarshal(data, &betamanagedagentstextblock); err == nil && isNonEmptyBetaManagedAgentsAgentMessageContentBlockBetaManagedAgentsTextBlock(betamanagedagentstextblock) {
 		u.BetaManagedAgentsTextBlock = &betamanagedagentstextblock
@@ -582,6 +595,24 @@ func (u *BetaManagedAgentsAgentTool) UnmarshalJSON(data []byte) error {
 					return nil
 				}
 			}
+		}
+	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(data, &raw) == nil {
+		var lossless0 BetaManagedAgentsAgentToolset20260401
+		if json.Unmarshal(data, &lossless0) == nil && keepsEveryKey(raw, lossless0) {
+			u.BetaManagedAgentsAgentToolset20260401 = &lossless0
+			return nil
+		}
+		var lossless1 BetaManagedAgentsMCPToolset
+		if json.Unmarshal(data, &lossless1) == nil && keepsEveryKey(raw, lossless1) {
+			u.BetaManagedAgentsMCPToolset = &lossless1
+			return nil
+		}
+		var lossless2 BetaManagedAgentsCustomTool
+		if json.Unmarshal(data, &lossless2) == nil && keepsEveryKey(raw, lossless2) {
+			u.BetaManagedAgentsCustomTool = &lossless2
+			return nil
 		}
 	}
 	var betamanagedagentsagenttoolset20260401 BetaManagedAgentsAgentToolset20260401
