@@ -44,7 +44,7 @@ func NewBetaAddFederationRuleWorkspaceParams(fields BetaAddFederationRuleWorkspa
 // BetaDataResidencyCreateParams Typed representation of the `BetaDataResidencyCreateParams` API schema.
 type BetaDataResidencyCreateParams struct {
 	// AllowedInferenceGeos Permitted inference geo values. Defaults to 'unrestricted' if omitted, which allows all geos. Use the string 'unrestricted' to allow all geos, or a list of specific geos.
-	AllowedInferenceGeos *NullableValue[BetaDataResidencyCreateParamsAllowedInferenceGeos] `json:"allowed_inference_geos,omitempty"`
+	AllowedInferenceGeos *NullableValue[[]BetaAllowedInferenceGeo] `json:"allowed_inference_geos,omitempty"`
 	// DefaultInferenceGeo Default inference geo applied when requests omit the parameter. Defaults to 'global' if omitted. Must be a member of `allowed_inference_geos` unless `allowed_inference_geos` is `"unrestricted"`.
 	DefaultInferenceGeo *NullableValue[BetaInferenceGeo] `json:"default_inference_geo,omitempty"`
 	// WorkspaceGeo Geographic region for workspace data storage. Immutable after creation. Defaults to 'us' if omitted.
@@ -63,7 +63,7 @@ func (value *BetaDataResidencyCreateParams) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	if raw, ok := rawFields["allowed_inference_geos"]; ok && bytes.Equal(bytes.TrimSpace(raw), []byte("null")) {
-		value.AllowedInferenceGeos = &NullableValue[BetaDataResidencyCreateParamsAllowedInferenceGeos]{}
+		value.AllowedInferenceGeos = &NullableValue[[]BetaAllowedInferenceGeo]{}
 	}
 	if raw, ok := rawFields["default_inference_geo"]; ok && bytes.Equal(bytes.TrimSpace(raw), []byte("null")) {
 		value.DefaultInferenceGeo = &NullableValue[BetaInferenceGeo]{}
@@ -79,53 +79,6 @@ func (value *BetaDataResidencyCreateParams) UnmarshalJSON(data []byte) error {
 // reported as *SdkValidationError.
 func NewBetaDataResidencyCreateParams(fields BetaDataResidencyCreateParams) (*BetaDataResidencyCreateParams, error) {
 	return ConstructModel(fields)
-}
-
-// BetaDataResidencyCreateParamsAllowedInferenceGeos represents a union type.
-type BetaDataResidencyCreateParamsAllowedInferenceGeos struct {
-	ListOfBetaAllowedInferenceGeo *[]BetaAllowedInferenceGeo
-	String                        *string
-}
-
-func (u *BetaDataResidencyCreateParamsAllowedInferenceGeos) UnmarshalJSON(data []byte) error {
-	*u = BetaDataResidencyCreateParamsAllowedInferenceGeos{}
-	var refusal error
-	var s string
-	if err := json.Unmarshal(data, &s); err == nil {
-		u.String = &s
-		return nil
-	}
-	var listofbetaallowedinferencegeo []BetaAllowedInferenceGeo
-	if err := json.Unmarshal(data, &listofbetaallowedinferencegeo); err == nil && isNonEmptyBetaDataResidencyCreateParamsAllowedInferenceGeosListOfBetaAllowedInferenceGeo(listofbetaallowedinferencegeo) {
-		u.ListOfBetaAllowedInferenceGeo = &listofbetaallowedinferencegeo
-		return nil
-	} else if _, refused := err.(*SdkValidationError); refused && refusal == nil {
-		refusal = err
-	}
-	return refusal
-}
-
-func (u BetaDataResidencyCreateParamsAllowedInferenceGeos) MarshalJSON() ([]byte, error) {
-	if u.ListOfBetaAllowedInferenceGeo != nil {
-		return json.Marshal(u.ListOfBetaAllowedInferenceGeo)
-	}
-	if u.String != nil {
-		return json.Marshal(u.String)
-	}
-	return []byte("null"), nil
-}
-
-func isNonEmptyBetaDataResidencyCreateParamsAllowedInferenceGeosListOfBetaAllowedInferenceGeo(v []BetaAllowedInferenceGeo) bool {
-	b, _ := json.Marshal(v)
-	return string(b) != "{}" && string(b) != "null"
-}
-
-// UnmarshalBetaDataResidencyCreateParamsAllowedInferenceGeos converts an untyped value to BetaDataResidencyCreateParamsAllowedInferenceGeos.
-func UnmarshalBetaDataResidencyCreateParamsAllowedInferenceGeos(v any) BetaDataResidencyCreateParamsAllowedInferenceGeos {
-	b, _ := json.Marshal(v)
-	var result BetaDataResidencyCreateParamsAllowedInferenceGeos
-	_ = json.Unmarshal(b, &result)
-	return result
 }
 
 // BetaFederationRuleWorkspace Typed representation of the `BetaFederationRuleWorkspace` API schema.
