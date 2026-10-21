@@ -246,14 +246,14 @@ func sdkMethodByName(name string) any {
 		return ListBetaMessagesBatches
 	case "ListBetaModels":
 		return ListBetaModels
+	case "ListBetaOrganizationAnalyticsPlugins":
+		return ListBetaOrganizationAnalyticsPlugins
 	case "ListBetaOrganizationsAnalyticsAppsChatProjects":
 		return ListBetaOrganizationsAnalyticsAppsChatProjects
 	case "ListBetaOrganizationsAnalyticsArtifacts":
 		return ListBetaOrganizationsAnalyticsArtifacts
 	case "ListBetaOrganizationsAnalyticsConnectors":
 		return ListBetaOrganizationsAnalyticsConnectors
-	case "ListBetaOrganizationsAnalyticsPlugins":
-		return ListBetaOrganizationsAnalyticsPlugins
 	case "ListBetaOrganizationsAnalyticsSkills":
 		return ListBetaOrganizationsAnalyticsSkills
 	case "ListBetaOrganizationsAnalyticsSummaries":
