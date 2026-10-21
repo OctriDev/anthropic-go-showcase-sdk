@@ -5,7 +5,7 @@ package sdk
 
 import "context"
 
-type ListBetaOrganizationsAnalyticsPluginsParams struct {
+type ListBetaOrganizationAnalyticsPluginsParams struct {
 	Date         *NullableValue[string]
 	StartingDate *NullableValue[string]
 	EndingDate   *NullableValue[string]
@@ -17,7 +17,7 @@ type ListBetaOrganizationsAnalyticsPluginsParams struct {
 	Order        *NullableValue[string]
 }
 
-// ListBetaOrganizationsAnalyticsPlugins get per-plugin install + invocation usage for a given day, with pagination. Returns plugin usage metrics for the organization across Cowork and Claude Code, sorted by plugin name. The `plugin_name` value `third-party` is an aggregate bucket, not a plugin: it collects plugin activity, from either surface, for which the reporting client did not provide a plugin name — so an organization's own plugins can contribute both to their own named rows and to this bucket. Use `group_by[]` to break usage out per member, per RBAC group, or per product surface (Cowork / Claude Code), and `filter[]` to scope results; the parameter descriptions list the supported dimensions. Requires an API key with the `read:analytics` scope. `starting_date` / `ending_date` select range-rollup mode like `/skills`.
+// ListBetaOrganizationAnalyticsPlugins get per-plugin install + invocation usage for a given day, with pagination. Returns plugin usage metrics for the organization across Cowork and Claude Code, sorted by plugin name. The `plugin_name` value `third-party` is an aggregate bucket, not a plugin: it collects plugin activity, from either surface, for which the reporting client did not provide a plugin name — so an organization's own plugins can contribute both to their own named rows and to this bucket. Use `group_by[]` to break usage out per member, per RBAC group, or per product surface (Cowork / Claude Code), and `filter[]` to scope results; the parameter descriptions list the supported dimensions. Requires an API key with the `read:analytics` scope. `starting_date` / `ending_date` select range-rollup mode like `/skills`.
 //
 // Parameters:
 //
@@ -72,7 +72,7 @@ type ListBetaOrganizationsAnalyticsPluginsParams struct {
 //	sort column and to `desc` when `order_by` names a metric (a top-N ranking).
 //	Applies to `order_by`, or to the endpoint's default sort field when
 //	`order_by` is omitted.
-func ListBetaOrganizationsAnalyticsPlugins(ctx context.Context, clientConfig ClientConfig, params ListBetaOrganizationsAnalyticsPluginsParams, opts ...RequestOption) (*BetaAnalyticsPluginsResponse, error) {
+func ListBetaOrganizationAnalyticsPlugins(ctx context.Context, clientConfig ClientConfig, params ListBetaOrganizationAnalyticsPluginsParams, opts ...RequestOption) (*BetaAnalyticsPluginsResponse, error) {
 	date := params.Date
 	startingDate := params.StartingDate
 	endingDate := params.EndingDate
@@ -107,7 +107,7 @@ func ListBetaOrganizationsAnalyticsPlugins(ctx context.Context, clientConfig Cli
 			"order_by":      QueryValue{Value: orderBy, Style: "form", Explode: true},
 			"order":         QueryValue{Value: order, Style: "form", Explode: true},
 		},
-		OperationID: "ListBetaOrganizationsAnalyticsPlugins",
+		OperationID: "ListBetaOrganizationAnalyticsPlugins",
 		Errors:      ErrorDecoders{"400": decodeErrorData[BetaErrorResponse], "401": decodeErrorData[BetaErrorResponse], "403": decodeErrorData[BetaErrorResponse], "404": decodeErrorData[BetaErrorResponse], "408": decodeErrorData[BetaErrorResponse], "409": decodeErrorData[BetaErrorResponse], "412": decodeErrorData[BetaErrorResponse], "413": decodeErrorData[BetaErrorResponse], "429": decodeErrorData[BetaErrorResponse], "431": decodeErrorData[BetaErrorResponse], "499": decodeErrorData[BetaErrorResponse], "500": decodeErrorData[BetaErrorResponse], "501": decodeErrorData[BetaErrorResponse], "503": decodeErrorData[BetaErrorResponse], "504": decodeErrorData[BetaErrorResponse], "529": decodeErrorData[BetaErrorResponse]},
 		Options:     opts,
 	})
@@ -117,7 +117,7 @@ func ListBetaOrganizationsAnalyticsPlugins(ctx context.Context, clientConfig Cli
 	return &resp.Data, nil
 }
 
-// ListBetaOrganizationsAnalyticsPluginsPaginated get per-plugin install + invocation usage for a given day, with pagination. Returns plugin usage metrics for the organization across Cowork and Claude Code, sorted by plugin name. The `plugin_name` value `third-party` is an aggregate bucket, not a plugin: it collects plugin activity, from either surface, for which the reporting client did not provide a plugin name — so an organization's own plugins can contribute both to their own named rows and to this bucket. Use `group_by[]` to break usage out per member, per RBAC group, or per product surface (Cowork / Claude Code), and `filter[]` to scope results; the parameter descriptions list the supported dimensions. Requires an API key with the `read:analytics` scope. `starting_date` / `ending_date` select range-rollup mode like `/skills`.
+// ListBetaOrganizationAnalyticsPluginsPaginated get per-plugin install + invocation usage for a given day, with pagination. Returns plugin usage metrics for the organization across Cowork and Claude Code, sorted by plugin name. The `plugin_name` value `third-party` is an aggregate bucket, not a plugin: it collects plugin activity, from either surface, for which the reporting client did not provide a plugin name — so an organization's own plugins can contribute both to their own named rows and to this bucket. Use `group_by[]` to break usage out per member, per RBAC group, or per product surface (Cowork / Claude Code), and `filter[]` to scope results; the parameter descriptions list the supported dimensions. Requires an API key with the `read:analytics` scope. `starting_date` / `ending_date` select range-rollup mode like `/skills`.
 //
 // Parameters:
 //
@@ -172,12 +172,12 @@ func ListBetaOrganizationsAnalyticsPlugins(ctx context.Context, clientConfig Cli
 //	sort column and to `desc` when `order_by` names a metric (a top-N ranking).
 //	Applies to `order_by`, or to the endpoint's default sort field when
 //	`order_by` is omitted.
-func ListBetaOrganizationsAnalyticsPluginsPaginated(ctx context.Context, clientConfig ClientConfig, params ListBetaOrganizationsAnalyticsPluginsParams, yield func(*BetaAnalyticsPluginActivity) bool, opts ...RequestOption) error {
+func ListBetaOrganizationAnalyticsPluginsPaginated(ctx context.Context, clientConfig ClientConfig, params ListBetaOrganizationAnalyticsPluginsParams, yield func(*BetaAnalyticsPluginActivity) bool, opts ...RequestOption) error {
 	_cursor := params.Page
 	for {
 		_params := params
 		_params.Page = _cursor
-		_page, err := ListBetaOrganizationsAnalyticsPlugins(ctx, clientConfig, _params, opts...)
+		_page, err := ListBetaOrganizationAnalyticsPlugins(ctx, clientConfig, _params, opts...)
 		if err != nil {
 			return err
 		}
@@ -200,18 +200,18 @@ func ListBetaOrganizationsAnalyticsPluginsPaginated(ctx context.Context, clientC
 	}
 }
 
-type ListBetaOrganizationsAnalyticsPluginsPage struct {
+type ListBetaOrganizationAnalyticsPluginsPage struct {
 	Data    *BetaAnalyticsPluginsResponse
 	Items   []BetaAnalyticsPluginActivity
 	HasMore bool
 }
 
-func ListBetaOrganizationsAnalyticsPluginsPages(ctx context.Context, clientConfig ClientConfig, params ListBetaOrganizationsAnalyticsPluginsParams, yieldPage func(ListBetaOrganizationsAnalyticsPluginsPage) bool, opts ...RequestOption) error {
+func ListBetaOrganizationAnalyticsPluginsPages(ctx context.Context, clientConfig ClientConfig, params ListBetaOrganizationAnalyticsPluginsParams, yieldPage func(ListBetaOrganizationAnalyticsPluginsPage) bool, opts ...RequestOption) error {
 	_cursor := params.Page
 	for {
 		_params := params
 		_params.Page = _cursor
-		_page, err := ListBetaOrganizationsAnalyticsPlugins(ctx, clientConfig, _params, opts...)
+		_page, err := ListBetaOrganizationAnalyticsPlugins(ctx, clientConfig, _params, opts...)
 		if err != nil {
 			return err
 		}
@@ -223,7 +223,7 @@ func ListBetaOrganizationsAnalyticsPluginsPages(ctx context.Context, clientConfi
 			return nil
 		}
 		_hasMore := _page.NextPage.Value != nil
-		if !yieldPage(ListBetaOrganizationsAnalyticsPluginsPage{Data: _page, Items: _items, HasMore: _hasMore}) {
+		if !yieldPage(ListBetaOrganizationAnalyticsPluginsPage{Data: _page, Items: _items, HasMore: _hasMore}) {
 			return nil
 		}
 		if !_hasMore {

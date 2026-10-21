@@ -458,8 +458,8 @@ func NewBetaOrganizationsAnalyticsPluginsNamespace(config ClientConfig) *BetaOrg
 //	sort column and to `desc` when `order_by` names a metric (a top-N ranking).
 //	Applies to `order_by`, or to the endpoint's default sort field when
 //	`order_by` is omitted.
-func (sdk *BetaOrganizationsAnalyticsPluginsNamespace) List(ctx context.Context, params ListBetaOrganizationsAnalyticsPluginsParams, opts ...RequestOption) (*BetaAnalyticsPluginsResponse, error) {
-	return ListBetaOrganizationsAnalyticsPlugins(ctx, sdk.config, params, opts...)
+func (sdk *BetaOrganizationsAnalyticsPluginsNamespace) List(ctx context.Context, params ListBetaOrganizationAnalyticsPluginsParams, opts ...RequestOption) (*BetaAnalyticsPluginsResponse, error) {
+	return ListBetaOrganizationAnalyticsPlugins(ctx, sdk.config, params, opts...)
 }
 
 // ListPaginated get per-plugin install + invocation usage for a given day, with pagination. Returns plugin usage metrics for the organization across Cowork and Claude Code, sorted by plugin name. The `plugin_name` value `third-party` is an aggregate bucket, not a plugin: it collects plugin activity, from either surface, for which the reporting client did not provide a plugin name — so an organization's own plugins can contribute both to their own named rows and to this bucket. Use `group_by[]` to break usage out per member, per RBAC group, or per product surface (Cowork / Claude Code), and `filter[]` to scope results; the parameter descriptions list the supported dimensions. Requires an API key with the `read:analytics` scope. `starting_date` / `ending_date` select range-rollup mode like `/skills`.
@@ -517,8 +517,8 @@ func (sdk *BetaOrganizationsAnalyticsPluginsNamespace) List(ctx context.Context,
 //	sort column and to `desc` when `order_by` names a metric (a top-N ranking).
 //	Applies to `order_by`, or to the endpoint's default sort field when
 //	`order_by` is omitted.
-func (sdk *BetaOrganizationsAnalyticsPluginsNamespace) ListPaginated(ctx context.Context, params ListBetaOrganizationsAnalyticsPluginsParams, yield func(*BetaAnalyticsPluginActivity) bool, opts ...RequestOption) error {
-	return ListBetaOrganizationsAnalyticsPluginsPaginated(ctx, sdk.config, params, yield, opts...)
+func (sdk *BetaOrganizationsAnalyticsPluginsNamespace) ListPaginated(ctx context.Context, params ListBetaOrganizationAnalyticsPluginsParams, yield func(*BetaAnalyticsPluginActivity) bool, opts ...RequestOption) error {
+	return ListBetaOrganizationAnalyticsPluginsPaginated(ctx, sdk.config, params, yield, opts...)
 }
 
 type BetaOrganizationsAnalyticsArtifactsNamespace struct {

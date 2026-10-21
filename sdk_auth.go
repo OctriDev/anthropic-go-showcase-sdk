@@ -267,7 +267,7 @@ var operationSecurity = map[string][][]string{
 	"ListBetaOrganizationsAnalyticsAppsChatProjects":      [][]string{[]string{"ApiKeyAuth"}},
 	"ListBetaOrganizationsAnalyticsSkills":                [][]string{[]string{"ApiKeyAuth"}},
 	"ListBetaOrganizationsAnalyticsConnectors":            [][]string{[]string{"ApiKeyAuth"}},
-	"ListBetaOrganizationsAnalyticsPlugins":               [][]string{[]string{"ApiKeyAuth"}},
+	"ListBetaOrganizationAnalyticsPlugins":                [][]string{[]string{"ApiKeyAuth"}},
 	"ListBetaOrganizationsAnalyticsArtifacts":             [][]string{[]string{"ApiKeyAuth"}},
 }
 

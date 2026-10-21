@@ -711,3 +711,16 @@ func isNonEmptyBetaRequestWebFetchToolResultBlockContentBetaRequestWebFetchToolR
 	b, _ := json.Marshal(v)
 	return string(b) != "{}" && string(b) != "null"
 }
+
+func isNonEmptyBetaRequestWebFetchToolResultBlockContentBetaRequestWebFetchResultBlock(v BetaRequestWebFetchResultBlock) bool {
+	b, _ := json.Marshal(v)
+	return string(b) != "{}" && string(b) != "null"
+}
+
+// UnmarshalBetaRequestWebFetchToolResultBlockContent converts an untyped value to BetaRequestWebFetchToolResultBlockContent.
+func UnmarshalBetaRequestWebFetchToolResultBlockContent(v any) BetaRequestWebFetchToolResultBlockContent {
+	b, _ := json.Marshal(v)
+	var result BetaRequestWebFetchToolResultBlockContent
+	_ = json.Unmarshal(b, &result)
+	return result
+}
